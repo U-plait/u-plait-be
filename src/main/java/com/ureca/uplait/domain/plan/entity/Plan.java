@@ -9,11 +9,13 @@ import java.util.List;
 
 @Entity
 @Table(name="plan")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Plan extends BaseEntity {
+//@Builder
+public abstract class Plan extends BaseEntity {
     @Column(name = "plan_name", nullable = false)
     private String planName;
 
