@@ -1,0 +1,43 @@
+package com.ureca.uplait.domain.plan.entity;
+
+import com.ureca.uplait.domain.review.entity.Review;
+import com.ureca.uplait.global.entity.BaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Table(name="plan")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Plan extends BaseEntity {
+    @Column(name = "plan_name", nullable = false)
+    private String planName;
+
+    @Column(name = "plan_price", nullable = false)
+    private Integer planPrice;
+
+    @Column(name = "plan_benefit", nullable = false)
+    private String planBenefit;
+
+    @Column(name = "avaliability", nullable = false)
+    private Boolean avaliability;
+
+    @Column(name = "combinabiliy", nullable = false)
+    private Boolean combinabiliy;
+
+    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
+    private MobilePlan mobilePlan;
+
+    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
+    private InternetPlan internetPlan;
+
+    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
+    private IPTVPlan iptvPlan;
+
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+}
