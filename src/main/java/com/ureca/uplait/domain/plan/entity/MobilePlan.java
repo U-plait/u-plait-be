@@ -29,8 +29,4 @@ public class MobilePlan extends Plan {
 
     @Column(name = "premier_discount_rate", nullable = true)
     private Integer premierDiscountRate;
-
-    @OneToOne
-    @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan;
 }

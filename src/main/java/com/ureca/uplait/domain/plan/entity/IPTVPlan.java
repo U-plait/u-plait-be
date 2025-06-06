@@ -20,8 +20,4 @@ public class IPTVPlan extends Plan {
 
     @Column(name = "iptv_discount_rate", nullable = true)
     private Integer iptvDiscountRate;
-
-    @OneToOne
-    @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan;
 }

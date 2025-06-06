@@ -20,8 +20,4 @@ public class InternetPlan extends Plan {
 
     @Column(name = "internet_discount_rate", nullable = true)
     private Integer internetDiscountRate;
-
-    @OneToOne
-    @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan;
 }
