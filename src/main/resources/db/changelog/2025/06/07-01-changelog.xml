@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749298425269-1"
+               author="djlim00">
+        <createTable tableName="bookmark">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_bookmark"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="user_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-2"
+               author="djlim00">
+        <createTable tableName="chat_log">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_chat_log"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="user_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log"
+                    type="VARCHAR(255)"/>
+            <column name="sequence"
+                    type="BIGINT"/>
+            <column name="is_chatbot"
+                    type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-3"
+               author="djlim00">
+        <createTable tableName="community">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_community"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="community_plan_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-4"
+               author="djlim00">
+        <createTable tableName="community_plan">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_community_plan"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="name"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_phone"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_internet"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_iptv"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_benefit"
+                    type="VARCHAR(255)"/>
+            <column name="community_condition"
+                    type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-5"
+               author="djlim00">
+        <createTable tableName="community_plan_price">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_community_plan_price"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="community_plan_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="headcount"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="youth_discount"
+                    type="INT"/>
+            <column name="mobile_discount"
+                    type="INT"/>
+            <column name="internet_discount"
+                    type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-6"
+               author="djlim00">
+        <createTable tableName="contract">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_contract"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="user_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="community_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date"
+                    type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-7"
+               author="djlim00">
+        <createTable tableName="interest">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_interest"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="user_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-8"
+               author="djlim00">
+        <createTable tableName="internet_plan">
+            <column name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_internet_plan"/>
+            </column>
+            <column name="velocity"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="internet_discount_rate"
+                    type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-9"
+               author="djlim00">
+        <createTable tableName="iptv_plan">
+            <column name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_iptv_plan"/>
+            </column>
+            <column name="channel"
+                    type="INT"/>
+            <column name="iptv_discount_rate"
+                    type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-10"
+               author="djlim00">
+        <createTable tableName="mobile_plan">
+            <column name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_mobile_plan"/>
+            </column>
+            <column name="data"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shared_data"
+                    type="VARCHAR(255)"/>
+            <column name="voice_call"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration_discount_rate"
+                    type="INT"/>
+            <column name="premier_discount_rate"
+                    type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-11"
+               author="djlim00">
+        <createTable tableName="plan">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_plan"/>
+            </column>
+            <column name="dtype"
+                    type="VARCHAR(31)"/>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="plan_name"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_price"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_benefit"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avaliability"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="combinabiliy"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-12"
+               author="djlim00">
+        <createTable tableName="review">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_review"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="user_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_id"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title"
+                    type="VARCHAR(255)"/>
+            <column name="content"
+                    type="VARCHAR(255)"/>
+            <column name="rating"
+                    type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-13"
+               author="djlim00">
+        <createTable tableName="tag">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_tag"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="name"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-14"
+               author="djlim00">
+        <createTable tableName="user">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_user"/>
+            </column>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="updated_at"
+                    type="DATETIME"/>
+            <column name="name"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kakao_id"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ad_agree"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749298425269-15"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="plan_id"
+                                 baseTableName="bookmark"
+                                 constraintName="FK_BOOKMARK_ON_PLAN"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-16"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="bookmark"
+                                 constraintName="FK_BOOKMARK_ON_USER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1749298425269-17"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="chat_log"
+                                 constraintName="FK_CHAT_LOG_ON_USER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1749298425269-18"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="community_plan_id"
+                                 baseTableName="community"
+                                 constraintName="FK_COMMUNITY_ON_COMMUNITY_PLAN"
+                                 referencedColumnNames="id"
+                                 referencedTableName="community_plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-19"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="community_plan_id"
+                                 baseTableName="community_plan_price"
+                                 constraintName="FK_COMMUNITY_PLAN_PRICE_ON_COMMUNITY_PLAN"
+                                 referencedColumnNames="id"
+                                 referencedTableName="community_plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-20"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="community_id"
+                                 baseTableName="contract"
+                                 constraintName="FK_CONTRACT_ON_COMMUNITY"
+                                 referencedColumnNames="id"
+                                 referencedTableName="community"/>
+    </changeSet>
+    <changeSet id="1749298425269-21"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="plan_id"
+                                 baseTableName="contract"
+                                 constraintName="FK_CONTRACT_ON_PLAN"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-22"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="contract"
+                                 constraintName="FK_CONTRACT_ON_USER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1749298425269-23"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="interest"
+                                 constraintName="FK_INTEREST_ON_TAG"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tag"/>
+    </changeSet>
+    <changeSet id="1749298425269-24"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="interest"
+                                 constraintName="FK_INTEREST_ON_USER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1749298425269-25"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="id"
+                                 baseTableName="internet_plan"
+                                 constraintName="FK_INTERNET_PLAN_ON_ID"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-26"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="id"
+                                 baseTableName="iptv_plan"
+                                 constraintName="FK_IPTV_PLAN_ON_ID"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-27"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="id"
+                                 baseTableName="mobile_plan"
+                                 constraintName="FK_MOBILE_PLAN_ON_ID"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-28"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="plan_id"
+                                 baseTableName="review"
+                                 constraintName="FK_REVIEW_ON_PLAN"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749298425269-29"
+               author="djlim00">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="review"
+                                 constraintName="FK_REVIEW_ON_USER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+
+</databaseChangeLog>
