@@ -9,11 +9,13 @@ import java.util.List;
 
 @Entity
 @Table(name="plan")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Plan extends BaseEntity {
+//@Builder
+public abstract class Plan extends BaseEntity {
     @Column(name = "plan_name", nullable = false)
     private String planName;
 
@@ -28,15 +30,6 @@ public class Plan extends BaseEntity {
 
     @Column(name = "combinabiliy", nullable = false)
     private Boolean combinabiliy;
-
-    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
-    private MobilePlan mobilePlan;
-
-    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
-    private InternetPlan internetPlan;
-
-    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
-    private IPTVPlan iptvPlan;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private List<Review> reviews;

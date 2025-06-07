@@ -1,16 +1,19 @@
 package com.ureca.uplait.domain.plan.entity;
 
-import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "mobile_plan")
+@DiscriminatorValue("MobilePlan")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MobilePlan extends BaseEntity {
+public class MobilePlan extends Plan {
 
     @Column(nullable = false)
     private String data;
@@ -26,8 +29,4 @@ public class MobilePlan extends BaseEntity {
 
     @Column(name = "premier_discount_rate", nullable = true)
     private Integer premierDiscountRate;
-
-    @OneToOne
-    @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan;
 }
