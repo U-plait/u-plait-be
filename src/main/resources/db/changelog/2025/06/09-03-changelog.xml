@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749437209489-20" author="samsung">
+        <dropForeignKeyConstraint baseTableName="community" constraintName="fk_community_on_community_plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-21" author="samsung">
+        <dropForeignKeyConstraint baseTableName="community_plan_price"
+                                  constraintName="fk_community_plan_price_on_community_plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-1" author="samsung">
+        <createTable tableName="community_benefit">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_community_benefit"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_phone" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_internet" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_iptv" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_benefit" type="VARCHAR(255)"/>
+            <column name="community_condition" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749437209489-2" author="samsung">
+        <createTable tableName="community_benefit_price">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_community_benefit_price"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="community_benefit_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="headcount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="youth_discount" type="INT"/>
+            <column name="mobile_discount" type="INT"/>
+            <column name="internet_discount" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749437209489-3" author="samsung">
+        <createTable tableName="plan_community">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_plan_community"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="plan_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="community_benefit_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749437209489-4" author="samsung">
+        <addColumn tableName="plan">
+            <column name="availability" type="BOOLEAN"/>
+            <column name="combinability" type="BOOLEAN"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1749437209489-5" author="samsung">
+        <addNotNullConstraint columnName="availability" tableName="plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-7" author="samsung">
+        <addNotNullConstraint columnName="combinability" tableName="plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-8" author="samsung">
+        <addColumn tableName="community">
+            <column name="community_benefit_id" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1749437209489-9" author="samsung">
+        <addNotNullConstraint columnName="community_benefit_id" tableName="community"/>
+    </changeSet>
+    <changeSet id="1749437209489-10" author="samsung">
+        <addColumn tableName="mobile_plan">
+            <column name="extra_data" type="VARCHAR(255)"/>
+            <column name="media_benefit" type="VARCHAR(255)"/>
+            <column name="message" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1749437209489-11" author="samsung">
+        <addNotNullConstraint columnName="extra_data" tableName="mobile_plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-13" author="samsung">
+        <addNotNullConstraint columnName="media_benefit" tableName="mobile_plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-15" author="samsung">
+        <addNotNullConstraint columnName="message" tableName="mobile_plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-16" author="samsung">
+        <addForeignKeyConstraint baseColumnNames="community_benefit_id" baseTableName="community_benefit_price"
+                                 constraintName="FK_COMMUNITY_BENEFIT_PRICE_ON_COMMUNITY_BENEFIT"
+                                 referencedColumnNames="id" referencedTableName="community_benefit"/>
+    </changeSet>
+    <changeSet id="1749437209489-17" author="samsung">
+        <addForeignKeyConstraint baseColumnNames="community_benefit_id" baseTableName="community"
+                                 constraintName="FK_COMMUNITY_ON_COMMUNITY_BENEFIT" referencedColumnNames="id"
+                                 referencedTableName="community_benefit"/>
+    </changeSet>
+    <changeSet id="1749437209489-18" author="samsung">
+        <addForeignKeyConstraint baseColumnNames="community_benefit_id" baseTableName="plan_community"
+                                 constraintName="FK_PLAN_COMMUNITY_ON_COMMUNITY_BENEFIT" referencedColumnNames="id"
+                                 referencedTableName="community_benefit"/>
+    </changeSet>
+    <changeSet id="1749437209489-19" author="samsung">
+        <addForeignKeyConstraint baseColumnNames="plan_id" baseTableName="plan_community"
+                                 constraintName="FK_PLAN_COMMUNITY_ON_PLAN" referencedColumnNames="id"
+                                 referencedTableName="plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-22" author="samsung">
+        <dropTable cascadeConstraints="true" tableName="community_plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-23" author="samsung">
+        <dropTable cascadeConstraints="true" tableName="community_plan_price"/>
+    </changeSet>
+    <changeSet id="1749437209489-24" author="samsung">
+        <dropColumn columnName="avaliability" tableName="plan"/>
+
+        <dropColumn columnName="combinabiliy" tableName="plan"/>
+    </changeSet>
+    <changeSet id="1749437209489-26" author="samsung">
+        <dropColumn columnName="community_plan_id" tableName="community"/>
+    </changeSet>
+
+</databaseChangeLog>

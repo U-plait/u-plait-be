@@ -1,11 +1,10 @@
 package com.ureca.uplait.domain.plan.entity;
 
-import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="plan")
@@ -25,12 +24,6 @@ public abstract class Plan extends BaseEntity {
     @Column(name = "plan_benefit", nullable = false)
     private String planBenefit;
 
-    @Column(name = "avaliability", nullable = false)
-    private Boolean avaliability;
-
-    @Column(name = "combinabiliy", nullable = false)
-    private Boolean combinabiliy;
-
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    @Column(name = "availability", nullable = false)
+    private Boolean availability;
 }

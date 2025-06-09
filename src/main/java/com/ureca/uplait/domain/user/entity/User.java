@@ -50,21 +50,6 @@ public class User extends BaseEntity {
     @Column(name = "ad_agree", nullable = false)
     private Boolean adAgree;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Bookmark> bookmarks;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Contract> contracts;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Review> reviews;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Interest> interests;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<ChatLog> chatLogs;
-
     public static User createTmpUser(String kakaoId, String name){
         return User.builder()
             .kakaoId(kakaoId)
