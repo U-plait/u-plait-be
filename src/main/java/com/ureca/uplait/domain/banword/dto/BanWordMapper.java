@@ -5,6 +5,7 @@ import com.ureca.uplait.domain.banword.dto.response.BanWordResponse;
 import com.ureca.uplait.domain.banword.entity.BanWord;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -15,10 +16,12 @@ public interface BanWordMapper {
     BanWord toEntity(BanWordRequest request);
 
     // Entity -> DTO
-    @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm:ss")
-    @Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm:ss")
     BanWordResponse toDto(BanWord banWord);
 
     List<BanWordResponse> toDtoList(List<BanWord> banWords);
+
+    default Page<BanWordResponse> toDtoPage(Page<BanWord> page) {
+        return page.map(this::toDto);
+    }
 
 }
