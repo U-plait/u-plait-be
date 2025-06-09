@@ -33,6 +33,5 @@ public abstract class PlanDetailResponse {
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
-        this.inUse = inUse;
     }
 }
