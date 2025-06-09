@@ -24,9 +24,6 @@ public abstract class PlanDetailResponse {
     @Schema(description = "등록 가능 여부", example = "true")
     protected Boolean availability;
 
-    @Schema(description = "결합 가능 여부", example = "true")
-    protected Boolean combinability;
-
     @Schema(description = "요금제 사용 여부", example = "true")
     protected Boolean inUse;
 
@@ -36,7 +33,6 @@ public abstract class PlanDetailResponse {
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
-        this.combinability = plan.getCombinability();
         this.inUse = inUse;
     }
 }

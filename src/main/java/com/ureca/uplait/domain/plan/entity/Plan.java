@@ -1,11 +1,10 @@
 package com.ureca.uplait.domain.plan.entity;
 
-import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="plan")
@@ -27,7 +26,4 @@ public abstract class Plan extends BaseEntity {
 
     @Column(name = "availability", nullable = false)
     private Boolean availability;
-
-    @Column(name = "combinability", nullable = false)
-    private Boolean combinability;
 }
