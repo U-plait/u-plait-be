@@ -9,6 +9,6 @@ import java.util.List;
 @Schema(description = "마이페이지 응답")
 public class MyPageResponse {
     //@Schema()
-    private UserProfile userProfile;
-    private List<Review>
+    private UserProfileResponse userProfile;
+    private List<ReviewSummaryResponse> reviews;
 }
