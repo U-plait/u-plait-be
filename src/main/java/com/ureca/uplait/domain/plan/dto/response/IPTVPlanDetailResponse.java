@@ -14,8 +14,8 @@ public class IPTVPlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "iptv 온라인 할인 가격", example = "13530")
     private int iptvDiscount;
 
-    public IPTVPlanDetailResponse(IPTVPlan plan) {
-        super(plan);
+    public IPTVPlanDetailResponse(IPTVPlan plan, boolean inUse) {
+        super(plan, inUse);
         this.channel = plan.getChannel();
         this.iptvDiscount = plan.getIptvDiscountRate();
     }

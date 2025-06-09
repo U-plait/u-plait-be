@@ -32,8 +32,8 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "프리미엄 요금제 약정 할인", example = "5250")
     private int premierDiscountRate;
 
-    public MobilePlanDetailResponse(MobilePlan plan) {
-        super(plan);
+    public MobilePlanDetailResponse(MobilePlan plan, boolean inUse) {
+        super(plan, inUse);
         this.data = plan.getData();
         this.sharedData = plan.getSharedData();
         this.voiceCall = plan.getVoiceCall();
