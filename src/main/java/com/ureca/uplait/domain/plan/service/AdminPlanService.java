@@ -1,10 +1,8 @@
 package com.ureca.uplait.domain.plan.service;
 
-import com.ureca.uplait.domain.plan.dto.PlanMapper;
-import com.ureca.uplait.domain.plan.dto.request.InternetCreateDto;
-import com.ureca.uplait.domain.plan.dto.request.IptvCreateDto;
-import com.ureca.uplait.domain.plan.dto.request.MobilePlanCreateDto;
-import com.ureca.uplait.domain.plan.dto.resoponse.PlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.request.IPTVPlanCreateRequest;
+import com.ureca.uplait.domain.plan.dto.request.InternetPlanCreateRequest;
+import com.ureca.uplait.domain.plan.dto.request.MobilePlanCreateRequest;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
@@ -13,81 +11,51 @@ import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class AdminPlanService {
 
     private final PlanRepository planRepository;
-    private final PlanMapper planMapper;
 
-    //생성
-    @Transactional
-    public Long createMobilePlan(MobilePlanCreateDto dto) {
-        //validate -> 해주고 duplicate 된 것인지 아닌지
-        validateDuplicatePlanName(dto.planName());
+    public Long createMobilePlan(MobilePlanCreateRequest request) {
+        validateDuplicatePlanName(request.getPlanName());
 
-        MobilePlan mobilePlan = planMapper.toCreateMobile(dto);
-
-        MobilePlan mp = (MobilePlan) planRepository.save(mobilePlan);
-
-        return mp.getId();
+        MobilePlan plan = request.toMobile();
+        return planRepository.save(plan).getId();
     }
 
-    @Transactional
-    public Long createIptvPlan(IptvCreateDto dto) {
-        validateDuplicatePlanName(dto.planName());
+    public Long createInternetPlan(InternetPlanCreateRequest request) {
+        validateDuplicatePlanName(request.getPlanName());
 
-        IPTVPlan iptvPlan = planMapper.toCreateIptv(dto);
-
-        IPTVPlan ipPlan = (IPTVPlan) planRepository.save(iptvPlan);
-
-        return ipPlan.getId();
+        InternetPlan plan = request.toInternet();
+        return planRepository.save(plan).getId();
     }
 
-    @Transactional
-    public Long createInternetPlan(InternetCreateDto dto) {
-        validateDuplicatePlanName(dto.planName());
+    public Long createIptvPlan(IPTVPlanCreateRequest request) {
+        validateDuplicatePlanName(request.getPlanName());
 
-        InternetPlan internetPlan = planMapper.toCreateInternet(dto);
-
-        InternetPlan interPlan = (InternetPlan) planRepository.save(internetPlan);
-
-        return interPlan.getId();
+        IPTVPlan plan = request.toIPTV();
+        return planRepository.save(plan).getId();
     }
 
-    @Transactional(readOnly = true)
-    public PlanDetailResponse getPlanDetail(Long id) {
-        Plan plan = planRepository.findById(id)
+    private Plan getPlan(Long id) {
+        return planRepository.findById(id)
             .orElseThrow(() -> new GlobalException(ResultCode.NOT_FOUND_PLAN));
-
-        System.out.println("plan.getClass() = " + plan.getClass());
-
-        if (plan instanceof MobilePlan mobilePlan) {
-            return planMapper.fromMobileResponse(mobilePlan);
-        } else if (plan instanceof InternetPlan internetPlan) {
-            return planMapper.fromInternetResponse(internetPlan);
-        } else if (plan instanceof IPTVPlan iptvPlan) {
-            return planMapper.fromIptvResponse(iptvPlan);
-        }
-
-        throw new GlobalException(ResultCode.NOT_FOUND_PLAN_TYPE);
     }
 
-    private void validateDuplicatePlanName(String planName) {
-        if (planRepository.existsByPlanName(planName)) {
+    public void deletePlan(Long id) {
+        Plan plan = getPlan(id);
+        planRepository.delete(plan);
+    }
+
+
+    private void validateDuplicatePlanName(String name) {
+        if (planRepository.existsByPlanName(name)) {
             throw new GlobalException(ResultCode.DUPLICATE_PLAN_NAME);
         }
     }
-
-//    private void validatePrice(Integer price) {
-//        if(planRepository.)
-//    }
-
-    //등록할때 고려해야될사항은 1. 중복된 이름인가,
 }

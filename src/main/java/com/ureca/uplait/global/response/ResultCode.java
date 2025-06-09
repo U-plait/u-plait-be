@@ -2,8 +2,6 @@ package com.ureca.uplait.global.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -27,8 +25,8 @@ public enum ResultCode {
 
     // 요금제 3000번대
     NOT_FOUND_PLAN(HttpStatus.NOT_FOUND, 3000, "요금제 정보를 찾을 수 없습니다."),
-    INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다.")
-    ;
+    INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다."),
+    DUPLICATE_PLAN_NAME(HttpStatus.BAD_REQUEST, 3002, "요금제가 이미 존재합니다.");
 
     private final HttpStatus status;
     private final int code;
