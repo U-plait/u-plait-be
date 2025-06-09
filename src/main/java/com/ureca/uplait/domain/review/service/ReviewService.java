@@ -22,7 +22,7 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public ReviewListResponse getReviewList(User user, int size, Long lastReviewId, Long planId) {
         List<ReviewResponse> reviewDetailList = new java.util.ArrayList<>(reviewRepository.getReviewsByPlanAndPage(size + 1, lastReviewId, planId)
-            .stream().map(r -> new ReviewResponse(r, r.getUser().getId() == user.getId()))
+            .stream().map(r -> new ReviewResponse(r, r.getUser().getId().equals(user.getId())))
             .toList());
 
         // 다음 페이지 확인 및 반환값 조정
