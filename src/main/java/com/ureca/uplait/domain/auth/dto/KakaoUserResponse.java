@@ -3,7 +3,7 @@ package com.ureca.uplait.domain.auth.dto;
 import lombok.Getter;
 
 @Getter
-public class KakaoUserRes {
+public class KakaoUserResponse {
 	private Long id;
 	private KakaoAccount kakao_account;
 

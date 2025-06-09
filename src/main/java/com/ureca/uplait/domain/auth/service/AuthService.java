@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.ureca.uplait.domain.auth.api.KakaoOauthClient;
-import com.ureca.uplait.domain.auth.dto.KakaoUserRes;
+import com.ureca.uplait.domain.auth.dto.KakaoUserResponse;
 import com.ureca.uplait.domain.token.entity.Token;
 import com.ureca.uplait.domain.token.repository.TokenRepository;
 import com.ureca.uplait.domain.user.entity.User;
@@ -29,7 +29,7 @@ public class AuthService {
 
 	public User handleKakaoLogin(String code, HttpServletResponse response){
 		String kakaoAccessToken = kakaoOauthClient.getAccessToken(code);
-		KakaoUserRes userInfo = kakaoOauthClient.getUserInfo(kakaoAccessToken);
+		KakaoUserResponse userInfo = kakaoOauthClient.getUserInfo(kakaoAccessToken);
 
 		String kakaoId = String.valueOf(userInfo.getId());
 		String name = userInfo.getKakao_account().getName();
