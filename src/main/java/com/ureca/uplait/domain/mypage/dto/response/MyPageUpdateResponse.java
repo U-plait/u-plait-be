@@ -1,14 +1,13 @@
-package com.ureca.uplait.domain.mypage.dto;
+package com.ureca.uplait.domain.mypage.dto.response;
 
-import com.ureca.uplait.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 @Schema(description = "마이페이지 수정 응답")
 public class MyPageUpdateResponse {
+    @Schema(description = "user id", example = "1")
     private Long userId;
 }
