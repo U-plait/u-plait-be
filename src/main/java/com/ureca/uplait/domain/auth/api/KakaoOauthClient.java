@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.auth.service;
+package com.ureca.uplait.domain.auth.api;
 
 import java.util.Map;
 
