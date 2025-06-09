@@ -31,7 +31,7 @@ public class MobilePlan extends Plan {
     private String extraData;
 
     @Column(name = "media_benefit", nullable = false)
-    private boolean mediaBenefit;
+    private Boolean mediaBenefit;
 
     @Column(name = "duration_discount_rate")
     private Integer durationDiscountRate;
