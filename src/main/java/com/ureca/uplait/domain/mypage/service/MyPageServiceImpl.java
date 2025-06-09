@@ -1,6 +1,8 @@
 package com.ureca.uplait.domain.mypage.service;
 
 import com.ureca.uplait.domain.mypage.dto.MyPageResponse;
+import com.ureca.uplait.domain.mypage.dto.MyPageUpdateRequest;
+import com.ureca.uplait.domain.mypage.dto.MyPageUpdateResponse;
 import com.ureca.uplait.domain.mypage.dto.MyReviewsResponse;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
@@ -10,6 +12,9 @@ import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +30,24 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
     @Override
-    public MyReviewsResponse getMyReview(Long userId) {
-        Review review = reviewRepository.findByUserId(userId).orElse(null);
-        
+    public MyPageUpdateResponse updateMyPage(MyPageUpdateRequest myPageUpdateRequest) {
         return null;
+    }
+
+    @Override
+    public List<MyReviewsResponse> getMyReview(Long userId) {
+        List<Review> reviewList = reviewRepository.findByUserId(userId).orElse(null); //null이면 프론트엔드 측에서 처리할 수 있도록
+        List<MyReviewsResponse> list;
+        if(reviewList != null) {
+            list = new ArrayList<>(reviewList.size());
+            for (Review review : reviewList) {
+                MyReviewsResponse myReviewsResponse = MyReviewsResponse.from(review);
+                list.add(myReviewsResponse);
+            }
+        } else{                                                                    //리뷰가 하나도 없으면 프론트엔드 측에서 처리할 수 있도록
+            list = null;
+        }
+
+        return list;
     }
 }
