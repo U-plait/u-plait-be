@@ -23,8 +23,11 @@ public class JwtProvider {
 	@Value("${jwt.secret}")
 	private String secret;
 
-	private static final long ACCESS_TOKEN_VALIDITY_SECONDS = 1000*60*30;
-	private static final long REFRESH_TOKEN_VALIDITY_SECONDS = 1000L*60*60*24*7;
+	@Value("${jwt.access-token-validity}")
+	private long ACCESS_TOKEN_VALIDITY_SECONDS;
+
+	@Value("${jwt.refresh-token-validity}")
+	private long REFRESH_TOKEN_VALIDITY_SECONDS;
 
 	public String createAccessToken(User user) {
 		return Jwts.builder()
