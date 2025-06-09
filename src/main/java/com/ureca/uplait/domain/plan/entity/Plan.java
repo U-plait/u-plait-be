@@ -35,12 +35,5 @@ public abstract class Plan extends BaseEntity {
     @Column(name = "combinability", nullable = false)
     private Boolean combinability;
 
-    public Plan(String planName, Integer planPrice, String planBenefit, Boolean availability,
-        Boolean combinability) {
-        this.planName = planName;
-        this.planPrice = planPrice;
-        this.planBenefit = planBenefit;
-        this.availability = availability;
-        this.combinability = combinability;
-    }
+    
 }

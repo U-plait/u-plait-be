@@ -24,10 +24,5 @@ public class IPTVPlan extends Plan {
     @Column(name = "iptv_discount_rate", nullable = true)
     private Integer iptvDiscountRate;
 
-    public IPTVPlan(String planName, Integer planPrice, String planBenefit, Boolean availability,
-        Boolean combinability, Integer channel, Integer iptvDiscountRate) {
-        super(planName, planPrice, planBenefit, availability, combinability);
-        this.channel = channel;
-        this.iptvDiscountRate = iptvDiscountRate;
-    }
+
 }

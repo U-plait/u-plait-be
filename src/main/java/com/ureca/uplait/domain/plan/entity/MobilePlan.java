@@ -42,19 +42,4 @@ public class MobilePlan extends Plan {
     @Column(name = "premier_discount_rate", nullable = true)
     private Integer premierDiscountRate;
 
-    public MobilePlan(String planName, Integer planPrice, String planBenefit,
-        Boolean availability, Boolean combinability,
-        String data, String sharedData, String voiceCall,
-        String message, String extraData, Boolean mediaBenefit,
-        Integer durationDiscountRate, Integer premierDiscountRate) {
-        super(planName, planPrice, planBenefit, availability, combinability);
-        this.data = data;
-        this.sharedData = sharedData;
-        this.voiceCall = voiceCall;
-        this.message = message;
-        this.extraData = extraData;
-        this.mediaBenefit = mediaBenefit;
-        this.durationDiscountRate = durationDiscountRate;
-        this.premierDiscountRate = premierDiscountRate;
-    }
 }
