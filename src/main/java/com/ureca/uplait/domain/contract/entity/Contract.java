@@ -17,16 +17,16 @@ import java.time.LocalDateTime;
 @Builder
 public class Contract extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", nullable = false)
     private Plan plan;
 
-    @ManyToOne
-    @JoinColumn(name = "community_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "community_id", nullable = true)
     private Community community;
 
     @Column(name = "end_date", nullable = true)

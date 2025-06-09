@@ -17,7 +17,4 @@ public class Tag extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
-
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
-    private List<Interest> interests;
 }
