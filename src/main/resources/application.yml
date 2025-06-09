@@ -27,3 +27,5 @@ kakao:
   redirect-uri: ${KAKAO_REDIRECT_URI}
 jwt:
   secret-key: ${JWT_SECRET}
+  access-token-validity: 1800000
+  refresh-token-validity: 604800000
