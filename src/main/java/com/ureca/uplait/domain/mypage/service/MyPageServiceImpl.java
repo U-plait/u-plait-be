@@ -10,6 +10,7 @@ import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.repository.UserRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,16 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
     @Override
-    public MyPageUpdateResponse updateMyPage(MyPageUpdateRequest myPageUpdateRequest) {
-        return null;
+    @Transactional
+    public MyPageUpdateResponse updateMyPage(User user, MyPageUpdateRequest myPageUpdateRequest) {
+        user.updateUser(
+                myPageUpdateRequest.getPhoneNumber()
+                , myPageUpdateRequest.getEmail()
+                , myPageUpdateRequest.isAdAgree()
+        );
+
+        userRepository.save(user);
+        return new MyPageUpdateResponse(user.getId());
     }
 
     @Override

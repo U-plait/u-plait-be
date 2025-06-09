@@ -32,8 +32,8 @@ public class MyPageController {
     public ResponseEntity<MyPageUpdateResponse> updateMyPage(@AuthenticationPrincipal User user
             , @RequestBody MyPageUpdateRequest myPageUpdateRequest) {
 
-        MyPageUpdateResponse myPageUpdateResponse = myPageService.updateMyPage(myPageUpdateRequest);
-        return ResponseEntity.ok(new MyPageUpdateResponse("회원 정보가 성공적으로 수정되었습니다."));
+        MyPageUpdateResponse myPageUpdateResponse = myPageService.updateMyPage(user, myPageUpdateRequest);
+        return ResponseEntity.ok(myPageUpdateResponse);
     }
 
     @Operation(summary = "내가 쓴 리뷰 목록", description = "내가 쓴 리뷰 목록 확인 : 로그인 필요")

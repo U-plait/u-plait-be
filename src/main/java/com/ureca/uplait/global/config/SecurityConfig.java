@@ -49,7 +49,6 @@ public class SecurityConfig {
 			)
 			.addFilterBefore(new JwtAuthenticationFilter(jwtValidator, userRepository), UsernamePasswordAuthenticationFilter.class)
 			.build();
-
 	}
 
 	@Bean

@@ -78,4 +78,10 @@ public class User extends BaseEntity {
             .adAgree(false)
             .build();
     }
+
+    public void updateUser(String phoneNumber, String email, boolean adAgree){
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.adAgree = adAgree;
+    }
 }

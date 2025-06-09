@@ -10,5 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @Schema(description = "마이페이지 수정 응답")
 public class MyPageUpdateResponse {
-    private String message;
+    private Long userId;
 }
