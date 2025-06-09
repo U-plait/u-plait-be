@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ureca.uplait.domain.auth.dto.KakaoUserRes;
+import com.ureca.uplait.domain.auth.dto.KakaoUserResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +41,12 @@ public class KakaoOauthClient {
 			.block();
 	}
 
-	public KakaoUserRes getUserInfo(String accessToken) {
+	public KakaoUserResponse getUserInfo(String accessToken) {
 		return kakaoApiWebClient.get()
 			.uri("/v2/user/me")
 			.headers(headers -> headers.setBearerAuth(accessToken))
 			.retrieve()
-			.bodyToMono(KakaoUserRes.class)
+			.bodyToMono(KakaoUserResponse.class)
 			.block();
 	}
 }
