@@ -10,6 +10,8 @@ import com.ureca.uplait.domain.token.entity.Token;
 import com.ureca.uplait.domain.token.repository.TokenRepository;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.repository.UserRepository;
+import com.ureca.uplait.global.exception.GlobalException;
+import com.ureca.uplait.global.response.ResultCode;
 import com.ureca.uplait.global.security.jwt.JwtProvider;
 import com.ureca.uplait.global.security.jwt.JwtValidator;
 
@@ -57,15 +59,15 @@ public class AuthService {
 
 	public void reissue(String refreshToken, HttpServletResponse response){
 		if (!jwtValidator.validateToken(refreshToken)) {
-			throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+			throw new GlobalException(ResultCode.INVALID_TOKEN);
 		}
 		Long userId = jwtValidator.getUserIdFromToken(refreshToken);
 
 		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new IllegalArgumentException("사용자 정보 없음"));
+			.orElseThrow(() -> new GlobalException(ResultCode.NOT_FOUND_USER));
 
 		Token token = tokenRepository.findByRefreshToken(refreshToken)
-			.orElseThrow(() -> new IllegalArgumentException("토큰이 유효하지 않습니다."));
+			.orElseThrow(() -> new GlobalException(ResultCode.INVALID_TOKEN));
 
 		String newAccessToken = jwtProvider.createAccessToken(user);
 		String newRefreshToken = jwtProvider.createRefreshToken(user);
@@ -81,12 +83,12 @@ public class AuthService {
 	public void logout(String refreshToken, HttpServletResponse response){
 
 		if (!jwtValidator.validateToken(refreshToken)) {
-			throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+			throw new GlobalException(ResultCode.INVALID_TOKEN);
 		}
 
 		Long userId = jwtValidator.getUserIdFromToken(refreshToken);
 		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new IllegalArgumentException("사용자 정보 없음"));
+				.orElseThrow(() -> new GlobalException(ResultCode.NOT_FOUND_USER));
 
 		tokenRepository.deleteByUser(user);
 
