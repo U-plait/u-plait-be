@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.ureca.uplait.global.response.ResultCode.NOT_FOUND_PLAN;
+import static com.ureca.uplait.global.response.ResultCode.PLAN_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +31,6 @@ public class PlanService {
     }
 
     private Plan findPlan(Long planId) {
-        return planRepository.findById(planId).orElseThrow(() -> new GlobalException(NOT_FOUND_PLAN));
+        return planRepository.findById(planId).orElseThrow(() -> new GlobalException(PLAN_NOT_FOUND));
     }
 }
