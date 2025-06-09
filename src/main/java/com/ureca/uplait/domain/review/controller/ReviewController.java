@@ -1,6 +1,6 @@
 package com.ureca.uplait.domain.review.controller;
 
-import com.ureca.uplait.domain.review.dto.response.ReviewDetailListResponse;
+import com.ureca.uplait.domain.review.dto.response.ReviewListResponse;
 import com.ureca.uplait.domain.review.service.ReviewService;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.response.CommonResponse;
@@ -30,7 +30,7 @@ public class ReviewController {
      */
     @Operation(summary = "요금제별 리뷰 전체 조회", description = "요금제별 리뷰 전체 조회")
     @GetMapping("/")
-    public CommonResponse<ReviewDetailListResponse> getReviewList(
+    public CommonResponse<ReviewListResponse> getReviewList(
         @Parameter(description = "사용자정보", required = true)
         @AuthenticationPrincipal User user,
         @Parameter(description = "한 번에 가져올 크기")
