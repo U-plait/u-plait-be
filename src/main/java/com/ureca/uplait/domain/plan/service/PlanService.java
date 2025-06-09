@@ -7,6 +7,7 @@ import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.ureca.uplait.global.response.ResultCode.NOT_FOUND_PLAN;
 
@@ -19,6 +20,7 @@ public class PlanService {
     /**
      * 요금제 상세 조회
      */
+    @Transactional(readOnly = true)
     public PlanDetailResponse getPlanDetail(Long planId) {
         Plan plan = findPlan(planId);
         return PlanResponseFactory.from(plan);
