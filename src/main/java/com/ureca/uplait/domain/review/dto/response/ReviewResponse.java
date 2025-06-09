@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Schema(description = "리뷰 조회 상세")
-public class ReviewDetailResponse {
+public class ReviewResponse {
     @Schema(description = "리뷰 id", example = "1")
     private Long reviewId;
     @Schema(description = "사용자 이름", example = "유플레")
@@ -24,7 +24,7 @@ public class ReviewDetailResponse {
     @Schema(description = "작성 날짜", example = "25.06.08")
     private String createdAt;
 
-    public ReviewDetailResponse(Review review, boolean isAuthor) {
+    public ReviewResponse(Review review, boolean isAuthor) {
         this.reviewId = review.getId();
         this.userName = review.getUser().getName();
         this.isAuthor = isAuthor;
