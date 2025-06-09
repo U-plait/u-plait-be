@@ -15,28 +15,20 @@ import java.util.List;
 @Schema(description = "마이페이지 응답")
 public class MyPageResponse {
     //@Schema()
-    private Long userId;
     private String name;
-    private String kakaoId;
     private String phoneNumber;
     private String email;
     private int age;
     private Gender gender;
-    private Role role;
-    private Status status;
     private boolean adAgree;
 
     public static MyPageResponse from(User user) {
         return new MyPageResponse(
-                user.getId()
-                , user.getName()
-                , user.getKakaoId()
+                user.getName()
                 , user.getPhoneNumber()
                 , user.getEmail()
                 , user.getAge()
                 , user.getGender()
-                , user.getRole()
-                , user.getStatus()
                 , user.getAdAgree()
         );
     }
