@@ -13,7 +13,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -64,4 +64,18 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ChatLog> chatLogs;
+
+    public static User createTmpUser(String kakaoId, String name){
+        return User.builder()
+            .kakaoId(kakaoId)
+            .name(name)
+            .phoneNumber("000-0000-0000")
+            .email(kakaoId+"kakao.com")
+            .age(0)
+            .gender(Gender.UNKNOWN)
+            .role(Role.TMP_USER)
+            .status(Status.ACTIVE)
+            .adAgree(false)
+            .build();
+    }
 }
