@@ -14,8 +14,8 @@ public class InternetPlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "인터넷 온라인 할인 가격", example = "42900")
     private int internetDiscount;
 
-    public InternetPlanDetailResponse(InternetPlan plan) {
-        super(plan);
+    public InternetPlanDetailResponse(InternetPlan plan, boolean inUse) {
+        super(plan, inUse);
         this.velocity = plan.getVelocity();
         this.internetDiscount = plan.getInternetDiscountRate();
     }

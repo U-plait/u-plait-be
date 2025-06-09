@@ -26,7 +26,7 @@ public class Contract extends BaseEntity {
     private Plan plan;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "community_id", nullable = false)
+    @JoinColumn(name = "community_id", nullable = true)
     private Community community;
 
     @Column(name = "end_date", nullable = true)
