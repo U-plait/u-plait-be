@@ -24,6 +24,15 @@ public class MobilePlan extends Plan {
     @Column(name = "voice_call", nullable = false)
     private String voiceCall;
 
+    @Column(name = "message", nullable = false)
+    private String message;
+
+    @Column(name = "extra_data", nullable = false)
+    private String extraData;
+
+    @Column(name = "media_benefit", nullable = false)
+    private String mediaBenefit;
+
     @Column(name = "duration_discount_rate")
     private Integer durationDiscountRate;
 

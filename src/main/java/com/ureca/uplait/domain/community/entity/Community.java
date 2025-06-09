@@ -13,7 +13,7 @@ import lombok.*;
 @Builder
 public class Community extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "community_plan_id", nullable = false)
-    private CommunityPlan communityPlan;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "community_benefit_id", nullable = false)
+    private CommunityBenefit communityBenefit;
 }
