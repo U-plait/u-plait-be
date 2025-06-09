@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
+import com.ureca.uplait.domain.auth.api.KakaoOauthClient;
 import com.ureca.uplait.domain.auth.dto.KakaoUserRes;
 import com.ureca.uplait.domain.token.entity.Token;
 import com.ureca.uplait.domain.token.repository.TokenRepository;
