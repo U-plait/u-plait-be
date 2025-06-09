@@ -2,17 +2,20 @@ package com.ureca.uplait.domain.community.entity;
 
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
-@Table(name="community_plan")
+@Table(name="community_benefit")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommunityPlan extends BaseEntity {
+public class CommunityBenefit extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -31,10 +34,4 @@ public class CommunityPlan extends BaseEntity {
 
     @Column(name = "community_condition", nullable = true)
     private String communityCondition;
-
-    @OneToMany(mappedBy = "communityPlan", cascade = CascadeType.ALL)
-    private List<CommunityPlanPrice> priceList;
-
-    @OneToMany(mappedBy = "communityPlan", cascade = CascadeType.ALL)
-    private List<Community> communities;
 }

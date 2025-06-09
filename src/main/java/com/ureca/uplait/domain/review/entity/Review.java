@@ -4,7 +4,10 @@ import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "review")
@@ -14,11 +17,11 @@ import lombok.*;
 @Builder
 public class Review extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", nullable = false)
     private Plan plan;
 

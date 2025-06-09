@@ -25,12 +25,9 @@ public abstract class Plan extends BaseEntity {
     @Column(name = "plan_benefit", nullable = false)
     private String planBenefit;
 
-    @Column(name = "avaliability", nullable = false)
-    private Boolean avaliability;
+    @Column(name = "availability", nullable = false)
+    private Boolean availability;
 
-    @Column(name = "combinabiliy", nullable = false)
-    private Boolean combinabiliy;
-
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    @Column(name = "combinability", nullable = false)
+    private Boolean combinability;
 }
