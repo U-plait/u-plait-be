@@ -23,8 +23,11 @@ public enum ResultCode {
     REFRESH_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2002, "Refresh Token이 만료되었습니다."),
     ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2003, "Access Token이 만료되었습니다."),
     REISSUE_SUCCESS(HttpStatus.OK, 2004, "토큰 재발급에 성공했습니다. "),
-    LOGOUT_SUCCESS(HttpStatus.OK, 2005, "로그아웃에 성공했습니다.")
+    LOGOUT_SUCCESS(HttpStatus.OK, 2005, "로그아웃에 성공했습니다."),
 
+    // 요금제 3000번대
+    NOT_FOUND_PLAN(HttpStatus.NOT_FOUND, 3000, "요금제 정보를 찾을 수 없습니다."),
+    INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다.")
     ;
 
     private final HttpStatus status;
