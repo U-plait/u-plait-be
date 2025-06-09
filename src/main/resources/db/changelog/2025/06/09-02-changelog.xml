@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749431771291-8" author="HaYeong">
+        <dropForeignKeyConstraint baseTableName="bookmark" constraintName="fk_bookmark_on_user"/>
+    </changeSet>
+    <changeSet id="1749431771291-9" author="HaYeong">
+        <dropForeignKeyConstraint baseTableName="chat_log" constraintName="fk_chat_log_on_user"/>
+    </changeSet>
+    <changeSet id="1749431771291-10" author="HaYeong">
+        <dropForeignKeyConstraint baseTableName="contract" constraintName="fk_contract_on_user"/>
+    </changeSet>
+    <changeSet id="1749431771291-11" author="HaYeong">
+        <dropForeignKeyConstraint baseTableName="interest" constraintName="fk_interest_on_user"/>
+    </changeSet>
+    <changeSet id="1749431771291-12" author="HaYeong">
+        <dropForeignKeyConstraint baseTableName="review" constraintName="fk_review_on_user"/>
+    </changeSet>
+    <changeSet id="1749431771291-13" author="HaYeong">
+        <dropForeignKeyConstraint baseTableName="token" constraintName="fk_token_on_user"/>
+    </changeSet>
+    <changeSet id="1749431771291-1" author="HaYeong">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kakao_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ad_agree" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749431771291-2" author="HaYeong">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="bookmark" constraintName="FK_BOOKMARK_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749431771291-3" author="HaYeong">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="chat_log" constraintName="FK_CHAT_LOG_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749431771291-4" author="HaYeong">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="contract" constraintName="FK_CONTRACT_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749431771291-5" author="HaYeong">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="interest" constraintName="FK_INTEREST_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749431771291-6" author="HaYeong">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="review" constraintName="FK_REVIEW_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749431771291-7" author="HaYeong">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="token" constraintName="FK_TOKEN_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749431771291-14" author="HaYeong">
+        <dropTable cascadeConstraints="true" tableName="user"/>
+    </changeSet>
+
+</databaseChangeLog>
