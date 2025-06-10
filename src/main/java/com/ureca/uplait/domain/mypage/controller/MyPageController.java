@@ -23,7 +23,7 @@ public class MyPageController {
     @GetMapping("user/detail")
     public CommonResponse<MyPageResponse> getMyPage(@AuthenticationPrincipal User user) {
 
-        return CommonResponse.success(myPageService.getMyPage(user.getId()));
+        return CommonResponse.success(myPageService.getMyPage(user));
     }
 
     @Operation(summary = "마이페이지 개인정보 수정 ", description = "개인정보 수정 후 수정 완료 버튼을 누름: 로그인 필요")
