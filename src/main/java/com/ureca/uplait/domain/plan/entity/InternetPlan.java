@@ -23,7 +23,4 @@ public class InternetPlan extends Plan {
 
     @Column(name = "internet_discount_rate", nullable = true)
     private Integer internetDiscountRate;
-
-    @Column(name = "description", nullable = false)
-    private String description;
 }

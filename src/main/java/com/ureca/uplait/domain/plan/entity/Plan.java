@@ -1,6 +1,5 @@
 package com.ureca.uplait.domain.plan.entity;
 
-import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -36,12 +35,6 @@ public abstract class Plan extends BaseEntity {
     @Column(name = "combinability", nullable = false)
     private Boolean combinability;
 
-    public Plan(String planName, Integer planPrice, String planBenefit, Boolean availability,
-        Boolean combinability) {
-        this.planName = planName;
-        this.planPrice = planPrice;
-        this.planBenefit = planBenefit;
-        this.availability = availability;
-        this.combinability = combinability;
-    }
+    @Column(name = "description", nullable = true)
+    private String description;
 }

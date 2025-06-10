@@ -23,7 +23,5 @@ public class IPTVPlan extends Plan {
 
     @Column(name = "iptv_discount_rate", nullable = true)
     private Integer iptvDiscountRate;
-
-    @Column(name = "description", nullable = false)
-    private String description;
+    
 }
