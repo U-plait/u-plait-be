@@ -70,6 +70,7 @@ public class User extends BaseEntity {
         this.age = age;
         this.gender = gender;
         this.adAgree = adAgree;
+        this.role = Role.USER;
     }
 
     public void updateUser(String phoneNumber, String email, boolean adAgree){
@@ -77,9 +78,4 @@ public class User extends BaseEntity {
         this.email = email;
         this.adAgree = adAgree;
     }
-
-	public void setRole(Role role) {
-	    this.role = role;
-    }
-
 }

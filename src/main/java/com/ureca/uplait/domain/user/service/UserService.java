@@ -32,7 +32,6 @@ public class UserService {
 			request.getGender(),
 			request.isAdAgree()
 		);
-		user.setRole(Role.USER);
 	}
 
 	public boolean isPhoneNumberDuplicated(
