@@ -22,7 +22,7 @@ public class AuthController {
 	@Operation(summary = "카카오 로그인", description = "카카오 인가코드를 받아 로그인합니다.")
 	public CommonResponse<LoginResponse> login(@RequestBody KakaoAuthRequest request, HttpServletResponse response){
 		User user = authService.handleKakaoLogin(request.getCode(), response);
-		LoginResponse result = new LoginResponse(user.getRole().name());
+		LoginResponse result = new LoginResponse(user.getRole().name(), user.getName());
 		return CommonResponse.success(result);
 	}
 
