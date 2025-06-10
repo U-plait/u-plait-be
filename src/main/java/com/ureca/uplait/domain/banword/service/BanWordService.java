@@ -4,10 +4,13 @@ import com.ureca.uplait.domain.banword.dto.BanWordMapper;
 import com.ureca.uplait.domain.banword.dto.request.BanWordRequest;
 import com.ureca.uplait.domain.banword.dto.response.BanWordResponse;
 import com.ureca.uplait.domain.banword.entity.BanWord;
+import com.ureca.uplait.domain.banword.repository.BanWordQueryRepository;
 import com.ureca.uplait.domain.banword.repository.BanWordRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BanWordService {
     private final BanWordRepository banWordRepository;
+    private final BanWordQueryRepository banWordQueryRepository;
     private final BanWordMapper banWordMapper;
 
     // 금칙어 등록
@@ -63,5 +67,11 @@ public class BanWordService {
         }
 
         banWordRepository.deleteAll(banWords);
+    }
+
+    // 금칙어 검색
+    public Page<BanWordResponse> searchBanWords(String keyword, Pageable pageable) {
+        Page<BanWord> results = banWordQueryRepository.search(keyword, pageable);
+        return banWordMapper.toDtoPage(results);
     }
 }
