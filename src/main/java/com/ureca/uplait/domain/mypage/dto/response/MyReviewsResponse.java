@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Schema(description = "내가 쓴 리뷰 응답")
 @AllArgsConstructor
 public class MyReviewsResponse {
-
     @Schema(description = "리뷰 id", example = "1")
     private Long reviewId;
     @Schema(description = "요금제 id", example = "1")
