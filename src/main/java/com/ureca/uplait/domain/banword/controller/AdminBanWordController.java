@@ -50,7 +50,7 @@ public class AdminBanWordController {
     @DeleteMapping("/{banwordId}")
     public ResponseEntity<CommonResponse<Void>> deleteBanWord(
             @Parameter(description = "삭제할 금칙어 ID")
-            @PathVariable Long id) {
+            @PathVariable("banwordId") Long id) {
         banWordService.deleteBanWordById(id);
         return ResponseEntity.ok(new CommonResponse<>(ResultCode.SUCCESS));
     }
@@ -71,7 +71,7 @@ public class AdminBanWordController {
     @GetMapping("/search")
     public ResponseEntity<CommonResponse<Page<BanWordResponse>>> searchBanWords(
             @Parameter(description = "검색할 키워드", required = false)
-            @RequestParam(required = false) String keyword,
+            @RequestParam(name = "keyword", required = false) String keyword,
 
             @Parameter(hidden = true)
             @PageableDefault(size=10, sort="createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
