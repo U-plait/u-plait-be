@@ -18,4 +18,7 @@ public class BanWord extends BaseEntity {
     @Column(name="ban_word", nullable = false, length = 20)
     private String banWord;
 
+    public void updateBanWord(String word) {
+        this.banWord = word;
+    }
 }
