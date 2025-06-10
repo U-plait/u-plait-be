@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-09T21:23:56+0900",
+    date = "2025-06-10T13:15:32+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -39,6 +39,7 @@ public class BanWordMapperImpl implements BanWordMapper {
 
         banWordResponse.setId( banWord.getId() );
         banWordResponse.setBanWord( banWord.getBanWord() );
+        banWordResponse.setCreatedAt( banWord.getCreatedAt() );
 
         return banWordResponse;
     }
