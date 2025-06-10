@@ -41,30 +41,22 @@ public class MyPageService {
         );
 
         userRepository.save(user);
+
         return new MyPageUpdateResponse(user.getId());
     }
 
     public List<MyReviewsResponse> getMyReview(Long userId) {
-        List<Review> reviewList = reviewRepository.findByUserId(userId).orElse(null); //null이면 프론트엔드 측에서 처리할 수 있도록
-        List<MyReviewsResponse> list;
-        if(reviewList != null) {
-            list = new ArrayList<>(reviewList.size());
-            for (Review review : reviewList) {
-                MyReviewsResponse myReviewsResponse = new MyReviewsResponse(
-                        review.getId()
-                        , review.getPlan().getId()
-                        , review.getPlan().getPlanName()
-                        , review.getTitle()
-                        , review.getRating()
-                        , review.getCreatedAt()
-                );
+        List<Review> reviewList = reviewRepository.findByUserId(userId);
 
-                list.add(myReviewsResponse);
-            }
-        } else{                                                                    //리뷰가 하나도 없으면 프론트엔드 측에서 처리할 수 있도록
-            list = null;
-        }
-
-        return list;
+        return reviewList.stream()
+                .map(review -> new MyReviewsResponse(
+                        review.getId(),
+                        review.getPlan().getId(),
+                        review.getPlan().getPlanName(),
+                        review.getTitle(),
+                        review.getRating(),
+                        review.getCreatedAt()
+                ))
+                .toList();
     }
 }
