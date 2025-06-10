@@ -32,9 +32,6 @@ public abstract class Plan extends BaseEntity {
     @Column(name = "availability", nullable = false)
     private Boolean availability;
 
-    @Column(name = "combinability", nullable = false)
-    private Boolean combinability;
-
     @Column(name = "description", nullable = true)
     private String description;
 }
