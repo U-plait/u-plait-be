@@ -21,9 +21,7 @@ public class MyPageService {
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
 
-    public MyPageResponse getMyPage(Long userId) {
-
-        User user = userRepository.findById(userId).get();
+    public MyPageResponse getMyPage(User user) {
         return new MyPageResponse(
                 user.getName()
                 , user.getPhoneNumber()
