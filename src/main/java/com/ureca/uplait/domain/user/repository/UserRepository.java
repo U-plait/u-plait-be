@@ -8,4 +8,6 @@ import com.ureca.uplait.domain.user.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByKakaoId(String kakaoId);
+	boolean existsByPhoneNumber(String phoneNumber);
+	boolean existsByEmail(String email);
 }
