@@ -22,7 +22,6 @@ public class MyPageController {
     @Operation(summary = "마이페이지 조회", description = "개인정보 조회: 로그인 필요")
     @GetMapping("user/detail")
     public CommonResponse<MyPageResponse> getMyPage(@AuthenticationPrincipal User user) {
-
         return CommonResponse.success(myPageService.getMyPage(user));
     }
 
@@ -30,14 +29,12 @@ public class MyPageController {
     @PutMapping("user/detail/update")
     public CommonResponse<MyPageUpdateResponse> updateMyPage(@AuthenticationPrincipal User user
             , @RequestBody MyPageUpdateRequest myPageUpdateRequest) {
-
         return CommonResponse.success(myPageService.updateMyPage(user, myPageUpdateRequest));
     }
 
     @Operation(summary = "내가 쓴 리뷰 목록", description = "내가 쓴 리뷰 목록 확인 : 로그인 필요")
     @GetMapping("user/detail/review")
     public CommonResponse<List<MyReviewsResponse>> getMyReview(@AuthenticationPrincipal User user) {
-
         return CommonResponse.success(myPageService.getMyReview(user.getId()));
     }
 }
