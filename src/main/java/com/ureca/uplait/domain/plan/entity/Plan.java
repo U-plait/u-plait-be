@@ -1,20 +1,25 @@
 package com.ureca.uplait.domain.plan.entity;
 
 import com.ureca.uplait.global.entity.BaseEntity;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name="plan")
+@Table(name = "plan")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-//@Builder
+@SuperBuilder
 public abstract class Plan extends BaseEntity {
+
     @Column(name = "plan_name", nullable = false)
     private String planName;
 
@@ -26,4 +31,7 @@ public abstract class Plan extends BaseEntity {
 
     @Column(name = "availability", nullable = false)
     private Boolean availability;
+
+    @Column(name = "description", nullable = true)
+    private String description;
 }
