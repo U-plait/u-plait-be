@@ -64,9 +64,22 @@ public class User extends BaseEntity {
             .build();
     }
 
+    public void updateExtraInfo(String phoneNumber, String email, int age, Gender gender, boolean adAgree){
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.age = age;
+        this.gender = gender;
+        this.adAgree = adAgree;
+    }
+
     public void updateUser(String phoneNumber, String email, boolean adAgree){
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.adAgree = adAgree;
     }
+
+	public void setRole(Role role) {
+	    this.role = role;
+    }
+
 }

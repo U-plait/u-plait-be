@@ -26,7 +26,11 @@ public enum ResultCode {
 
     // 요금제 3000번대
     PLAN_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "요금제 정보를 찾을 수 없습니다."),
-    INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다.")
+    INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다."),
+
+    //5000번대
+    SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다.")
+
     ;
 
     private final HttpStatus status;
