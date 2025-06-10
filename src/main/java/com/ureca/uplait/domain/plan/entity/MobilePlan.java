@@ -42,4 +42,6 @@ public class MobilePlan extends Plan {
     @Column(name = "premier_discount_rate", nullable = true)
     private Integer premierDiscountRate;
 
+    @Column(name = "description", nullable = false)
+    private String description;
 }

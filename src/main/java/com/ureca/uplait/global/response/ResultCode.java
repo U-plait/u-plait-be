@@ -25,7 +25,7 @@ public enum ResultCode {
     LOGOUT_SUCCESS(HttpStatus.OK, 2005, "로그아웃에 성공했습니다."),
 
     // 요금제 3000번대
-    NOT_FOUND_PLAN(HttpStatus.NOT_FOUND, 3000, "요금제 정보를 찾을 수 없습니다."),
+    PLAN_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "요금제 정보를 찾을 수 없습니다."),
     INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다."),
     DUPLICATE_PLAN_NAME(HttpStatus.BAD_REQUEST, 3002, "요금제가 이미 존재합니다.");
 

@@ -44,11 +44,12 @@ public class AdminPlanService {
 
     private Plan getPlan(Long id) {
         return planRepository.findById(id)
-            .orElseThrow(() -> new GlobalException(ResultCode.NOT_FOUND_PLAN));
+            .orElseThrow(() -> new GlobalException(ResultCode.PLAN_NOT_FOUND));
     }
 
-    public void deletePlan(Long id) {
-        Plan plan = getPlan(id);
+    public void deletePlanByName(String planName) {
+        Plan plan = planRepository.findByPlanName(planName)
+            .orElseThrow(() -> new GlobalException(ResultCode.PLAN_NOT_FOUND));
         planRepository.delete(plan);
     }
 
@@ -58,4 +59,5 @@ public class AdminPlanService {
             throw new GlobalException(ResultCode.DUPLICATE_PLAN_NAME);
         }
     }
+
 }
