@@ -6,5 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface BanWordQueryRepository {
     Page<BanWord> search(String keyword, Pageable pageable);
+    Page<BanWord> findAll(Pageable pageable);
 
 }
