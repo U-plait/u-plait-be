@@ -3,6 +3,7 @@ package com.ureca.uplait.domain.review.controller;
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
 import com.ureca.uplait.domain.review.dto.request.ReviewUpdateRequest;
 import com.ureca.uplait.domain.review.dto.response.ReviewCreateResponse;
+import com.ureca.uplait.domain.review.dto.response.ReviewDeleteResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewListResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewUpdateResponse;
 import com.ureca.uplait.domain.review.service.ReviewService;
@@ -60,5 +61,14 @@ public class ReviewController {
             @RequestBody ReviewUpdateRequest request
     ) {
         return CommonResponse.success(reviewService.updateReview(user, request));
+    }
+
+    @Operation(summary = "요금제별 리뷰 삭제", description = "요금제별 리뷰 삭제")
+    @DeleteMapping("/{reviewId}")
+    public CommonResponse<ReviewDeleteResponse> deleteReview(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long reviewId
+    ) {
+        return CommonResponse.success(reviewService.deleteReview(user, reviewId));
     }
 }

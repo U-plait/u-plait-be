@@ -1,11 +1,9 @@
 package com.ureca.uplait.domain.review.service;
 
+import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
 import com.ureca.uplait.domain.review.dto.request.ReviewUpdateRequest;
-import com.ureca.uplait.domain.review.dto.response.ReviewCreateResponse;
-import com.ureca.uplait.domain.review.dto.response.ReviewListResponse;
-import com.ureca.uplait.domain.review.dto.response.ReviewResponse;
-import com.ureca.uplait.domain.review.dto.response.ReviewUpdateResponse;
+import com.ureca.uplait.domain.review.dto.response.*;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.domain.user.entity.User;
@@ -20,6 +18,7 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final PlanRepository planRepository;
 
     /**
      * 요금제별 리뷰 조회
@@ -44,7 +43,7 @@ public class ReviewService {
     public ReviewCreateResponse writeReview(User user, ReviewCreateRequest request) {
         Review review = Review.builder()
                 .user(user)
-                .plan(request.getPlan())
+                .plan(planRepository.findById(request.getPlanId()).get())
                 .title(request.getTitle())
                 .content(request.getContent())
                 .rating(request.getRating())
@@ -55,8 +54,9 @@ public class ReviewService {
         return new ReviewCreateResponse(savedReview.getId());
     }
 
+    @Transactional
     public ReviewUpdateResponse updateReview(User user, ReviewUpdateRequest request) {
-        Review review = reviewRepository.findById(request.getReviewId()).orElse(null);
+        Review review = reviewRepository.findById(request.getReviewId()).get();
 
         review.updateReview(
                 request.getTitle(),
@@ -66,5 +66,11 @@ public class ReviewService {
 
         reviewRepository.save(review);
         return new ReviewUpdateResponse(review.getId());
+    }
+
+    @Transactional
+    public ReviewDeleteResponse deleteReview(User user, Long reviewId) {
+        reviewRepository.deleteById(reviewId);
+        return new ReviewDeleteResponse();
     }
 }

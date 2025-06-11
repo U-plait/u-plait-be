@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Schema(description = "리뷰 작성 요청")
 public class ReviewCreateRequest {
-    @Schema(description = "요금제", example = "요금제 객체")
-    private Plan plan;
+    @Schema(description = "요금제 id", example = "123")
+    private Long planId;
     @Schema(description = "리뷰 제목", example = "최고의 요금제")
     private String title;
     @Schema(description = "리뷰 내용", example = "가격이 싸고 속도도 빨라요.")
