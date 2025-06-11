@@ -1,7 +1,10 @@
 package com.ureca.uplait.domain.review.service;
 
+import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
+import com.ureca.uplait.domain.review.dto.response.ReviewCreateResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewListResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewResponse;
+import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +33,16 @@ public class ReviewService {
         if (hasNext) reviewDetailList.remove(reviewDetailList.size() - 1);
 
         return new ReviewListResponse(reviewDetailList, hasNext);
+    }
+
+    /**
+     * 요금제별 리뷰 작성
+     */
+    public ReviewCreateResponse writeReview(User user, ReviewCreateRequest request) {
+        Review review = new Review().builder().build();
+
+
+        Review savedReview = reviewRepository.save(review);
+        return new ReviewCreateResponse();
     }
 }
