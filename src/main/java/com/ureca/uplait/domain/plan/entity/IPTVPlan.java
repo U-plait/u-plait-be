@@ -1,10 +1,13 @@
 package com.ureca.uplait.domain.plan.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "iptv_plan")
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class IPTVPlan extends Plan {
 
     @Column(nullable = true)
@@ -20,4 +23,5 @@ public class IPTVPlan extends Plan {
 
     @Column(name = "iptv_discount_rate", nullable = true)
     private Integer iptvDiscountRate;
+
 }
