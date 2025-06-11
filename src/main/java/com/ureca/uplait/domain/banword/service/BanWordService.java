@@ -26,15 +26,7 @@ public class BanWordService {
     public BanWordResponse registerBanWord(BanWordRequest request) {
         String value = request.banWord();
 
-        // 금칙어 입력 값이 잘못된 경우
-        if (value == null || value.trim().isEmpty()) {
-            throw new GlobalException(ResultCode.INVALID_BANWORD_INPUT);
-        }
-
-        // 이미 등록된 금칙어일 경우
-        if (banWordRepository.existsByBanWord(value)) {
-            throw new GlobalException(ResultCode.DUPLICATED_BANWORD);
-        }
+        validateNotDuplicated(value);
 
         BanWord banWord = banWordMapper.toEntity(request);
         banWordRepository.save(banWord);
@@ -44,16 +36,15 @@ public class BanWordService {
 
 
     // 금칙어 목록 전체 조회
-    public List<BanWordResponse> getAllBanWords() {
-        List<BanWord> list = banWordRepository.findAll();
-        return banWordMapper.toDtoList(list);
+    public Page<BanWordResponse> getAllBanWords(Pageable pageable) {
+        Page<BanWord> results = banWordQueryRepository.findAll(pageable);
+        return banWordMapper.toDtoPage(results);
     }
 
 
     // 금칙어 단일 삭제
     public void deleteBanWordById(Long id) {
-        BanWord banWord = banWordRepository.findById(id)
-                .orElseThrow(() -> new GlobalException(ResultCode.NOT_FOUND_BANWORD));
+        BanWord banWord = getBanWordOrThrow(id);
         banWordRepository.delete(banWord);
     }
 
@@ -62,9 +53,7 @@ public class BanWordService {
     public void deleteBanWordsByIds(List<Long> ids) {
         List<BanWord> banWords = banWordRepository.findAllById(ids);
 
-        if (banWords.size() != ids.size()) {
-            throw new GlobalException(ResultCode.NOT_FOUND_BANWORD);
-        }
+        validateAllIdsExist(ids, banWords);
 
         banWordRepository.deleteAll(banWords);
     }
@@ -73,5 +62,25 @@ public class BanWordService {
     public Page<BanWordResponse> searchBanWords(String keyword, Pageable pageable) {
         Page<BanWord> results = banWordQueryRepository.search(keyword, pageable);
         return banWordMapper.toDtoPage(results);
+    }
+
+
+
+    // 유효성 검사
+    private void validateAllIdsExist(List<Long> ids, List<BanWord> banWords) {
+        if (banWords.size() != ids.size()) {
+            throw new GlobalException(ResultCode.BANWORD_NOT_FOUND);
+        }
+    }
+
+    private void validateNotDuplicated(String value) {
+        if (banWordRepository.existsByBanWord(value)) {
+            throw new GlobalException(ResultCode.DUPLICATED_BANWORD);
+        }
+    }
+
+    private BanWord getBanWordOrThrow(Long id) {
+        return banWordRepository.findById(id)
+                .orElseThrow(() -> new GlobalException(ResultCode.BANWORD_NOT_FOUND));
     }
 }
