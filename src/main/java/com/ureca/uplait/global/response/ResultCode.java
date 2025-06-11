@@ -30,8 +30,11 @@ public enum ResultCode {
     PLAN_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 3003, "요금제가 삭제됐습니다."),
 
     //5000번대
-    SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다.");
+    SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다."),
 
+    //6000번대
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, 6000, "리뷰를 찾을 수 없습니다."),
+    REVIEW_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 6001, "리뷰가 삭제됐습니다.");
 
     private final HttpStatus status;
     private final int code;
