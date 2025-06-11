@@ -3,7 +3,6 @@ package com.ureca.uplait.global.response;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -32,8 +31,11 @@ public enum ResultCode {
     // 4000번대 (금칙어 관련)
     NOT_FOUND_BANWORD(HttpStatus.NOT_FOUND, 4001, "금칙어를 찾을 수 없습니다."),
     DUPLICATED_BANWORD(HttpStatus.BAD_REQUEST, 4002, "이미 등록된 금칙어입니다."),
-    INVALID_BANWORD_INPUT(HttpStatus.BAD_REQUEST, 4003, "금칙어 입력값이 잘못되었습니다.")
-    ;
+    INVALID_BANWORD_INPUT(HttpStatus.BAD_REQUEST, 4003, "금칙어 입력값이 잘못되었습니다."),
+
+
+    //5000번대
+    SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다.");
 
     private final HttpStatus status;
     private final int code;
