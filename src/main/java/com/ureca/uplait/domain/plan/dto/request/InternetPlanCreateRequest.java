@@ -24,6 +24,7 @@ public class InternetPlanCreateRequest extends PlanCreateRequest {
             .planPrice(getPlanPrice())
             .planBenefit(getPlanBenefit())
             .availability(getAvailability())
+            .description(getDescription())
             .velocity(velocity)
             .internetDiscountRate(internetDiscountRate)
             .build();

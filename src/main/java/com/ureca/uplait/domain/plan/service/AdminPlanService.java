@@ -3,19 +3,27 @@ package com.ureca.uplait.domain.plan.service;
 import com.ureca.uplait.domain.plan.dto.request.IPTVPlanCreateRequest;
 import com.ureca.uplait.domain.plan.dto.request.InternetPlanCreateRequest;
 import com.ureca.uplait.domain.plan.dto.request.MobilePlanCreateRequest;
+import com.ureca.uplait.domain.plan.dto.request.PlanCreateRequest;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
+import com.ureca.uplait.domain.user.entity.PlanTag;
+import com.ureca.uplait.domain.user.entity.Tag;
+import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,23 +31,46 @@ import org.springframework.transaction.annotation.Transactional;
 public class AdminPlanService {
 
     private final PlanRepository planRepository;
+    private final PlanTagRepository planTagRepository;
+    private final EntityManager em;
 
+    @Transactional
     public Long createMobilePlan(MobilePlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
-        MobilePlan plan = request.toMobile();
-        return planRepository.save(plan).getId();
+
+        // 요금제 정보 저장
+        MobilePlan plan = planRepository.save(request.toMobile());
+
+        // 태그 정보 저장
+        savePlanTags(request, plan);
+
+        return plan.getId();
     }
 
+    @Transactional
     public Long createInternetPlan(InternetPlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
-        InternetPlan plan = request.toInternet();
-        return planRepository.save(plan).getId();
+
+        // 요금제 정보 저장
+        InternetPlan plan = planRepository.save(request.toInternet());
+
+        // 태그 정보 저장
+        savePlanTags(request, plan);
+
+        return plan.getId();
     }
 
+    @Transactional
     public Long createIptvPlan(IPTVPlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
-        IPTVPlan plan = request.toIPTV();
-        return planRepository.save(plan).getId();
+
+        // 요금제 정보 저장
+        IPTVPlan plan = planRepository.save(request.toIPTV());
+
+        // 태그 정보 저장
+        savePlanTags(request, plan);
+
+        return plan.getId();
     }
 
     @Transactional(readOnly = true)
@@ -61,6 +92,15 @@ public class AdminPlanService {
     public PlanDetailAdminResponse getPlanDetail(Long planId) {
         Plan plan = getPlan(planId);
         return new PlanDetailAdminResponse(plan);
+    }
+
+    private void savePlanTags(PlanCreateRequest request, Plan plan) {
+        List<PlanTag> planTagList = new ArrayList<>();
+        for (Long tagId : request.getTagIdList()) {
+            Tag tag = em.getReference(Tag.class, tagId);
+            planTagList.add(new PlanTag(plan, tag));
+        }
+        planTagRepository.saveAll(planTagList);
     }
 
     public Long deletePlanById(Long planId) {

@@ -24,6 +24,7 @@ public class IPTVPlanCreateRequest extends PlanCreateRequest {
             .planPrice(getPlanPrice())
             .planBenefit(getPlanBenefit())
             .availability(getAvailability())
+            .description(getDescription())
             .channel(channel)
             .iptvDiscountRate(iptvDiscountRate)
             .build();
