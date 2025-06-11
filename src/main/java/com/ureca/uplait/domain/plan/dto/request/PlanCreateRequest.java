@@ -31,4 +31,7 @@ public abstract class PlanCreateRequest {
 
     @Schema(description = "태그 id List", example = "[1, 2]")
     private List<Long> tagIdList;
+
+    @Schema(description = "결합 혜택 id List", example = "[1, 2]")
+    private List<Long> communityBenefitList;
 }

@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.user.dto.response;
+package com.ureca.uplait.domain.plan.dto.response;
 
 import com.ureca.uplait.domain.user.entity.Tag;
 import lombok.Getter;
