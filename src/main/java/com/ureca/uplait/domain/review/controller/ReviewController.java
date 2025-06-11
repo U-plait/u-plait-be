@@ -1,8 +1,10 @@
 package com.ureca.uplait.domain.review.controller;
 
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
+import com.ureca.uplait.domain.review.dto.request.ReviewUpdateRequest;
 import com.ureca.uplait.domain.review.dto.response.ReviewCreateResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewListResponse;
+import com.ureca.uplait.domain.review.dto.response.ReviewUpdateResponse;
 import com.ureca.uplait.domain.review.service.ReviewService;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.response.CommonResponse;
@@ -49,5 +51,14 @@ public class ReviewController {
             @RequestBody ReviewCreateRequest request
     ) {
         return CommonResponse.success(reviewService.writeReview(user, request));
+    }
+
+    @Operation(summary = "요금제별 리뷰 수정", description = "요금제별 리뷰 수정")
+    @PutMapping("/update")
+    public CommonResponse<ReviewUpdateResponse> updateReview(
+            @AuthenticationPrincipal User user,
+            @RequestBody ReviewUpdateRequest request
+    ) {
+        return CommonResponse.success(reviewService.updateReview(user, request));
     }
 }

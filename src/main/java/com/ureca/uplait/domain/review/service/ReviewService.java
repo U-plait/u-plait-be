@@ -1,9 +1,11 @@
 package com.ureca.uplait.domain.review.service;
 
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
+import com.ureca.uplait.domain.review.dto.request.ReviewUpdateRequest;
 import com.ureca.uplait.domain.review.dto.response.ReviewCreateResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewListResponse;
 import com.ureca.uplait.domain.review.dto.response.ReviewResponse;
+import com.ureca.uplait.domain.review.dto.response.ReviewUpdateResponse;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.domain.user.entity.User;
@@ -51,5 +53,18 @@ public class ReviewService {
         Review savedReview = reviewRepository.save(review);
 
         return new ReviewCreateResponse(savedReview.getId());
+    }
+
+    public ReviewUpdateResponse updateReview(User user, ReviewUpdateRequest request) {
+        Review review = reviewRepository.findById(request.getReviewId()).orElse(null);
+
+        review.updateReview(
+                request.getTitle(),
+                request.getContent(),
+                request.getRating()
+        );
+
+        reviewRepository.save(review);
+        return new ReviewUpdateResponse(review.getId());
     }
 }
