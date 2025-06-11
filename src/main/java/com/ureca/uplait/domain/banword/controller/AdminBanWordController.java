@@ -25,7 +25,6 @@ public class AdminBanWordController {
 
     private final BanWordService banWordService;
 
-    // 금칙어 생성
     @Operation(summary = "금칙어 등록", description = "금칙어 등록 : 관리자 로그인 필요")
     @PostMapping
     public CommonResponse<BanWordResponse> createBanWord(
@@ -35,7 +34,6 @@ public class AdminBanWordController {
         return CommonResponse.success(response);
     }
 
-    // 금칙어 전체 조회
     @Operation(summary = "금칙어 전체 조회", description = "금칙어 전체 조회 : 관리자 로그인 필요")
     @GetMapping
     public CommonResponse<Page<BanWordResponse>> getAllBanWords(
@@ -47,28 +45,25 @@ public class AdminBanWordController {
     }
 
 
-    // 금칙어 단일 삭제
     @Operation(summary = "금칙어 단일 삭제", description = "금칙어 단일 삭제 : 관리자 로그인 필요")
     @DeleteMapping("/{banwordId}")
     public CommonResponse<Void> deleteBanWord(
             @Parameter(description = "삭제할 금칙어 ID")
             @PathVariable("banwordId") Long id) {
         banWordService.deleteBanWordById(id);
-        return CommonResponse.success(null);
+        return CommonResponse.success();
     }
 
 
-    // 금칙어 일괄 삭제
     @Operation(summary = "금칙어 일괄 삭제", description = "금칙어 일괄 삭제 : 관리자 로그인 필요")
     @DeleteMapping
     public CommonResponse<Void> deleteBanWords(
             @Parameter(description = "삭제할 금칙어 ID 목록")
             @RequestBody List<Long> ids) {
         banWordService.deleteBanWordsByIds(ids);
-        return CommonResponse.success(null);
+        return CommonResponse.success();
     }
 
-    // 금칙어 검색
     @Operation(summary = "금칙어 검색", description = "금칙어 검색 : 관리자 로그인 필요")
     @GetMapping("/search")
     public CommonResponse<Page<BanWordResponse>> searchBanWords(
