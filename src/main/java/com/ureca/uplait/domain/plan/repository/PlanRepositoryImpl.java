@@ -1,15 +1,15 @@
 package com.ureca.uplait.domain.plan.repository;
 
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ureca.uplait.domain.plan.dto.response.IPTVPlanAdminResponse;
-import com.ureca.uplait.domain.plan.dto.response.InternetPlanAdminResponse;
-import com.ureca.uplait.domain.plan.dto.response.MobilePlanAdminResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
+import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.entity.QIPTVPlan;
 import com.ureca.uplait.domain.plan.entity.QInternetPlan;
 import com.ureca.uplait.domain.plan.entity.QMobilePlan;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
@@ -19,70 +19,40 @@ public class PlanRepositoryImpl implements PlanRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<MobilePlanAdminResponse> findAllMobilePlans(Pageable pageable) {
-        QMobilePlan plan = QMobilePlan.mobilePlan;
-
-        List<MobilePlanAdminResponse> content = queryFactory
-            .selectFrom(plan)
-            .offset(pageable.getOffset())
-            .limit(pageable.getPageSize())
-            .orderBy(plan.id.desc())
-            .fetch()
-            .stream()
-            .map(MobilePlanAdminResponse::new)
-            .toList();
-
-        Long total = queryFactory
-            .select(plan.count())
-            .from(plan)
-            .fetchOne();
-
-        return new PageImpl<>(content, pageable, total != null ? total : 0);
+    public PageImpl<PlanDetailAdminResponse> findAllMobilePlans(Pageable pageable) {
+        return fetchPlans(pageable, QMobilePlan.mobilePlan);
     }
 
     @Override
-    public Page<InternetPlanAdminResponse> findAllInternetPlans(Pageable pageable) {
-        QInternetPlan plan = QInternetPlan.internetPlan;
-
-        List<InternetPlanAdminResponse> content = queryFactory
-            .selectFrom(plan)
-            .offset(pageable.getOffset())
-            .limit(pageable.getPageSize())
-            .orderBy(plan.id.desc())
-            .fetch()
-            .stream()
-            .map(InternetPlanAdminResponse::new)
-            .toList();
-
-        Long total = queryFactory
-            .select(plan.count())
-            .from(plan)
-            .fetchOne();
-
-        return new PageImpl<>(content, pageable, total != null ? total : 0);
+    public PageImpl<PlanDetailAdminResponse> findAllInternetPlans(Pageable pageable) {
+        return fetchPlans(pageable, QInternetPlan.internetPlan);
     }
 
     @Override
-    public Page<IPTVPlanAdminResponse> findAllIPTVPlans(Pageable pageable) {
-        QIPTVPlan plan = QIPTVPlan.iPTVPlan;
+    public PageImpl<PlanDetailAdminResponse> findAllIPTVPlans(Pageable pageable) {
+        return fetchPlans(pageable, QIPTVPlan.iPTVPlan);
+    }
 
-        List<IPTVPlanAdminResponse> content = queryFactory
-            .selectFrom(plan)
+    private <T extends Plan> PageImpl<PlanDetailAdminResponse> fetchPlans(Pageable pageable,
+        EntityPathBase<T> planPath) {
+
+        PathBuilder<T> pathBuilder = new PathBuilder<>(planPath.getType(), planPath.getMetadata());
+
+        List<PlanDetailAdminResponse> content = queryFactory
+            .selectFrom(planPath)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
-            .orderBy(plan.id.desc())
+            .orderBy(pathBuilder.getNumber("id", Long.class).desc())
             .fetch()
             .stream()
-            .map(IPTVPlanAdminResponse::new)
+            .map(entity -> new PlanDetailAdminResponse((Plan) entity))
             .toList();
 
         Long total = queryFactory
-            .select(plan.count())
-            .from(plan)
+            .select(planPath.count())
+            .from(planPath)
             .fetchOne();
 
         return new PageImpl<>(content, pageable, total != null ? total : 0);
     }
-
-
 }
