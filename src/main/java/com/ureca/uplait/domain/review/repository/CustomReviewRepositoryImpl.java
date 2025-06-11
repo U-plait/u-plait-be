@@ -62,7 +62,7 @@ public class CustomReviewRepositoryImpl implements CustomReviewRepository {
                 user.name,
                 review.title,
                 review.rating,
-                review.createdAt // 여기선 LocalDateTime 그대로 넘김
+                review.createdAt
             ))
             .from(review)
             .leftJoin(review.user, user)
