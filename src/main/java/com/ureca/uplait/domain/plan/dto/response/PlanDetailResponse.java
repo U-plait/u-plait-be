@@ -10,24 +10,24 @@ import lombok.Getter;
 @Schema(description = "요금제 상세 조회 결과")
 public abstract class PlanDetailResponse {
     @Schema(description = "요금제 id", example = "1")
-    protected Long planId;
+    private Long planId;
 
     @Schema(description = "요금제 이름", example = "5G 프리미어 에센셜")
-    protected String planName;
+    private String planName;
 
     @Schema(description = "요금제 가격", example = "59000")
-    protected Integer planPrice;
+    private Integer planPrice;
 
     @Schema(description = "요금제 혜택", example = "U+ 모바일 TV 기본 월정액 무료")
-    protected String planBenefit;
+    private String planBenefit;
 
     @Schema(description = "등록 가능 여부", example = "true")
-    protected Boolean availability;
+    private Boolean availability;
 
     @Schema(description = "요금제 사용 여부", example = "true")
-    protected Boolean inUse;
+    private Boolean inUse;
 
-    protected PlanDetailResponse(Plan plan, boolean inUse) {
+    public PlanDetailResponse(Plan plan, boolean inUse) {
         this.planId = plan.getId();
         this.planName = plan.getPlanName();
         this.planPrice = plan.getPlanPrice();
