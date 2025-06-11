@@ -4,6 +4,7 @@ import com.ureca.uplait.domain.banword.dto.request.BanWordRequest;
 import com.ureca.uplait.domain.banword.dto.response.BanWordResponse;
 import com.ureca.uplait.domain.banword.service.BanWordService;
 import com.ureca.uplait.global.response.CommonResponse;
+import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,16 +45,14 @@ public class AdminBanWordController {
         return CommonResponse.success(result);
     }
 
-
     @Operation(summary = "금칙어 단일 삭제", description = "금칙어 단일 삭제 : 관리자 로그인 필요")
     @DeleteMapping("/{banwordId}")
     public CommonResponse<Void> deleteBanWord(
             @Parameter(description = "삭제할 금칙어 ID")
             @PathVariable("banwordId") Long id) {
         banWordService.deleteBanWordById(id);
-        return CommonResponse.success();
+        return new CommonResponse<>(ResultCode.SUCCESS);
     }
-
 
     @Operation(summary = "금칙어 일괄 삭제", description = "금칙어 일괄 삭제 : 관리자 로그인 필요")
     @DeleteMapping
@@ -61,7 +60,7 @@ public class AdminBanWordController {
             @Parameter(description = "삭제할 금칙어 ID 목록")
             @RequestBody List<Long> ids) {
         banWordService.deleteBanWordsByIds(ids);
-        return CommonResponse.success();
+        return new CommonResponse<>(ResultCode.SUCCESS);
     }
 
     @Operation(summary = "금칙어 검색", description = "금칙어 검색 : 관리자 로그인 필요")
