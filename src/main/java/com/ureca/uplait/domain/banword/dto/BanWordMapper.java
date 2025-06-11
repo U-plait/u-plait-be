@@ -4,7 +4,6 @@ import com.ureca.uplait.domain.banword.dto.request.BanWordRequest;
 import com.ureca.uplait.domain.banword.dto.response.BanWordResponse;
 import com.ureca.uplait.domain.banword.entity.BanWord;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
