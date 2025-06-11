@@ -38,11 +38,18 @@ public class ReviewService {
     /**
      * 요금제별 리뷰 작성
      */
+    @Transactional
     public ReviewCreateResponse writeReview(User user, ReviewCreateRequest request) {
-        Review review = new Review().builder().build();
-
+        Review review = Review.builder()
+                .user(user)
+                .plan(request.getPlan())
+                .title(request.getTitle())
+                .content(request.getContent())
+                .rating(request.getRating())
+                .build();
 
         Review savedReview = reviewRepository.save(review);
-        return new ReviewCreateResponse();
+
+        return new ReviewCreateResponse(savedReview.getId());
     }
 }
