@@ -54,6 +54,7 @@ public class MyPageService {
                         review.getPlan().getId(),
                         review.getPlan().getPlanName(),
                         review.getTitle(),
+                        review.getContent(),
                         review.getRating(),
                         review.getCreatedAt()
                 ))

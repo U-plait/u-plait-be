@@ -9,6 +9,7 @@ import com.ureca.uplait.domain.review.dto.response.ReviewUpdateResponse;
 import com.ureca.uplait.domain.review.service.ReviewService;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.response.CommonResponse;
+import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +48,11 @@ public class ReviewController {
 
     @Operation(summary = "요금제별 리뷰 작성", description = "요금제별 리뷰 작성")
     @PostMapping("/")
-    public CommonResponse<ReviewCreateResponse> writeReview(
+    public CommonResponse<ReviewCreateResponse> createReview(
             @AuthenticationPrincipal User user,
             @RequestBody ReviewCreateRequest request
     ) {
-        return CommonResponse.success(reviewService.writeReview(user, request));
+        return CommonResponse.success(reviewService.createReview(user, request));
     }
 
     @Operation(summary = "요금제별 리뷰 수정", description = "요금제별 리뷰 수정")
@@ -69,6 +70,6 @@ public class ReviewController {
             @AuthenticationPrincipal User user,
             @PathVariable Long reviewId
     ) {
-        return CommonResponse.success(reviewService.deleteReview(user, reviewId));
+        return CommonResponse.success(ResultCode.REVIEW_DELETE_SUCCESS, reviewService.deleteReview(user, reviewId));
     }
 }

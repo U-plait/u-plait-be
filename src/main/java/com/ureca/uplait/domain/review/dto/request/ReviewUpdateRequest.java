@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Schema(description = "리뷰 수정 요청")
 public class ReviewUpdateRequest {
-    @Schema(description = "수정 전 리뷰 아이디", example = "수정 전 리뷰 아이디")
+    @Schema(description = "수정할 리뷰 아이디", example = "수정할 리뷰 아이디")
     private Long reviewId;
     @Schema(description = "수정한 리뷰 제목(수정 안하면 기존 값이 들어오게 하기)", example = "최고의 요금제")
     private String title;

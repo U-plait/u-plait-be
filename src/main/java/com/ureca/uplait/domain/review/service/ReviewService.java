@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.review.service;
 
+import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
 import com.ureca.uplait.domain.review.dto.request.ReviewUpdateRequest;
@@ -7,6 +8,8 @@ import com.ureca.uplait.domain.review.dto.response.*;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.domain.user.entity.User;
+import com.ureca.uplait.global.exception.GlobalException;
+import com.ureca.uplait.global.response.ResultCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,10 +43,12 @@ public class ReviewService {
      * 요금제별 리뷰 작성
      */
     @Transactional
-    public ReviewCreateResponse writeReview(User user, ReviewCreateRequest request) {
+    public ReviewCreateResponse createReview(User user, ReviewCreateRequest request) {
+
+        Plan plan = planRepository.findById(request.getPlanId()) .orElseThrow(() -> new GlobalException(ResultCode.PLAN_NOT_FOUND));
         Review review = Review.builder()
                 .user(user)
-                .plan(planRepository.findById(request.getPlanId()).get())
+                .plan(plan)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .rating(request.getRating())
@@ -71,6 +76,6 @@ public class ReviewService {
     @Transactional
     public ReviewDeleteResponse deleteReview(User user, Long reviewId) {
         reviewRepository.deleteById(reviewId);
-        return new ReviewDeleteResponse();
+        return new ReviewDeleteResponse(reviewId);
     }
 }

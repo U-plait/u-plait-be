@@ -29,6 +29,9 @@ public enum ResultCode {
     DUPLICATE_PLAN_NAME(HttpStatus.BAD_REQUEST, 3002, "요금제가 이미 존재합니다."),
     PLAN_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 3003, "요금제가 삭제됐습니다."),
 
+    // 리뷰 4000번대
+    REVIEW_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 4000, "리뷰가 삭제됐습니다."),
+
     //5000번대
     SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다.");
 
