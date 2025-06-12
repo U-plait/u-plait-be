@@ -19,4 +19,10 @@ public class IPTVPlanDetailResponse extends PlanDetailResponse {
         this.channel = plan.getChannel();
         this.iptvDiscount = plan.getIptvDiscountRate();
     }
+
+    public IPTVPlanDetailResponse(IPTVPlan plan) {
+        super(plan);
+        this.channel = plan.getChannel();
+        this.iptvDiscount = plan.getIptvDiscountRate();
+    }
 }

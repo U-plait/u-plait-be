@@ -43,4 +43,16 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
         this.durationDiscountRate = plan.getDurationDiscountRate();
         this.premierDiscountRate = plan.getPremierDiscountRate();
     }
+
+    public MobilePlanDetailResponse(MobilePlan plan) {
+        super(plan);
+        this.data = data;
+        this.sharedData = sharedData;
+        this.voiceCall = voiceCall;
+        this.message = message;
+        this.extraData = extraData;
+        this.mediaBenefit = mediaBenefit;
+        this.durationDiscountRate = durationDiscountRate;
+        this.premierDiscountRate = premierDiscountRate;
+    }
 }

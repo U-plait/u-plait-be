@@ -9,6 +9,7 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "요금제 상세 조회 결과")
 public abstract class PlanDetailResponse {
+
     @Schema(description = "요금제 id", example = "1")
     protected Long planId;
 
@@ -34,5 +35,13 @@ public abstract class PlanDetailResponse {
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
         this.inUse = inUse;
+    }
+
+    protected PlanDetailResponse(Plan plan) {
+        this.planId = plan.getId();
+        this.planName = plan.getPlanName();
+        this.planPrice = plan.getPlanPrice();
+        this.planBenefit = plan.getPlanBenefit();
+        this.availability = plan.getAvailability();
     }
 }
