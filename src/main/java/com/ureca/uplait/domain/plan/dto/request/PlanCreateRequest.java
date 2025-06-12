@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -23,4 +25,13 @@ public abstract class PlanCreateRequest {
 
     @Schema(description = "가입 가능 여부", example = "true")
     private Boolean availability;
+
+    @Schema(description = "특징 설명", example = "빠른 속도를 즐기고 싶으신 분들을 위한 요금제")
+    private String description;
+
+    @Schema(description = "태그 id List", example = "[1, 2]")
+    private List<Long> tagIdList;
+
+    @Schema(description = "결합 혜택 id List", example = "[1, 2]")
+    private List<Long> communityBenefitList;
 }

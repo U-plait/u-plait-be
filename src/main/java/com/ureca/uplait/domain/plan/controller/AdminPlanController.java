@@ -3,26 +3,19 @@ package com.ureca.uplait.domain.plan.controller;
 import com.ureca.uplait.domain.plan.dto.request.IPTVPlanCreateRequest;
 import com.ureca.uplait.domain.plan.dto.request.InternetPlanCreateRequest;
 import com.ureca.uplait.domain.plan.dto.request.MobilePlanCreateRequest;
+import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
 import com.ureca.uplait.domain.plan.service.AdminPlanService;
-import com.ureca.uplait.domain.plan.service.PlanService;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,13 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminPlanController {
 
     private final AdminPlanService adminPlanService;
-    private final PlanService planService;
 
     @Operation(summary = "모바일 요금제 생성", description = "관리자가 모바일 요금제를 생성합니다.")
     @PostMapping("/mobile")
     public CommonResponse<Long> createMobilePlan(
         @Parameter(description = "모바일 요금제 생성 요청 DTO", required = true)
-        @RequestBody @Valid MobilePlanCreateRequest request) {
+        @RequestBody MobilePlanCreateRequest request) {
         return CommonResponse.success(adminPlanService.createMobilePlan(request));
     }
 
@@ -45,7 +37,7 @@ public class AdminPlanController {
     @PostMapping("/internet")
     public CommonResponse<Long> createInternetPlan(
         @Parameter(description = "인터넷 요금제 생성 요청 DTO", required = true)
-        @RequestBody @Valid InternetPlanCreateRequest request) {
+        @RequestBody InternetPlanCreateRequest request) {
         return CommonResponse.success(adminPlanService.createInternetPlan(request));
     }
 
@@ -53,7 +45,7 @@ public class AdminPlanController {
     @PostMapping("/iptv")
     public CommonResponse<Long> createIptvPlan(
         @Parameter(description = "IPTV 요금제 생성 요청 DTO", required = true)
-        @RequestBody @Valid IPTVPlanCreateRequest request) {
+        @RequestBody IPTVPlanCreateRequest request) {
         return CommonResponse.success(adminPlanService.createIptvPlan(request));
     }
 
@@ -96,7 +88,6 @@ public class AdminPlanController {
         return CommonResponse.success(adminPlanService.getPlanDetail(planId));
     }
 
-
     @Operation(summary = "요금제 삭제 (ID 기반)", description = "요금제 ID를 기준으로 요금제를 삭제합니다.")
     @DeleteMapping("/{planId}")
     public CommonResponse<Long> deletePlanById(
@@ -105,6 +96,15 @@ public class AdminPlanController {
     ) {
         Long deletedId = adminPlanService.deletePlanById(planId);
         return CommonResponse.success(ResultCode.PLAN_DELETE_SUCCESS, deletedId);
+    }
+
+    /**
+     * 요금제 생성을 위한 정보 반환
+     */
+    @Operation(summary = "요금제 생성을 위한 정보 반환", description = "요금제 생성을 위한 정보 반환")
+    @GetMapping("/info")
+    public CommonResponse<PlanCreationInfoResponse> getTags() {
+        return CommonResponse.success(adminPlanService.getPlanCreationInfo());
     }
 
 }

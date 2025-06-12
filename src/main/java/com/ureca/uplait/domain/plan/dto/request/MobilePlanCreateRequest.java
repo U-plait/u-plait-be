@@ -42,6 +42,7 @@ public class MobilePlanCreateRequest extends PlanCreateRequest {
             .planPrice(getPlanPrice())
             .planBenefit(getPlanBenefit())
             .availability(getAvailability())
+            .description(getDescription())
             .data(data)
             .sharedData(sharedData)
             .voiceCall(voiceCall)

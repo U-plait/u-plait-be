@@ -29,11 +29,16 @@ public enum ResultCode {
     DUPLICATE_PLAN_NAME(HttpStatus.BAD_REQUEST, 3002, "요금제가 이미 존재합니다."),
     PLAN_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 3003, "요금제가 삭제됐습니다."),
 
-    // 리뷰 4000번대
-    REVIEW_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 4000, "리뷰가 삭제됐습니다."),
+    // 4000번대 (금칙어 관련)
+    BANWORD_NOT_FOUND(HttpStatus.NOT_FOUND, 4001, "금칙어를 찾을 수 없습니다."),
+    DUPLICATED_BANWORD(HttpStatus.BAD_REQUEST, 4002, "이미 등록된 금칙어입니다."),
+    INVALID_BANWORD_INPUT(HttpStatus.BAD_REQUEST, 4003, "금칙어 입력값이 잘못되었습니다."),
 
     //5000번대
-    SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다.");
+    SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다."),
+
+    // 리뷰 6000번대
+    REVIEW_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 6000, "리뷰가 삭제됐습니다.");
 
 
     private final HttpStatus status;
