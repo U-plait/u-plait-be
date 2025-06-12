@@ -2,7 +2,7 @@ name: uplait-db
 
 services:
   postgres:
-    image: postgres:latest
+    image: pgvector/pgvector:0.8.0-pg15
     environment:
       POSTGRES_USER: urecauser
       POSTGRES_PASSWORD: urecapassword
