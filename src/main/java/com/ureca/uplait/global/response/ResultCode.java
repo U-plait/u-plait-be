@@ -28,6 +28,8 @@ public enum ResultCode {
     INVALID_PLAN(HttpStatus.BAD_REQUEST, 3001, "유효하지 않은 요금제 타입입니다."),
     DUPLICATE_PLAN_NAME(HttpStatus.BAD_REQUEST, 3002, "요금제가 이미 존재합니다."),
     PLAN_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 3003, "요금제가 삭제됐습니다."),
+    PLAN_UPDATE_SUCCESS(HttpStatus.OK, 3004, "요금제가 수정됐습니다."),
+    PLAN_CREATE_SUCCESS(HttpStatus.OK, 3005, "요금제가 생성됐습니다."),
 
     //5000번대
     SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다."),

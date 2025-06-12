@@ -1,14 +1,16 @@
 package com.ureca.uplait.domain.plan.repository;
 
-import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
-import org.springframework.data.domain.PageImpl;
+import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PlanRepositoryCustom {
 
-    PageImpl<PlanDetailAdminResponse> findAllMobilePlans(Pageable pageable);
+    Page<MobilePlanDetailResponse> findAllMobilePlans(Pageable pageable);
 
-    PageImpl<PlanDetailAdminResponse> findAllInternetPlans(Pageable pageable);
+    Page<InternetPlanDetailResponse> findAllInternetPlans(Pageable pageable);
 
-    PageImpl<PlanDetailAdminResponse> findAllIPTVPlans(Pageable pageable);
+    Page<IPTVPlanDetailResponse> findAllIPTVPlans(Pageable pageable);
 }
