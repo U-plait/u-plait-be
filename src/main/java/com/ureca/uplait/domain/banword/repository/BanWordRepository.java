@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BanWordRepository extends JpaRepository<BanWord, Long> {
+
     boolean existsByBanWord(String banWord);
+
     Page<BanWord> findByBanWordContainingIgnoreCase(String keyword, Pageable pageable);
 }

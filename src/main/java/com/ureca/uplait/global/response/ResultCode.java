@@ -32,9 +32,10 @@ public enum ResultCode {
     PLAN_CREATE_SUCCESS(HttpStatus.OK, 3005, "요금제가 생성됐습니다."),
 
     // 4000번대 (금칙어 관련)
-    BANWORD_NOT_FOUND(HttpStatus.NOT_FOUND, 4001, "금칙어를 찾을 수 없습니다."),
-    DUPLICATED_BANWORD(HttpStatus.BAD_REQUEST, 4002, "이미 등록된 금칙어입니다."),
-    INVALID_BANWORD_INPUT(HttpStatus.BAD_REQUEST, 4003, "금칙어 입력값이 잘못되었습니다."),
+    BANWORD_NOT_FOUND(HttpStatus.NOT_FOUND, 4000, "금칙어를 찾을 수 없습니다."),
+    DUPLICATED_BANWORD(HttpStatus.BAD_REQUEST, 4001, "이미 등록된 금칙어입니다."),
+    INVALID_BANWORD_INPUT(HttpStatus.BAD_REQUEST, 4002, "금칙어 입력값이 잘못되었습니다."),
+    BANWORD_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 4003, "금칙어가 삭제됐습니다."),
 
     //5000번대
     SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다."),

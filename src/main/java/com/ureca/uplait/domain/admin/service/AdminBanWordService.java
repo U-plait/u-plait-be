@@ -1,49 +1,51 @@
-package com.ureca.uplait.domain.banword.service;
+package com.ureca.uplait.domain.admin.service;
 
-import com.ureca.uplait.domain.banword.dto.request.BanWordRequest;
-import com.ureca.uplait.domain.banword.dto.response.BanWordResponse;
+import com.ureca.uplait.domain.admin.dto.request.AdminBanWordRequest;
+import com.ureca.uplait.domain.admin.dto.response.AdminBanWordResponse;
 import com.ureca.uplait.domain.banword.entity.BanWord;
 import com.ureca.uplait.domain.banword.repository.BanWordRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
-public class BanWordService {
+public class AdminBanWordService {
+
     private final BanWordRepository banWordRepository;
 
-    public BanWordResponse registerBanWord(BanWordRequest request) {
+    public AdminBanWordResponse registerBanWord(AdminBanWordRequest request) {
         String value = request.getBanWord();
         validateNotDuplicated(value);
 
         BanWord banWord = new BanWord(value);
         banWordRepository.save(banWord);
 
-        return new BanWordResponse(
-                banWord.getId(),
-                banWord.getBanWord(),
-                banWord.getCreatedAt()
+        return new AdminBanWordResponse(
+            banWord.getId(),
+            banWord.getBanWord(),
+            banWord.getCreatedAt()
         );
     }
 
-    public Page<BanWordResponse> getAllBanWords(Pageable pageable) {
+    public Page<AdminBanWordResponse> getAllBanWords(Pageable pageable) {
         return banWordRepository.findAll(pageable)
-                .map(bw -> new BanWordResponse(
-                        bw.getId(),
-                        bw.getBanWord(),
-                        bw.getCreatedAt()
-                ));
+            .map(bw -> new AdminBanWordResponse(
+                bw.getId(),
+                bw.getBanWord(),
+                bw.getCreatedAt()
+            ));
     }
 
-    public void deleteBanWordById(Long id) {
+    public Long deleteBanWordById(Long id) {
         BanWord banWord = getBanWordOrThrow(id);
         banWordRepository.delete(banWord);
+
+        return id;
     }
 
     public void deleteBanWordsByIds(List<Long> ids) {
@@ -52,13 +54,13 @@ public class BanWordService {
         banWordRepository.deleteAll(banWords);
     }
 
-    public Page<BanWordResponse> searchBanWords(String keyword, Pageable pageable) {
+    public Page<AdminBanWordResponse> searchBanWords(String keyword, Pageable pageable) {
         return banWordRepository.findByBanWordContainingIgnoreCase(keyword, pageable)
-                .map(bw -> new BanWordResponse(
-                        bw.getId(),
-                        bw.getBanWord(),
-                        bw.getCreatedAt()
-                ));
+            .map(bw -> new AdminBanWordResponse(
+                bw.getId(),
+                bw.getBanWord(),
+                bw.getCreatedAt()
+            ));
     }
 
     private void validateAllIdsExist(List<Long> ids, List<BanWord> banWords) {
@@ -75,6 +77,6 @@ public class BanWordService {
 
     private BanWord getBanWordOrThrow(Long id) {
         return banWordRepository.findById(id)
-                .orElseThrow(() -> new GlobalException(ResultCode.BANWORD_NOT_FOUND));
+            .orElseThrow(() -> new GlobalException(ResultCode.BANWORD_NOT_FOUND));
     }
 }
