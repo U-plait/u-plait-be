@@ -1,9 +1,9 @@
-package com.ureca.uplait.domain.allowword.service;
+package com.ureca.uplait.domain.admin.service;
 
+import com.ureca.uplait.domain.admin.dto.request.AdminAllowWordRequest;
+import com.ureca.uplait.domain.admin.dto.response.AdminAllowWordResponse;
 import com.ureca.uplait.domain.allowword.entity.AllowWord;
 import com.ureca.uplait.domain.allowword.repository.AllowWordRepository;
-import com.ureca.uplait.domain.allowword.request.AllowWordRequest;
-import com.ureca.uplait.domain.allowword.response.AllowWordResponse;
 import com.ureca.uplait.domain.banword.repository.BanWordRepository;
 import com.ureca.uplait.domain.common.validator.CommonValidator;
 import com.ureca.uplait.domain.common.validator.WordConflictValidator;
@@ -18,13 +18,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AllowWordService {
+public class AdminAllowWordService {
     private final AllowWordRepository allowWordRepository;
     private final WordConflictValidator wordConflictValidator;
     private final CommonValidator commonValidator;
     private final BanWordRepository banWordRepository;
 
-    public AllowWordResponse registerAllowWord(AllowWordRequest request) {
+    public AdminAllowWordResponse registerAllowWord(AdminAllowWordRequest request) {
         String value = request.getAllowWord();
         commonValidator.validateNotDuplicated(banWordRepository.existsByBanWord(value), ResultCode.DUPLICATED_ALLOWWORD);
         wordConflictValidator.ensureNotInBanWords(value);
@@ -35,7 +35,7 @@ public class AllowWordService {
         return toResponse(allowWord);
     }
 
-    public Page<AllowWordResponse> getAllAllowWords(Pageable pageable) {
+    public Page<AdminAllowWordResponse> getAllAllowWords(Pageable pageable) {
         return allowWordRepository.findAll(pageable)
                 .map(this::toResponse);
     }
@@ -51,7 +51,7 @@ public class AllowWordService {
         allowWordRepository.deleteAll(allowWords);
     }
 
-    public Page<AllowWordResponse> searchAllowWords(String keyword, Pageable pageable) {
+    public Page<AdminAllowWordResponse> searchAllowWords(String keyword, Pageable pageable) {
         return allowWordRepository.findByAllowWordContainingIgnoreCase(keyword, pageable)
                 .map(this::toResponse);
     }
@@ -61,8 +61,8 @@ public class AllowWordService {
                 .orElseThrow(() -> new GlobalException(ResultCode.ALLOWWORD_NOT_FOUND));
     }
 
-    private AllowWordResponse toResponse(AllowWord allowWord) {
-        return new AllowWordResponse(
+    private AdminAllowWordResponse toResponse(AllowWord allowWord) {
+        return new AdminAllowWordResponse(
                 allowWord.getId(),
                 allowWord.getAllowWord(),
                 allowWord.getCreatedAt()

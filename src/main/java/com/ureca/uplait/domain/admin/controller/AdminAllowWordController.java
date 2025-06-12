@@ -1,8 +1,8 @@
-package com.ureca.uplait.domain.allowword.controller;
+package com.ureca.uplait.domain.admin.controller;
 
-import com.ureca.uplait.domain.allowword.request.AllowWordRequest;
-import com.ureca.uplait.domain.allowword.response.AllowWordResponse;
-import com.ureca.uplait.domain.allowword.service.AllowWordService;
+import com.ureca.uplait.domain.admin.dto.request.AdminAllowWordRequest;
+import com.ureca.uplait.domain.admin.dto.response.AdminAllowWordResponse;
+import com.ureca.uplait.domain.admin.service.AdminAllowWordService;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,24 +24,24 @@ import java.util.List;
 @Tag(name = "허용어 관리(Admin)", description = "관리자용 허용어 등록/조회/삭제/검색 API")
 public class AdminAllowWordController {
 
-    private final AllowWordService allowWordService;
+    private final AdminAllowWordService allowWordService;
 
     @Operation(summary = "허용어 등록", description = "허용어 등록 : 관리자 로그인 필요")
     @PostMapping
-    public CommonResponse<AllowWordResponse> createAllowWord(
+    public CommonResponse<AdminAllowWordResponse> createAllowWord(
             @Parameter(description = "등록할 허용어 요청")
-            @Valid @RequestBody AllowWordRequest request) {
-        AllowWordResponse response = allowWordService.registerAllowWord(request);
+            @Valid @RequestBody AdminAllowWordRequest request) {
+        AdminAllowWordResponse response = allowWordService.registerAllowWord(request);
         return CommonResponse.success(response);
     }
 
     @Operation(summary = "허용어 전체 조회", description = "허용어 전체 조회 : 관리자 로그인 필요")
     @GetMapping
-    public CommonResponse<Page<AllowWordResponse>> getAllBanWords(
+    public CommonResponse<Page<AdminAllowWordResponse>> getAllBanWords(
             @Parameter(hidden = true)
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<AllowWordResponse> result= allowWordService.getAllAllowWords(pageable);
+        Page<AdminAllowWordResponse> result= allowWordService.getAllAllowWords(pageable);
         return CommonResponse.success(result);
     }
 
@@ -65,14 +65,14 @@ public class AdminAllowWordController {
 
     @Operation(summary = "허용어 검색", description = "허용어 검색 : 관리자 로그인 필요")
     @GetMapping("/search")
-    public CommonResponse<Page<AllowWordResponse>> searchAllowWords(
+    public CommonResponse<Page<AdminAllowWordResponse>> searchAllowWords(
             @Parameter(description = "검색할 키워드", required = false)
             @RequestParam(name = "keyword", required = false) String keyword,
 
             @Parameter(hidden = true)
             @PageableDefault(size=10, sort="createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<AllowWordResponse> result = allowWordService.searchAllowWords(keyword, pageable);
+        Page<AdminAllowWordResponse> result = allowWordService.searchAllowWords(keyword, pageable);
         return CommonResponse.success(result);
     }
 }

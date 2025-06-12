@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.allowword.response;
+package com.ureca.uplait.domain.admin.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @Schema(description = "허용어 조회 응답 DTO")
-public class AllowWordResponse {
+public class AdminAllowWordResponse {
 
     @Schema(description = "허용어 ID", example = "1")
     private Long id;
