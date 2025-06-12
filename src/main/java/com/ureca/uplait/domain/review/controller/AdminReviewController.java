@@ -27,12 +27,13 @@ public class AdminReviewController {
 
     @GetMapping
     @Operation(summary = "관리자 리뷰 전체 조회", description = "관리자가 전체 리뷰를 페이지 단위로 조회합니다.")
-    public Page<AdminReviewResponse> getAllReviews(
+    public CommonResponse<Page<AdminReviewResponse>> getAllReviews(
         @PageableDefault(size = 20, sort = "reviewId", direction = Direction.DESC)
         Pageable pageable
     ) {
-        return adminReviewService.getAllReviewsForAdmin(pageable);
+        return CommonResponse.success(adminReviewService.getAllReviewsForAdmin(pageable));
     }
+
 
     @Operation(summary = "리뷰 삭제 (ID 기반)", description = "리뷰 ID를 기준으로 리뷰를 삭제합니다.")
     @DeleteMapping("/{reviewId}")
