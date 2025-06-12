@@ -14,7 +14,6 @@
     <changeSet id="1749692185196-3" author="student">
         <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="title" tableName="review" validate="true"/>
     </changeSet>
-  objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
   <changeSet id="1749706306730-1" author="songhyeongyu">
     <createTable tableName="allow_word">
       <column autoIncrement="true" name="id" type="BIGINT">

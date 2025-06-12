@@ -93,33 +93,33 @@ public class AdminPlanController {
     @Operation(summary = "모바일 요금제 수정", description = "모바일 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/mobile/{planId}")
     public CommonResponse<PlanDetailAdminResponse> updateMobilePlan(
-        @PathVariable Long id,
+        @PathVariable Long planId,
         @RequestBody AdminMobilePlanUpdateRequest request
     ) {
-        adminPlanService.updateMobilePlan(id, request);
-        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
+        adminPlanService.updateMobilePlan(planId, request);
+        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(planId);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
     }
 
     @Operation(summary = "인터넷 요금제 수정", description = "인터넷 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/internet/{planId}")
     public CommonResponse<PlanDetailAdminResponse> updateInternetPlan(
-        @PathVariable Long id,
+        @PathVariable Long planId,
         @RequestBody AdminInternetPlanUpdateRequest request
     ) {
-        adminPlanService.updateInternetPlan(id, request);
-        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
+        adminPlanService.updateInternetPlan(planId, request);
+        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(planId);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
     }
 
     @Operation(summary = "IPTV 요금제 수정", description = "IPTV 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/iptv/{planId}")
     public CommonResponse<PlanDetailAdminResponse> updateIPTVPlan(
-        @PathVariable Long id,
+        @PathVariable Long planId,
         @RequestBody AdminIPTVPlanUpdateRequest request
     ) {
-        adminPlanService.updateIPTVPlan(id, request);
-        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
+        adminPlanService.updateIPTVPlan(planId, request);
+        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(planId);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
     }
 

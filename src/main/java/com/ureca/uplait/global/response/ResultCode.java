@@ -36,6 +36,13 @@ public enum ResultCode {
     DUPLICATED_BANWORD(HttpStatus.BAD_REQUEST, 4001, "이미 등록된 금칙어입니다."),
     INVALID_BANWORD_INPUT(HttpStatus.BAD_REQUEST, 4002, "금칙어 입력값이 잘못되었습니다."),
     BANWORD_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 4003, "금칙어가 삭제됐습니다."),
+    WORD_ALREADY_EXISTS_IN_ALLOW_LIST(HttpStatus.BAD_REQUEST, 4004, "허용어로 이미 등록된 단어입니다."),
+
+    ALLOWWORD_NOT_FOUND(HttpStatus.NOT_FOUND, 4050, "허용어를 찾을 수 없습니다."),
+    DUPLICATED_ALLOWWORD(HttpStatus.BAD_REQUEST, 4051, "이미 등록된 허용어입니다."),
+    INVALID_ALLOW_WORD(HttpStatus.BAD_REQUEST, 4052, "허용어 입력값이 잘못되었습니다."),
+    WORD_ALREADY_EXISTS_IN_BAN_LIST(HttpStatus.BAD_REQUEST, 4053, "금칙어로 이미 등록된 단어입니다."),
+
 
     //5000번대
     SIGNUP_SUCCESS(HttpStatus.OK, 5000, "회원가입을 위한 추가정보 입력에 성공했습니다."),

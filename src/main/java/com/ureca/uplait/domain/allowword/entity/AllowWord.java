@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.allowword;
+package com.ureca.uplait.domain.allowword.entity;
 
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.Column;
@@ -19,4 +19,5 @@ public class AllowWord extends BaseEntity {
 
     @Column(name = "allow_word", nullable = false, length = 20)
     private String allowWord;
+
 }
