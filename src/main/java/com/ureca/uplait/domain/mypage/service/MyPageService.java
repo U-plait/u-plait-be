@@ -46,7 +46,7 @@ public class MyPageService {
     }
 
     public List<MyReviewsResponse> getMyReview(Long userId) {
-        List<Review> reviewList = reviewRepository.findByUserId(userId);
+        List<Review> reviewList = reviewRepository.findByUserIdWithPlan(userId);
 
         return reviewList.stream()
                 .map(review -> new MyReviewsResponse(
@@ -54,6 +54,7 @@ public class MyPageService {
                         review.getPlan().getId(),
                         review.getPlan().getPlanName(),
                         review.getTitle(),
+                        review.getContent(),
                         review.getRating(),
                         review.getCreatedAt()
                 ))

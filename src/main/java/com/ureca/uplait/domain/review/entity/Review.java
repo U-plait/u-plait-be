@@ -25,12 +25,18 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "plan_id", nullable = false)
     private Plan plan;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String content;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer rating;
+
+    public void updateReview(String title, String content, Integer rating) {
+        this.title = title;
+        this.content = content;
+        this.rating = rating;
+    }
 }
