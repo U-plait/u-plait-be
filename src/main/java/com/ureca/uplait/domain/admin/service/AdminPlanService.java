@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.ureca.uplait.domain.plan.util.SentenceUtil.createSentence;
+import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
 import static com.ureca.uplait.global.response.ResultCode.FAST_API_DB_ERROR;
 
 @Service
@@ -246,7 +246,7 @@ public class AdminPlanService {
     }
 
     private void saveVector(Plan plan, List<Tag> tagList, List<CommunityBenefit> communityBenefitList) {
-        String description = createSentence(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
 
         fastApiWebClient.post()
             .uri(uriBuilder -> uriBuilder
