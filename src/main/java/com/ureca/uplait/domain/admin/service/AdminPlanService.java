@@ -1,15 +1,23 @@
-package com.ureca.uplait.domain.plan.service;
+package com.ureca.uplait.domain.admin.service;
 
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
 import com.ureca.uplait.domain.community.entity.PlanCommunity;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitRepository;
 import com.ureca.uplait.domain.community.repository.PlanCommunityRepository;
-import com.ureca.uplait.domain.plan.dto.request.IPTVPlanCreateRequest;
-import com.ureca.uplait.domain.plan.dto.request.InternetPlanCreateRequest;
-import com.ureca.uplait.domain.plan.dto.request.MobilePlanCreateRequest;
 import com.ureca.uplait.domain.plan.dto.response.CommunityBenefitResponse;
+import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
 import com.ureca.uplait.domain.plan.dto.response.TagResponse;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
@@ -23,14 +31,13 @@ import com.ureca.uplait.domain.user.repository.TagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -44,110 +51,89 @@ public class AdminPlanService {
     private final PlanCommunityRepository planCommunityRepository;
     private final EntityManager em;
 
-    /**
-     * 요금제 생성
-     */
-    @Transactional
-    public Long createMobilePlan(MobilePlanCreateRequest request) {
+    public Long createMobilePlan(AdminMobileCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
 
-        // 요금제 정보 저장
-        MobilePlan plan = planRepository.save(request.toMobile());
+        MobilePlan plan = request.toMobile();
 
-        // 태그 정보 저장
+        planRepository.save(plan);
+
         savePlanTags(request.getTagIdList(), plan);
-
-        // 결합 정보 저장
         saveCommunityBenefits(request.getCommunityBenefitList(), plan);
 
         return plan.getId();
     }
 
-    @Transactional
-    public Long createInternetPlan(InternetPlanCreateRequest request) {
+    public Long createInternetPlan(AdminInternetPlanCreateRequest request) {
+        validateDuplicatePlanName(request.getPlanName());
+        InternetPlan plan = request.toInternet();
+        planRepository.save(plan);
+
+        savePlanTags(request.getTagIdList(), plan);
+        saveCommunityBenefits(request.getCommunityBenefitList(), plan);
+        return planRepository.save(plan).getId();
+    }
+
+    public Long createIptvPlan(AdminIPTVPlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
 
-        // 요금제 정보 저장
-        InternetPlan plan = planRepository.save(request.toInternet());
-
-        // 태그 정보 저장
+        IPTVPlan plan = request.toIPTV();
+        planRepository.save(plan);
         savePlanTags(request.getTagIdList(), plan);
-
-        // 결합 정보 저장
         saveCommunityBenefits(request.getCommunityBenefitList(), plan);
-
         return plan.getId();
     }
 
-    @Transactional
-    public Long createIptvPlan(IPTVPlanCreateRequest request) {
-        validateDuplicatePlanName(request.getPlanName());
-
-        // 요금제 정보 저장
-        IPTVPlan plan = planRepository.save(request.toIPTV());
-
-        // 태그 정보 저장
-        savePlanTags(request.getTagIdList(), plan);
-
-        // 결합 정보 저장
-        saveCommunityBenefits(request.getCommunityBenefitList(), plan);
-
-        return plan.getId();
+    public void updateMobilePlan(Long id, AdminMobilePlanUpdateRequest request) {
+        Plan plan = getPlan(id);
+        if (!(plan instanceof MobilePlan)) {
+            throw new GlobalException(ResultCode.INVALID_PLAN);
+        }
+        ((MobilePlan) plan).mobileUpdateFrom(request);
     }
 
-    /**
-     * 요금제 목록 조회
-     */
+    public void updateIPTVPlan(Long id, AdminIPTVPlanUpdateRequest request) {
+        Plan plan = getPlan(id);
+        if (!(plan instanceof IPTVPlan)) {
+            throw new GlobalException(ResultCode.INVALID_PLAN);
+        }
+        ((IPTVPlan) plan).IPTVUpdateForm(request);
+
+    }
+
+    public void updateInternetPlan(Long id, AdminInternetPlanUpdateRequest request) {
+        Plan plan = getPlan(id);
+        if (!(plan instanceof InternetPlan)) {
+            throw new GlobalException(ResultCode.INVALID_PLAN);
+        }
+        ((InternetPlan) plan).InternetUpdateForm(request);
+    }
+
+
     @Transactional(readOnly = true)
-    public PageImpl<PlanDetailAdminResponse> getAllMobilePlans(Pageable pageable) {
+    public Page<MobilePlanDetailResponse> getAllMobilePlans(Pageable pageable) {
         return planRepository.findAllMobilePlans(pageable);
     }
 
     @Transactional(readOnly = true)
-    public PageImpl<PlanDetailAdminResponse> getAllInternetPlans(Pageable pageable) {
+    public Page<InternetPlanDetailResponse> getAllInternetPlans(Pageable pageable) {
         return planRepository.findAllInternetPlans(pageable);
     }
 
     @Transactional(readOnly = true)
-    public PageImpl<PlanDetailAdminResponse> getAllIPTVPlans(Pageable pageable) {
+    public Page<IPTVPlanDetailResponse> getAllIPTVPlans(Pageable pageable) {
         return planRepository.findAllIPTVPlans(pageable);
     }
 
-    /**
-     * 요금제 상세 조회 (ADMIN)
-     */
     @Transactional(readOnly = true)
     public PlanDetailAdminResponse getPlanDetail(Long planId) {
         Plan plan = getPlan(planId);
         return new PlanDetailAdminResponse(plan);
     }
 
-    /**
-     * 요금제 생성을 위한 정보 반환
-     */
-    public PlanCreationInfoResponse getPlanCreationInfo() {
-        return new PlanCreationInfoResponse(
-            tagRepository.findAll().stream().map(TagResponse::new).toList(),
-            communityBenefitRepository.findAll().stream().map(CommunityBenefitResponse::new).toList()
-        );
-    }
-
-    private void savePlanTags(List<Long> tagIdList, Plan plan) {
-        List<PlanTag> planTagList = new ArrayList<>();
-        for (Long tagId : tagIdList) {
-            Tag tag = em.getReference(Tag.class, tagId);
-            planTagList.add(new PlanTag(plan, tag));
-        }
-        planTagRepository.saveAll(planTagList);
-    }
-
-    private void saveCommunityBenefits(List<Long> communityBenefitIdList, Plan plan) {
-        List<PlanCommunity> planCommunityList = new ArrayList<>();
-        for (Long communityBenefitId : communityBenefitIdList) {
-            CommunityBenefit communityBenefit = em.getReference(CommunityBenefit.class, communityBenefitId);
-            planCommunityList.add(new PlanCommunity(plan, communityBenefit));
-        }
-        planCommunityRepository.saveAll(planCommunityList);
+    public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
+        Plan plan = getPlan(planId);
+        return PlanResponseFactory.from(plan);
     }
 
     public Long deletePlanById(Long planId) {
@@ -166,4 +152,32 @@ public class AdminPlanService {
             throw new GlobalException(ResultCode.DUPLICATE_PLAN_NAME);
         }
     }
+
+    public PlanCreationInfoResponse getPlanCreationInfo() {
+        return new PlanCreationInfoResponse(
+            tagRepository.findAll().stream().map(TagResponse::new).toList(),
+            communityBenefitRepository.findAll().stream().map(CommunityBenefitResponse::new)
+                .toList()
+        );
+    }
+
+    private void savePlanTags(List<Long> tagIdList, Plan plan) {
+        List<PlanTag> planTagList = new ArrayList<>();
+        for (Long tagId : tagIdList) {
+            Tag tag = em.getReference(Tag.class, tagId);
+            planTagList.add(new PlanTag(plan, tag));
+        }
+        planTagRepository.saveAll(planTagList);
+    }
+
+    private void saveCommunityBenefits(List<Long> communityBenefitIdList, Plan plan) {
+        List<PlanCommunity> planCommunityList = new ArrayList<>();
+        for (Long communityBenefitId : communityBenefitIdList) {
+            CommunityBenefit communityBenefit = em.getReference(CommunityBenefit.class,
+                communityBenefitId);
+            planCommunityList.add(new PlanCommunity(plan, communityBenefit));
+        }
+        planCommunityRepository.saveAll(planCommunityList);
+    }
+
 }

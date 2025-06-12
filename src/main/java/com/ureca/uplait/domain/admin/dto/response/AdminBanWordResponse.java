@@ -1,16 +1,16 @@
-package com.ureca.uplait.domain.banword.dto.response;
+package com.ureca.uplait.domain.admin.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-@Getter@Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @Schema(description = "금칙어 조회 응답 DTO")
-public class BanWordResponse {
+public class AdminBanWordResponse {
 
     @Schema(description = "금칙어 ID", example = "1")
     private Long id;

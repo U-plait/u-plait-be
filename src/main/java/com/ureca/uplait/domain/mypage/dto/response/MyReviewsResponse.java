@@ -19,6 +19,8 @@ public class MyReviewsResponse {
     private String planName;
     @Schema(description = "리뷰 제목", example = "이 요금제 끝내줘요")
     private String title;
+    @Schema(description = "리뷰 내용", example = "이 요금제 끝내줘요 데이터 걱정없이 잘 쓰고 있습니다.")
+    private String content;
     @Schema(description = "별점", example = "5")
     private int rating;
     @Schema(description = "작성일", example = "25.06.08")

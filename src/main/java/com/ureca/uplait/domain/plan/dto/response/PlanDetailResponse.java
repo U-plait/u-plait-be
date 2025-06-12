@@ -9,30 +9,39 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "요금제 상세 조회 결과")
 public abstract class PlanDetailResponse {
+
     @Schema(description = "요금제 id", example = "1")
-    private Long planId;
+    protected Long planId;
 
     @Schema(description = "요금제 이름", example = "5G 프리미어 에센셜")
-    private String planName;
+    protected String planName;
 
     @Schema(description = "요금제 가격", example = "59000")
-    private Integer planPrice;
+    protected Integer planPrice;
 
     @Schema(description = "요금제 혜택", example = "U+ 모바일 TV 기본 월정액 무료")
-    private String planBenefit;
+    protected String planBenefit;
 
     @Schema(description = "등록 가능 여부", example = "true")
-    private Boolean availability;
+    protected Boolean availability;
 
     @Schema(description = "요금제 사용 여부", example = "true")
-    private Boolean inUse;
+    protected Boolean inUse;
 
-    public PlanDetailResponse(Plan plan, boolean inUse) {
+    protected PlanDetailResponse(Plan plan, boolean inUse) {
         this.planId = plan.getId();
         this.planName = plan.getPlanName();
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
         this.inUse = inUse;
+    }
+
+    protected PlanDetailResponse(Plan plan) {
+        this.planId = plan.getId();
+        this.planName = plan.getPlanName();
+        this.planPrice = plan.getPlanPrice();
+        this.planBenefit = plan.getPlanBenefit();
+        this.availability = plan.getAvailability();
     }
 }

@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.plan.entity;
 
+import com.ureca.uplait.domain.admin.dto.request.PlanCommonRequest;
 import com.ureca.uplait.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -34,4 +35,12 @@ public abstract class Plan extends BaseEntity {
 
     @Column(name = "description", nullable = true)
     private String description;
+
+    public void updateFrom(PlanCommonRequest request) {
+        this.planName = request.getPlanName();
+        this.planPrice = request.getPlanPrice();
+        this.planBenefit = request.getPlanBenefit();
+        this.availability = request.getAvailability();
+        this.description = request.getDescription();
+    }
 }
