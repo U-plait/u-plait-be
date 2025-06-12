@@ -43,7 +43,7 @@ public class CommonResponse<T> {
     }
 
     public static <T> CommonResponse<T> success(ResultCode resultCode, T data) {
-        return new CommonResponse<>(ResultCode.SUCCESS, data);
+        return new CommonResponse<>(resultCode, data);
     }
 
     // 실패 응답 시

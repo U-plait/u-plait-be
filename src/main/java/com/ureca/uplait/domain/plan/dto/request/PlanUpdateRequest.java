@@ -1,18 +1,15 @@
 package com.ureca.uplait.domain.plan.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import lombok.Setter;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Schema(description = "공통 요금제 생성 요청 DTO")
-public abstract class PlanCreateRequest {
+@Setter
+@NoArgsConstructor
+@Schema(description = "공통 요금제 수정 요청 필드")
+public abstract class PlanUpdateRequest {
 
     @Schema(description = "요금제 이름", example = "슬기로운 데이터 100G")
     private String planName;
@@ -26,12 +23,6 @@ public abstract class PlanCreateRequest {
     @Schema(description = "가입 가능 여부", example = "true")
     private Boolean availability;
 
-    @Schema(description = "특징 설명", example = "빠른 속도를 즐기고 싶으신 분들을 위한 요금제")
+    @Schema(description = "요금제 설명", example = "선택 설명")
     private String description;
-
-    @Schema(description = "태그 id List", example = "[1, 2]")
-    private List<Long> tagIdList;
-
-    @Schema(description = "결합 혜택 id List", example = "[1, 2]")
-    private List<Long> communityBenefitList;
 }

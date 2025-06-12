@@ -1,10 +1,16 @@
 package com.ureca.uplait.domain.plan.controller;
 
-import com.ureca.uplait.domain.plan.dto.request.IPTVPlanCreateRequest;
-import com.ureca.uplait.domain.plan.dto.request.InternetPlanCreateRequest;
-import com.ureca.uplait.domain.plan.dto.request.MobilePlanCreateRequest;
-import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
+import com.ureca.uplait.domain.plan.dto.request.IPTVPlanUpdateRequest;
+import com.ureca.uplait.domain.plan.dto.request.InternetPlanUpdateRequest;
+import com.ureca.uplait.domain.plan.dto.request.MobilePlanUpdateRequest;
+import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
+import com.ureca.uplait.domain.plan.entity.IPTVPlan;
+import com.ureca.uplait.domain.plan.entity.InternetPlan;
+import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import com.ureca.uplait.domain.plan.service.AdminPlanService;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
@@ -12,10 +18,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,34 +38,34 @@ public class AdminPlanController {
 
     private final AdminPlanService adminPlanService;
 
-    @Operation(summary = "모바일 요금제 생성", description = "관리자가 모바일 요금제를 생성합니다.")
+    @Operation(summary = "모바일 요금제 생성", description = "관리자가 새로운 모바일 요금제를 등록합니다.")
     @PostMapping("/mobile")
     public CommonResponse<Long> createMobilePlan(
-        @Parameter(description = "모바일 요금제 생성 요청 DTO", required = true)
-        @RequestBody MobilePlanCreateRequest request) {
-        return CommonResponse.success(adminPlanService.createMobilePlan(request));
+        @RequestBody MobilePlan request) {
+        return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
+            adminPlanService.createMobilePlan(request));
     }
 
-    @Operation(summary = "인터넷 요금제 생성", description = "관리자가 인터넷 요금제를 생성합니다.")
+    @Operation(summary = "인터넷 요금제 생성", description = "관리자가 새로운 인터넷 요금제를 등록합니다.")
     @PostMapping("/internet")
     public CommonResponse<Long> createInternetPlan(
-        @Parameter(description = "인터넷 요금제 생성 요청 DTO", required = true)
-        @RequestBody InternetPlanCreateRequest request) {
-        return CommonResponse.success(adminPlanService.createInternetPlan(request));
+        @RequestBody InternetPlan request) {
+        return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
+            adminPlanService.createInternetPlan(request));
     }
 
-    @Operation(summary = "IPTV 요금제 생성", description = "관리자가 IPTV 요금제를 생성합니다.")
+    @Operation(summary = "IPTV 요금제 생성", description = "관리자가 새로운 IPTV 요금제를 등록합니다.")
     @PostMapping("/iptv")
     public CommonResponse<Long> createIptvPlan(
-        @Parameter(description = "IPTV 요금제 생성 요청 DTO", required = true)
-        @RequestBody IPTVPlanCreateRequest request) {
-        return CommonResponse.success(adminPlanService.createIptvPlan(request));
+        @RequestBody IPTVPlan request) {
+        return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
+            adminPlanService.createIptvPlan(request));
     }
 
 
     @Operation(summary = "모바일 요금제 목록 조회", description = "모바일 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
     @GetMapping("/mobile")
-    public CommonResponse<PageImpl<PlanDetailAdminResponse>> getMobilePlans(
+    public CommonResponse<Page<MobilePlanDetailResponse>> getMobilePlans(
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
@@ -61,7 +74,7 @@ public class AdminPlanController {
 
     @Operation(summary = "인터넷 요금제 목록 조회", description = "인터넷 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
     @GetMapping("/internet")
-    public CommonResponse<PageImpl<PlanDetailAdminResponse>> getInternetPlans(
+    public CommonResponse<Page<InternetPlanDetailResponse>> getInternetPlans(
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
@@ -70,23 +83,58 @@ public class AdminPlanController {
 
     @Operation(summary = "IPTV 요금제 목록 조회", description = "IPTV 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
     @GetMapping("/iptv")
-    public CommonResponse<PageImpl<PlanDetailAdminResponse>> getIptvPlans(
+    public CommonResponse<Page<IPTVPlanDetailResponse>> getIptvPlans(
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
         return CommonResponse.success(adminPlanService.getAllIPTVPlans(pageable));
     }
 
+    @Operation(summary = "모바일 요금제 수정", description = "모바일 요금제의 상세 정보를 수정합니다.")
+    @PutMapping("/mobile/{id}")
+    public CommonResponse<PlanDetailAdminResponse> updateMobilePlan(
+        @PathVariable Long id,
+        @RequestBody MobilePlanUpdateRequest request
+    ) {
+        adminPlanService.updateMobilePlan(id, request);
+        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
+        return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
+    }
+
+    @Operation(summary = "인터넷 요금제 수정", description = "인터넷 요금제의 상세 정보를 수정합니다.")
+    @PutMapping("/internet/{id}")
+    public CommonResponse<PlanDetailAdminResponse> updateInternetPlan(
+        @PathVariable Long id,
+        @RequestBody InternetPlanUpdateRequest request
+    ) {
+        adminPlanService.updateInternetPlan(id, request);
+        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
+        return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
+    }
+
+    @Operation(summary = "IPTV 요금제 수정", description = "IPTV 요금제의 상세 정보를 수정합니다.")
+    @PutMapping("/iptv/{id}")
+    public CommonResponse<PlanDetailAdminResponse> updateIPTVPlan(
+        @PathVariable Long id,
+        @RequestBody IPTVPlanUpdateRequest request
+    ) {
+        adminPlanService.updateIPTVPlan(id, request);
+        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
+        return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
+    }
+
+
     @Operation(summary = "관리자 요금제 상세 조회", description = "요금제 ID로 관리자 전용 상세 정보를 조회합니다.")
     @GetMapping("/{type}/detail/{planId}")
-    public CommonResponse<PlanDetailAdminResponse> getPlanDetailForAdmin(
-        @Parameter(description = "요금제 타입 (mobile, internet, iptv)", required = true)
+    public CommonResponse<? extends PlanDetailResponse> getPlanDetailForAdmin(
+        @Parameter(description = "요금제 타입 (MobilePlan, InternetPlan, IPTVPlan)", required = true)
         @PathVariable String type,
         @Parameter(description = "요금제 ID", required = true)
         @PathVariable Long planId
     ) {
-        return CommonResponse.success(adminPlanService.getPlanDetail(planId));
+        return CommonResponse.success(adminPlanService.getTypedPlanDetail(type, planId));
     }
+
 
     @Operation(summary = "요금제 삭제 (ID 기반)", description = "요금제 ID를 기준으로 요금제를 삭제합니다.")
     @DeleteMapping("/{planId}")
@@ -96,15 +144,6 @@ public class AdminPlanController {
     ) {
         Long deletedId = adminPlanService.deletePlanById(planId);
         return CommonResponse.success(ResultCode.PLAN_DELETE_SUCCESS, deletedId);
-    }
-
-    /**
-     * 요금제 생성을 위한 정보 반환
-     */
-    @Operation(summary = "요금제 생성을 위한 정보 반환", description = "요금제 생성을 위한 정보 반환")
-    @GetMapping("/info")
-    public CommonResponse<PlanCreationInfoResponse> getTags() {
-        return CommonResponse.success(adminPlanService.getPlanCreationInfo());
     }
 
 }
