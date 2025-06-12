@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.plan.entity;
 
+import com.ureca.uplait.domain.plan.dto.request.MobilePlanUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -42,4 +43,35 @@ public class MobilePlan extends Plan {
     @Column(name = "premier_discount_rate", nullable = true)
     private Integer premierDiscountRate;
 
+    public MobilePlan toMobile() {
+        return MobilePlan.builder()
+            .planName(getPlanName())
+            .planPrice(getPlanPrice())
+            .planBenefit(getPlanBenefit())
+            .availability(getAvailability())
+            .description(getDescription())
+            .data(data)
+            .sharedData(sharedData)
+            .voiceCall(voiceCall)
+            .message(message)
+            .extraData(extraData)
+            .mediaBenefit(mediaBenefit)
+            .durationDiscountRate(durationDiscountRate)
+            .premierDiscountRate(premierDiscountRate)
+            .build();
+    }
+
+    public void mobileUpdateFrom(MobilePlanUpdateRequest request) {
+        
+        super.updateFrom(request);
+
+        this.data = request.getData();
+        this.sharedData = request.getSharedData();
+        this.voiceCall = request.getVoiceCall();
+        this.message = request.getMessage();
+        this.extraData = request.getExtraData();
+        this.mediaBenefit = request.getMediaBenefit();
+        this.durationDiscountRate = request.getDurationDiscountRate();
+        this.premierDiscountRate = request.getPremierDiscountRate();
+    }
 }

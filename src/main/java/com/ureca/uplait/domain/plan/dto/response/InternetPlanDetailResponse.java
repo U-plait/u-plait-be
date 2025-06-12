@@ -19,4 +19,10 @@ public class InternetPlanDetailResponse extends PlanDetailResponse {
         this.velocity = plan.getVelocity();
         this.internetDiscount = plan.getInternetDiscountRate();
     }
+
+    public InternetPlanDetailResponse(InternetPlan plan) {
+        super(plan);
+        this.velocity = plan.getVelocity();
+        this.internetDiscount = plan.getInternetDiscountRate();
+    }
 }
