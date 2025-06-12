@@ -95,8 +95,8 @@ public class AdminPlanService {
     }
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
-        Plan plan = getPlan(planId); // 내부에서 getPlan 존재한다고 가정
-        return PlanResponseFactory.from(plan); // 또는 타입 분기로 나눠도 됨
+        Plan plan = getPlan(planId);
+        return PlanResponseFactory.from(plan);
     }
 
     public Long deletePlanById(Long planId) {
