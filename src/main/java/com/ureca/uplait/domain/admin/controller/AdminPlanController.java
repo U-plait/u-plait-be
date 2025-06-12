@@ -1,17 +1,17 @@
-package com.ureca.uplait.domain.plan.controller;
+package com.ureca.uplait.domain.admin.controller;
 
-import com.ureca.uplait.domain.plan.dto.request.IPTVPlanUpdateRequest;
-import com.ureca.uplait.domain.plan.dto.request.InternetPlanUpdateRequest;
-import com.ureca.uplait.domain.plan.dto.request.MobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.service.AdminPlanService;
 import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailAdminResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
-import com.ureca.uplait.domain.plan.entity.IPTVPlan;
-import com.ureca.uplait.domain.plan.entity.InternetPlan;
-import com.ureca.uplait.domain.plan.entity.MobilePlan;
-import com.ureca.uplait.domain.plan.service.AdminPlanService;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +41,7 @@ public class AdminPlanController {
     @Operation(summary = "모바일 요금제 생성", description = "관리자가 새로운 모바일 요금제를 등록합니다.")
     @PostMapping("/mobile")
     public CommonResponse<Long> createMobilePlan(
-        @RequestBody MobilePlan request) {
+        @RequestBody AdminMobileCreateRequest request) {
         return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
             adminPlanService.createMobilePlan(request));
     }
@@ -49,7 +49,7 @@ public class AdminPlanController {
     @Operation(summary = "인터넷 요금제 생성", description = "관리자가 새로운 인터넷 요금제를 등록합니다.")
     @PostMapping("/internet")
     public CommonResponse<Long> createInternetPlan(
-        @RequestBody InternetPlan request) {
+        @RequestBody AdminInternetPlanCreateRequest request) {
         return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
             adminPlanService.createInternetPlan(request));
     }
@@ -57,7 +57,7 @@ public class AdminPlanController {
     @Operation(summary = "IPTV 요금제 생성", description = "관리자가 새로운 IPTV 요금제를 등록합니다.")
     @PostMapping("/iptv")
     public CommonResponse<Long> createIptvPlan(
-        @RequestBody IPTVPlan request) {
+        @RequestBody AdminIPTVPlanCreateRequest request) {
         return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
             adminPlanService.createIptvPlan(request));
     }
@@ -91,10 +91,10 @@ public class AdminPlanController {
     }
 
     @Operation(summary = "모바일 요금제 수정", description = "모바일 요금제의 상세 정보를 수정합니다.")
-    @PutMapping("/mobile/{id}")
+    @PutMapping("/mobile/{planId}")
     public CommonResponse<PlanDetailAdminResponse> updateMobilePlan(
         @PathVariable Long id,
-        @RequestBody MobilePlanUpdateRequest request
+        @RequestBody AdminMobilePlanUpdateRequest request
     ) {
         adminPlanService.updateMobilePlan(id, request);
         PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
@@ -102,10 +102,10 @@ public class AdminPlanController {
     }
 
     @Operation(summary = "인터넷 요금제 수정", description = "인터넷 요금제의 상세 정보를 수정합니다.")
-    @PutMapping("/internet/{id}")
+    @PutMapping("/internet/{planId}")
     public CommonResponse<PlanDetailAdminResponse> updateInternetPlan(
         @PathVariable Long id,
-        @RequestBody InternetPlanUpdateRequest request
+        @RequestBody AdminInternetPlanUpdateRequest request
     ) {
         adminPlanService.updateInternetPlan(id, request);
         PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);
@@ -113,10 +113,10 @@ public class AdminPlanController {
     }
 
     @Operation(summary = "IPTV 요금제 수정", description = "IPTV 요금제의 상세 정보를 수정합니다.")
-    @PutMapping("/iptv/{id}")
+    @PutMapping("/iptv/{planId}")
     public CommonResponse<PlanDetailAdminResponse> updateIPTVPlan(
         @PathVariable Long id,
-        @RequestBody IPTVPlanUpdateRequest request
+        @RequestBody AdminIPTVPlanUpdateRequest request
     ) {
         adminPlanService.updateIPTVPlan(id, request);
         PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(id);

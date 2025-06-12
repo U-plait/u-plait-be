@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.plan.dto.request;
+package com.ureca.uplait.domain.admin.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Schema(description = "인터넷 요금제 수정 요청 DTO")
-public class InternetPlanUpdateRequest extends PlanUpdateRequest {
+public class AdminInternetPlanUpdateRequest extends PlanCommonRequest {
 
     @Schema(description = "인터넷 속도", example = "1Gbps")
     private String velocity;
