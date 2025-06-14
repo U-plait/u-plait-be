@@ -66,10 +66,12 @@ public class BookmarkService {
         Bookmark bookmark = findBookmark(bookmarkId);
         checkAuthority(user, bookmark);
 
+        long deletedPlanId = bookmark.getPlan().getId();
+
         // 즐겨찾기 제거
         bookmarkRepository.delete(bookmark);
 
-        return new DeleteBookmarkResponse();
+        return new DeleteBookmarkResponse(deletedPlanId);
     }
 
     private void checkAuthority(User user, Bookmark bookmark) {
