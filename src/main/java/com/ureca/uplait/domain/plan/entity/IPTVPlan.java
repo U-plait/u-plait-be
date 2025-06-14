@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.plan.entity;
 
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -24,4 +25,11 @@ public class IPTVPlan extends Plan {
     @Column(name = "iptv_discount_rate", nullable = true)
     private Integer iptvDiscountRate;
 
+    public void IPTVUpdateForm(AdminIPTVPlanUpdateRequest request) {
+
+        super.updateFrom(request);
+
+        this.channel = request.getChannel();
+        this.iptvDiscountRate = request.getIptvDiscountRate();
+    }
 }

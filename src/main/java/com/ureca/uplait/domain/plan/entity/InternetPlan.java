@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.plan.entity;
 
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -23,5 +24,13 @@ public class InternetPlan extends Plan {
 
     @Column(name = "internet_discount_rate", nullable = true)
     private Integer internetDiscountRate;
-    
+
+
+    public void InternetUpdateForm(AdminInternetPlanUpdateRequest request) {
+
+        super.updateFrom(request);
+
+        this.velocity = request.getVelocity();
+        this.internetDiscountRate = request.getInternetDiscountRate();
+    }
 }

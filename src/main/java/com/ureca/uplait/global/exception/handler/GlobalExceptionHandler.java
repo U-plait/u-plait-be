@@ -2,8 +2,10 @@ package com.ureca.uplait.global.exception.handler;
 
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.CommonResponse;
+import com.ureca.uplait.global.response.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -15,5 +17,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CommonResponse<Void>> handleException(GlobalException e) {
         return ResponseEntity.status(e.getResultCode().getStatus())
             .body(new CommonResponse<>(e.getResultCode()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<CommonResponse<Void>> handleValidationException(MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .findFirst()
+                .map(fieldError -> fieldError.getDefaultMessage())
+                .orElse("유효하지 않은 요청입니다.");
+
+        return ResponseEntity.badRequest()
+                .body(CommonResponse.fail(ResultCode.INVALID_INPUT, message));
     }
 }
