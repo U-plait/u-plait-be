@@ -36,7 +36,7 @@ public class DescriptionUtil {
     }
 
     private static String makeMobileInfo(MobilePlan plan) {
-        return ("모바일 요금제 '" + plan.getPlanName() + "'은 월 " + plan.getPlanPrice() + "원입니다.\n" +
+        return ("모바일 요금제 '" + plan.getPlanName() + "'의 id는 " + plan.getId()  + "(으)로, 월 " + plan.getPlanPrice() + "원입니다.\n" +
             "기본 제공: 데이터 " + plan.getData() +
             ", 통화 " + plan.getVoiceCall() +
             ", 문자 " + plan.getMessage() + ".\n" +
@@ -48,14 +48,14 @@ public class DescriptionUtil {
     }
 
     private static String makeInternetInfo(InternetPlan plan) {
-        return ("인터넷 요금제 '" + plan.getPlanName() + "'은 월 " + plan.getPlanPrice() + "원이며,\n" +
+        return ("인터넷 요금제 '" + plan.getPlanName() + "'의 id는 " + plan.getId()  + "(으)로, 월 " + plan.getPlanPrice() + "원이며,\n" +
             "온라인 전용 할인가 적용 시 " + plan.getInternetDiscountRate() + "원입니다.\n" +
             "속도: " + plan.getVelocity() + "\n" +
             makeBenefitInfo(plan.getPlanBenefit())).trim();
     }
 
     private static String makeIPTVInfo(IPTVPlan plan) {
-        return ("IPTV 요금제 '" + plan.getPlanName() + "'은 월 " + plan.getPlanPrice() + "원이며,\n" +
+        return ("IPTV 요금제 '" + plan.getPlanName() + "'의 id는 " + plan.getId()  + "(으)로, 월 " + plan.getPlanPrice() + "원이며,\n" +
             "온라인 전용 할인가 적용 시 " + plan.getIptvDiscountRate() + "원입니다.\n" +
             "채널 수: " + plan.getChannel() + "개\n" +
             makeBenefitInfo(plan.getPlanBenefit())).trim();
