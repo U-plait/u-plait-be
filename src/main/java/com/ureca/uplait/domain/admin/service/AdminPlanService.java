@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.admin.service;
 
+import com.ureca.uplait.domain.admin.api.FastAPIClient;
 import com.ureca.uplait.domain.admin.dto.request.*;
 import com.ureca.uplait.domain.admin.repository.PlanVectorJdbcRepository;
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
@@ -25,8 +26,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
-import static com.ureca.uplait.global.response.ResultCode.FAST_API_DB_ERROR;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +46,7 @@ public class AdminPlanService {
     private final PlanCommunityRepository planCommunityRepository;
     private final CommunityBenefitPriceRepository communityBenefitPriceRepository;
     private final PlanVectorJdbcRepository planVectorJdbcRepository;
-    private final WebClient fastApiWebClient;
+    private final FastAPIClient fastAPIClient;
 
     /**
      * 요금제 생성
@@ -68,7 +66,8 @@ public class AdminPlanService {
         saveCommunityBenefits(communityBenefitList, plan);
 
         // 문장 생성 및 API 요청
-        saveVector(plan, tagList, communityBenefitList);
+        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(plan, description);
 
         return plan.getId();
     }
@@ -86,7 +85,8 @@ public class AdminPlanService {
         saveCommunityBenefits(communityBenefitList, plan);
 
         // 문장 생성 및 API 요청
-        saveVector(plan, tagList, communityBenefitList);
+        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(plan, description);
 
         return plan.getId();
     }
@@ -105,7 +105,8 @@ public class AdminPlanService {
         saveCommunityBenefits(communityBenefitList, plan);
 
         // 문장 생성 및 API 요청
-        saveVector(plan, tagList, communityBenefitList);
+        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(plan, description);
 
         return plan.getId();
     }
@@ -213,7 +214,8 @@ public class AdminPlanService {
             List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(plan).stream().map(PlanCommunity::getCommunityBenefit).toList();
 
             // 문장 생성 및 API 요청
-            saveVector(plan, tagList, communityBenefitList);
+            String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+            fastAPIClient.saveVector(plan, description);
         }
         return planList.size() + "개의 정보를 갱신하였습니다.";
     }
@@ -243,22 +245,5 @@ public class AdminPlanService {
             planCommunityList.add(new PlanCommunity(plan, communityBenefit));
         }
         planCommunityRepository.saveAll(planCommunityList);
-    }
-
-    private void saveVector(Plan plan, List<Tag> tagList, List<CommunityBenefit> communityBenefitList) {
-        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
-
-        fastApiWebClient.post()
-            .uri(uriBuilder -> uriBuilder
-                .path("/vector")
-                .queryParam("plan_id", plan.getId())
-                .queryParam("description", description)
-                .build()
-            )
-            .retrieve()
-            .onStatus(status -> !status.is2xxSuccessful(), clientResponse -> clientResponse.bodyToMono(String.class)
-                .flatMap(errorBody -> Mono.error(new GlobalException(FAST_API_DB_ERROR))))
-            .bodyToMono(Void.class)
-            .block();
     }
 }
