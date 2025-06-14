@@ -28,6 +28,9 @@ public abstract class PlanDetailResponse {
     @Schema(description = "요금제 사용 여부", example = "true")
     protected Boolean inUse;
 
+    @Schema(description = "플랜 타입", example = "MobilePlan")
+    private String planType;
+
     protected PlanDetailResponse(Plan plan, boolean inUse) {
         this.planId = plan.getId();
         this.planName = plan.getPlanName();
@@ -43,5 +46,9 @@ public abstract class PlanDetailResponse {
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
+    }
+
+    protected void setPlanType(String planType) {
+        this.planType = planType;
     }
 }
