@@ -22,4 +22,11 @@ public class WebClientConfig {
 			.defaultHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
 			.build();
 	}
+
+	@Bean
+	public WebClient fastApiWebClient() {
+		return WebClient.builder()
+			.baseUrl("http://127.0.0.1:8000")
+			.build();
+	}
 }

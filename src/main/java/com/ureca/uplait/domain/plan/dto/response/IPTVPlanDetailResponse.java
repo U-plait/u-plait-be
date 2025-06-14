@@ -17,12 +17,12 @@ public class IPTVPlanDetailResponse extends PlanDetailResponse {
     public IPTVPlanDetailResponse(IPTVPlan plan, boolean inUse) {
         super(plan, inUse);
         this.channel = plan.getChannel();
-        this.iptvDiscount = plan.getIptvDiscountRate();
+        this.iptvDiscount = plan.getPlanPrice() * (100 - plan.getIptvDiscountRate()) / 100;
     }
 
     public IPTVPlanDetailResponse(IPTVPlan plan) {
         super(plan);
         this.channel = plan.getChannel();
-        this.iptvDiscount = plan.getIptvDiscountRate();
+        this.iptvDiscount = plan.getPlanPrice() * (100 - plan.getIptvDiscountRate()) / 100;
     }
 }
