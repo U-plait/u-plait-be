@@ -1,6 +1,6 @@
 package com.ureca.uplait.domain.mypage.dto.response;
 
-import com.ureca.uplait.domain.review.entity.Review;
+import com.ureca.uplait.domain.plan.entity.PlanType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,8 @@ public class MyReviewsResponse {
     private Long reviewId;
     @Schema(description = "요금제 id", example = "1")
     private Long planId;
+    @Schema(description = "요금제 타입", example = "MOBILE")
+    private PlanType planType;
     @Schema(description = "요금제 이름", example = "5G 요금제")
     private String planName;
     @Schema(description = "리뷰 제목", example = "이 요금제 끝내줘요")
