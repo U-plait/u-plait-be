@@ -22,6 +22,7 @@ public class InternetPlanDetailResponse extends PlanDetailResponse {
 
     public InternetPlanDetailResponse(InternetPlan plan) {
         super(plan);
+        this.setPlanType("InternetPlan");
         this.velocity = plan.getVelocity();
         this.internetDiscount = plan.getInternetDiscountRate();
     }
