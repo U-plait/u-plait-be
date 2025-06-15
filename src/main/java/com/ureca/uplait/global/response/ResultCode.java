@@ -30,6 +30,7 @@ public enum ResultCode {
     PLAN_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 3003, "요금제가 삭제됐습니다."),
     PLAN_UPDATE_SUCCESS(HttpStatus.OK, 3004, "요금제가 수정됐습니다."),
     PLAN_CREATE_SUCCESS(HttpStatus.OK, 3005, "요금제가 생성됐습니다."),
+    PLAN_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND, 3006, "요금제 타입을 찾을 수 없습니다."),
 
     // 4000번대 (금칙어 관련)
     BANWORD_NOT_FOUND(HttpStatus.NOT_FOUND, 4000, "금칙어를 찾을 수 없습니다."),
