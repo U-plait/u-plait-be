@@ -1,9 +1,9 @@
-package com.ureca.uplait.domain.review.controller;
+package com.ureca.uplait.domain.admin.controller;
 
 import static org.springframework.data.domain.Sort.Direction;
 
+import com.ureca.uplait.domain.admin.service.AdminReviewService;
 import com.ureca.uplait.domain.review.dto.response.AdminReviewResponse;
-import com.ureca.uplait.domain.review.service.AdminReviewService;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
