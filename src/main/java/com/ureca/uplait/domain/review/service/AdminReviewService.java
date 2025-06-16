@@ -1,6 +1,7 @@
 package com.ureca.uplait.domain.review.service;
 
 import com.ureca.uplait.domain.review.dto.response.AdminReviewResponse;
+import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
@@ -19,6 +20,14 @@ public class AdminReviewService {
     @Transactional(readOnly = true)
     public Page<AdminReviewResponse> getAllReviewsForAdmin(Pageable pageable) {
         return reviewRepository.findAllReviewsForAdmin(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public AdminReviewResponse getReviewDetailForAdmin(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new GlobalException(ResultCode.REVIEW_NOT_FOUND));
+
+        return AdminReviewResponse.from(review);
     }
 
     @Transactional
