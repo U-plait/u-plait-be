@@ -4,10 +4,13 @@ import com.ureca.uplait.domain.mypage.dto.response.MyPageResponse;
 import com.ureca.uplait.domain.mypage.dto.request.MyPageUpdateRequest;
 import com.ureca.uplait.domain.mypage.dto.response.MyPageUpdateResponse;
 import com.ureca.uplait.domain.mypage.dto.response.MyReviewsResponse;
+import com.ureca.uplait.domain.plan.entity.*;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.repository.UserRepository;
+import com.ureca.uplait.global.exception.GlobalException;
+import com.ureca.uplait.global.response.ResultCode;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,15 +52,32 @@ public class MyPageService {
         List<Review> reviewList = reviewRepository.findByUserIdWithPlan(userId);
 
         return reviewList.stream()
-                .map(review -> new MyReviewsResponse(
-                        review.getId(),
-                        review.getPlan().getId(),
-                        review.getPlan().getPlanName(),
-                        review.getTitle(),
-                        review.getContent(),
-                        review.getRating(),
-                        review.getCreatedAt()
-                ))
+                .map(review -> {
+                    Plan plan = review.getPlan();
+                    PlanType planType;
+
+                    if (plan instanceof MobilePlan) {
+                        planType = PlanType.MOBILE;
+                    } else if (plan instanceof InternetPlan) {
+                        planType = PlanType.INTERNET;
+                    } else if (plan instanceof IPTVPlan) {
+                        planType = PlanType.IPTV;
+                    } else {
+                        // 예외 처리: 타입을 모르는 경우
+                        throw new GlobalException(ResultCode.REVIEW_NOT_FOUND);
+                    }
+
+                    return new MyReviewsResponse(
+                            review.getId(),
+                            plan.getId(),
+                            planType,
+                            plan.getPlanName(),
+                            review.getTitle(),
+                            review.getContent(),
+                            review.getRating(),
+                            review.getCreatedAt()
+                    );
+                })
                 .toList();
     }
 }
