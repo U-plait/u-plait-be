@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749692185196-1" author="student">
+        <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="content" tableName="review" validate="true"/>
+    </changeSet>
+    <changeSet id="1749692185196-2" author="student">
+        <addNotNullConstraint columnDataType="INT" columnName="rating" tableName="review" validate="true"/>
+    </changeSet>
+    <changeSet id="1749692185196-3" author="student">
+        <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="title" tableName="review" validate="true"/>
+    </changeSet>
+  <changeSet id="1749706306730-1" author="songhyeongyu">
+    <createTable tableName="allow_word">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_allow_word"/>
+      </column>
+      <column name="created_at" type="DATETIME"/>
+      <column name="updated_at" type="DATETIME"/>
+      <column name="allow_word" type="VARCHAR(20)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>
