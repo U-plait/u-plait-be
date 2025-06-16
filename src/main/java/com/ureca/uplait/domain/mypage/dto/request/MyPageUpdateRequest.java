@@ -1,6 +1,5 @@
 package com.ureca.uplait.domain.mypage.dto.request;
 
-import com.ureca.uplait.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -63,6 +63,7 @@ public class AdminPlanService {
     private final PlanVectorJdbcRepository planVectorJdbcRepository;
     private final FastAPIClient fastAPIClient;
 
+    @Transactional
     public AdminPlanCreateResponse createMobilePlan(AdminMobileCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
 
@@ -83,6 +84,7 @@ public class AdminPlanService {
         return new AdminPlanCreateResponse(plan.getId());
     }
 
+    @Transactional
     public AdminPlanCreateResponse createInternetPlan(AdminInternetPlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
         InternetPlan plan = request.toInternet();
@@ -102,6 +104,7 @@ public class AdminPlanService {
         return new AdminPlanCreateResponse(plan.getId());
     }
 
+    @Transactional
     public AdminPlanCreateResponse createIptvPlan(AdminIPTVPlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
 
@@ -122,9 +125,7 @@ public class AdminPlanService {
         return new AdminPlanCreateResponse(plan.getId());
     }
 
-    /**
-     * 요금제 갱신
-     */
+    @Transactional
     public void updateMobilePlan(Long id, AdminMobilePlanUpdateRequest request) {
         Plan plan = getPlan(id);
         if (!(plan instanceof MobilePlan)) {
@@ -133,6 +134,7 @@ public class AdminPlanService {
         ((MobilePlan) plan).mobileUpdateFrom(request);
     }
 
+    @Transactional
     public void updateIPTVPlan(Long id, AdminIPTVPlanUpdateRequest request) {
         Plan plan = getPlan(id);
         if (!(plan instanceof IPTVPlan)) {
@@ -142,6 +144,7 @@ public class AdminPlanService {
 
     }
 
+    @Transactional
     public void updateInternetPlan(Long id, AdminInternetPlanUpdateRequest request) {
         Plan plan = getPlan(id);
         if (!(plan instanceof InternetPlan)) {
@@ -150,9 +153,6 @@ public class AdminPlanService {
         ((InternetPlan) plan).InternetUpdateForm(request);
     }
 
-    /**
-     * 요금제 목록 조회
-     */
     @Transactional(readOnly = true)
     public Page<MobilePlanDetailResponse> getAllMobilePlans(Pageable pageable) {
         return planRepository.findAllMobilePlans(pageable);
@@ -168,9 +168,6 @@ public class AdminPlanService {
         return planRepository.findAllIPTVPlans(pageable);
     }
 
-    /**
-     * 요금제 상세 조회 (ADMIN)
-     */
     @Transactional(readOnly = true)
     public AdminPlanDetailResponse getPlanDetail(Long planId) {
         Plan plan = getPlan(planId);
@@ -182,6 +179,7 @@ public class AdminPlanService {
         return PlanResponseFactory.from(plan);
     }
 
+    @Transactional
     public AdminPlanDeleteResponse deletePlanById(Long planId) {
         Plan plan = getPlan(planId);
         planRepository.delete(plan);
@@ -199,9 +197,6 @@ public class AdminPlanService {
         }
     }
 
-    /**
-     * 요금제 생성을 위한 정보 반환
-     */
     public PlanCreationInfoResponse getPlanCreationInfo() {
         return new PlanCreationInfoResponse(
             tagRepository.findAll().stream().map(TagResponse::new).toList(),
@@ -218,8 +213,8 @@ public class AdminPlanService {
         for (Plan plan : planList) {
             List<Tag> tagList = planTagRepository.findAllByPlan(plan).stream().map(PlanTag::getTag)
                 .toList();
-            List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(
-                plan).stream().map(PlanCommunity::getCommunityBenefit).toList();
+            List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(plan)
+                    .stream().map(PlanCommunity::getCommunityBenefit).toList();
 
             String description = createDescription(plan, tagList,
                 getPricesGroupedByBenefit(communityBenefitList));
