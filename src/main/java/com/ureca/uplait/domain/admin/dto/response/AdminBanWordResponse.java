@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Schema(description = "금칙어 조회 응답 DTO")
 public class AdminBanWordResponse {
-
     @Schema(description = "금칙어 ID", example = "1")
     private Long id;
 

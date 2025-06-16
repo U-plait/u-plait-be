@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class WordConflictValidator {
+
     private final BanWordRepository banWordRepository;
     private final AllowWordRepository allowWordRepository;
 

@@ -25,11 +25,6 @@ public class PlanController {
 
     private final PlanService planService;
 
-    /**
-     * 요금제 상세 조회
-     *
-     * @param planId
-     */
     @Operation(summary = "요금제 상세 조회", description = "요금제 상세 조회")
     @GetMapping("/{planId}")
     public CommonResponse<PlanDetailResponse> getPlanDetail(
@@ -66,9 +61,7 @@ public class PlanController {
         @PathVariable String planType,
         @RequestBody PlanCompareRequest requestDto
     ) {
-        List<PlanDetailResponse> response = planService.comparePlansByType(planType,
-            requestDto.getPlanIds());
-        return CommonResponse.success(response);
+        return CommonResponse.success(planService.comparePlansByType(planType, requestDto.getPlanIds()));
     }
 
 }

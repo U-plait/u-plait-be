@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "IPTV 요금제 수정 요청 DTO")
 public class AdminIPTVPlanUpdateRequest extends PlanCommonRequest {
-
     @Schema(description = "채널 수", example = "200")
     private Integer channel;
 

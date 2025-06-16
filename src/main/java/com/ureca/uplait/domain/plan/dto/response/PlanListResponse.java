@@ -6,10 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor // Lombok의 NoArgsConstructor 추가
+@NoArgsConstructor
 @Schema(description = "요금제 목록 조회 결과 (이름, 가격만 포함)")
 public class PlanListResponse {
-
     @Schema(description = "요금제 id", example = "1")
     private Long planId;
 

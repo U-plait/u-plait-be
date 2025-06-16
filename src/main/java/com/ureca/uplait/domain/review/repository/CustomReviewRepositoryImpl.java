@@ -5,7 +5,7 @@ import static com.ureca.uplait.domain.review.entity.QReview.review;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ureca.uplait.domain.review.dto.response.AdminReviewResponse;
+import com.ureca.uplait.domain.admin.dto.response.AdminReviewResponse;
 import com.ureca.uplait.domain.review.entity.QReview;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.user.entity.QUser;

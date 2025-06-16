@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "인터넷 요금제 수정 요청 DTO")
 public class AdminInternetPlanUpdateRequest extends PlanCommonRequest {
-
     @Schema(description = "인터넷 속도", example = "1Gbps")
     private String velocity;
 

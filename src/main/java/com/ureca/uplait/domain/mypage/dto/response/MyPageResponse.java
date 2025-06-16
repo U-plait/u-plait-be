@@ -1,6 +1,5 @@
 package com.ureca.uplait.domain.mypage.dto.response;
 
-import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.enums.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

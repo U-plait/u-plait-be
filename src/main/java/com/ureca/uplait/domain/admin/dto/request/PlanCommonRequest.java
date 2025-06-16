@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "공통 요금제 수정 요청 필드")
 public abstract class PlanCommonRequest {
-
     @Schema(description = "요금제 이름", example = "슬기로운 데이터 100G")
     private String planName;
 

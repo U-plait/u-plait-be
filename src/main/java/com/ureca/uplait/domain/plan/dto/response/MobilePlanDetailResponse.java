@@ -8,7 +8,6 @@ import lombok.Getter;
 @Getter
 @Schema(description = "모바일 요금제 상세")
 public class MobilePlanDetailResponse extends PlanDetailResponse {
-
     @Schema(description = "데이터", example = "무제한")
     private String data;
 

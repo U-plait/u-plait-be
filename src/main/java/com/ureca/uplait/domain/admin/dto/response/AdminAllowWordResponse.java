@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Schema(description = "허용어 조회 응답 DTO")
 public class AdminAllowWordResponse {
-
     @Schema(description = "허용어 ID", example = "1")
     private Long id;
 

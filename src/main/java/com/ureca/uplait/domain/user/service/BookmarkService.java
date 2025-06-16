@@ -23,28 +23,20 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
     private final EntityManager em;
 
-    /**
-     * 즐겨찾기 조회
-     */
     @Transactional(readOnly = true)
     public BookmarkListResponse getBookmarks(User user, PlanType planType, int size, Long lastBookmarkId) {
         List<BookmarkResponse> bookmarkList = new java.util.ArrayList<>(bookmarkRepository.getBookmarksByPlanAndPage(user.getId(),size + 1, lastBookmarkId, planType)
             .stream().map(b -> BookmarkResponseFactory.from(b.getPlan(), b.getId(), true))
             .toList());
 
-        // 다음 페이지 확인 및 반환값 조정
         boolean hasNext = (bookmarkList.size() > size);
         if (hasNext) bookmarkList.remove(bookmarkList.size() - 1);
 
         return new BookmarkListResponse(bookmarkList, hasNext);
     }
 
-    /**
-     * 즐겨찾기 생성
-     */
     @Transactional
     public CreateBookmarkResponse createBookmark(User user, Long planId) {
-        // 중복 검사
         if(bookmarkRepository.existsBookmarkByPlanId(planId)) {
             throw new GlobalException(DUPLICATED_BOOKMARK);
         }
@@ -57,18 +49,13 @@ public class BookmarkService {
         return new CreateBookmarkResponse(savedBookmark.getId());
     }
 
-    /**
-     * 즐겨찾기 삭제
-     */
     @Transactional
     public DeleteBookmarkResponse deleteBookmark(User user, Long bookmarkId) {
-        // 권환 확인
         Bookmark bookmark = findBookmark(bookmarkId);
         checkAuthority(user, bookmark);
 
         long deletedPlanId = bookmark.getPlan().getId();
 
-        // 즐겨찾기 제거
         bookmarkRepository.delete(bookmark);
 
         return new DeleteBookmarkResponse(deletedPlanId);

@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 @Schema(description = "인터넷 요금제 상세")
 public class InternetPlanDetailResponse extends PlanDetailResponse {
-
     @Schema(description = "인터넷 속도", example = "500M")
     private String velocity;
 
