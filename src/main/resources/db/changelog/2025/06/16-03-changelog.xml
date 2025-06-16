@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1750071992092-1" author="djlim00">
+        <addColumn tableName="user_tag">
+            <column name="tag_count" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1750071992092-2" author="djlim00">
+        <addNotNullConstraint columnName="tag_count" tableName="user_tag"/>
+    </changeSet>
+
+</databaseChangeLog>
