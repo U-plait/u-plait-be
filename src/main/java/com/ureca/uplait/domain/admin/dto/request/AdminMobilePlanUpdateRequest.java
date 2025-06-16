@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.admin.dto.request;
 
+import com.ureca.uplait.domain.plan.entity.MediaBenefit;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,8 @@ public class AdminMobilePlanUpdateRequest extends PlanCommonRequest {
     @Schema(description = "추가 데이터 정보", example = "매달 1GB 추가 제공")
     private String extraData;
 
-    @Schema(description = "미디어 혜택 여부", example = "true")
-    private Boolean mediaBenefit;
+    @Schema(description = "미디어 혜택", example = "NORMAL")
+    private MediaBenefit mediaBenefit;
 
     @Schema(description = "약정 할인율 (%)", example = "10")
     private Integer durationDiscountRate;
