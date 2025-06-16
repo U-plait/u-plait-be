@@ -17,12 +17,9 @@ public class ChatLog extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = true)
+    @Column(columnDefinition="TEXT", nullable = false)
     private String log;
 
-    @Column(nullable = true)
-    private Long sequence;
-
-    @Column(name = "is_chatbot", nullable = true)
+    @Column(name = "is_chatbot", nullable = false)
     private Boolean isChatbot;
 }

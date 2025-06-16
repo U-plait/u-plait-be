@@ -1,6 +1,7 @@
 package com.ureca.uplait.domain.plan.dto.response;
 
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
+import com.ureca.uplait.domain.plan.entity.MediaBenefit;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -22,8 +23,8 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "추가 데이터", example = "월 500MB")
     private String extraData;
 
-    @Schema(name = "미디어 혜택", example = "밀")
-    private boolean mediaBenefit;
+    @Schema(name = "미디어 혜택", example = "NORMAL")
+    private MediaBenefit mediaBenefit;
 
     @Schema(description = "선택 약정 할인", example = "25")
     private int durationDiscountRate;
