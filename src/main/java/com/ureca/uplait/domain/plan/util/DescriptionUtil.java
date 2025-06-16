@@ -2,10 +2,7 @@ package com.ureca.uplait.domain.plan.util;
 
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
 import com.ureca.uplait.domain.community.entity.CommunityBenefitPrice;
-import com.ureca.uplait.domain.plan.entity.IPTVPlan;
-import com.ureca.uplait.domain.plan.entity.InternetPlan;
-import com.ureca.uplait.domain.plan.entity.MobilePlan;
-import com.ureca.uplait.domain.plan.entity.Plan;
+import com.ureca.uplait.domain.plan.entity.*;
 import com.ureca.uplait.domain.user.entity.Tag;
 
 import java.util.List;
@@ -43,7 +40,8 @@ public class DescriptionUtil {
             "추가 제공: 데이터 " + plan.getExtraData() +
             ", 공유 데이터 " + plan.getSharedData() + ".\n" +
             "약정 할인율 " + plan.getDurationDiscountRate() + "%, 프리미어 할인 적용 시 추가 " + plan.getPremierDiscountRate() + "원 할인\n" +
-            (plan.getMediaBenefit() ? "미디어 혜택: 아이들 나라 스탠다드 러닝, 바이브 300회 음악 감상, 유플레이, 밀리의 서재 중 하나를 선택하여 제공받을 수 있습니다.\n" : "") +
+            (plan.getMediaBenefit() != MediaBenefit.NONE ? "미디어 서비스 기본 혜택: 아이들 나라 스탠다드 러닝, 바이브 300회 음악 감상, 유플레이, 밀리의 서재, 지니뮤직 300회 음악감상 중 하나를 선택하여 제공받을 수 있습니다.\n" : "") +
+            (plan.getMediaBenefit() == MediaBenefit.PREMIUM ? "미디어 서비스 프리미엄 혜택: 폰교체 패스, 삼성팩, 티빙 이용권 할인, 디즈니+, 넷플릭스, 헬로렌탈구독, 일리커피구독, 우리집지킴이 Easy2+, 우리집돌봄이 Kids, 신한카드 Air, 유튜브 프리미엄 할인, 멀티팩 중 하나를 선택하여 제공받을 수 있습니다.\n" : "") +
             makeBenefitInfo(plan.getPlanBenefit())).trim();
     }
 

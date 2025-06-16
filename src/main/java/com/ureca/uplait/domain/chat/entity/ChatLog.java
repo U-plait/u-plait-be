@@ -17,13 +17,9 @@ public class ChatLog extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = true)
+    @Column(columnDefinition="TEXT", nullable = false)
     private String log;
 
-    // TODO : ERD 상에서는 "채팅순서"라고 명시되어 있음. 정확한 의미를 모르겠음.
-    @Column(nullable = true)
-    private Long sequence;
-
-    @Column(name = "is_chatbot", nullable = true)
+    @Column(name = "is_chatbot", nullable = false)
     private Boolean isChatbot;
 }
