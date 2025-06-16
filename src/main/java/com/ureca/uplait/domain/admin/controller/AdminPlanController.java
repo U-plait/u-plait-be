@@ -1,8 +1,18 @@
 package com.ureca.uplait.domain.admin.controller;
 
-import com.ureca.uplait.domain.admin.dto.request.*;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.response.AdminPlanDetailResponse;
 import com.ureca.uplait.domain.admin.service.AdminPlanService;
-import com.ureca.uplait.domain.plan.dto.response.*;
+import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +22,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -84,34 +101,34 @@ public class AdminPlanController {
      */
     @Operation(summary = "모바일 요금제 수정", description = "모바일 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/mobile/{planId}")
-    public CommonResponse<PlanDetailAdminResponse> updateMobilePlan(
+    public CommonResponse<AdminPlanDetailResponse> updateMobilePlan(
         @PathVariable Long planId,
         @RequestBody AdminMobilePlanUpdateRequest request
     ) {
         adminPlanService.updateMobilePlan(planId, request);
-        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(planId);
+        AdminPlanDetailResponse updated = adminPlanService.getPlanDetail(planId);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
     }
 
     @Operation(summary = "인터넷 요금제 수정", description = "인터넷 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/internet/{planId}")
-    public CommonResponse<PlanDetailAdminResponse> updateInternetPlan(
+    public CommonResponse<AdminPlanDetailResponse> updateInternetPlan(
         @PathVariable Long planId,
         @RequestBody AdminInternetPlanUpdateRequest request
     ) {
         adminPlanService.updateInternetPlan(planId, request);
-        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(planId);
+        AdminPlanDetailResponse updated = adminPlanService.getPlanDetail(planId);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
     }
 
     @Operation(summary = "IPTV 요금제 수정", description = "IPTV 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/iptv/{planId}")
-    public CommonResponse<PlanDetailAdminResponse> updateIPTVPlan(
+    public CommonResponse<AdminPlanDetailResponse> updateIPTVPlan(
         @PathVariable Long planId,
         @RequestBody AdminIPTVPlanUpdateRequest request
     ) {
         adminPlanService.updateIPTVPlan(planId, request);
-        PlanDetailAdminResponse updated = adminPlanService.getPlanDetail(planId);
+        AdminPlanDetailResponse updated = adminPlanService.getPlanDetail(planId);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, updated);
     }
 

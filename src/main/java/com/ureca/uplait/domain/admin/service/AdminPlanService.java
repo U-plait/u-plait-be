@@ -1,7 +1,15 @@
 package com.ureca.uplait.domain.admin.service;
 
+import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
+
 import com.ureca.uplait.domain.admin.api.FastAPIClient;
-import com.ureca.uplait.domain.admin.dto.request.*;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.response.AdminPlanDetailResponse;
 import com.ureca.uplait.domain.admin.repository.PlanVectorJdbcRepository;
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
 import com.ureca.uplait.domain.community.entity.CommunityBenefitPrice;
@@ -9,7 +17,14 @@ import com.ureca.uplait.domain.community.entity.PlanCommunity;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitPriceRepository;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitRepository;
 import com.ureca.uplait.domain.community.repository.PlanCommunityRepository;
-import com.ureca.uplait.domain.plan.dto.response.*;
+import com.ureca.uplait.domain.plan.dto.response.CommunityBenefitResponse;
+import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
+import com.ureca.uplait.domain.plan.dto.response.TagResponse;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
@@ -21,18 +36,15 @@ import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.domain.user.repository.TagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
 
 @Service
 @RequiredArgsConstructor
@@ -59,14 +71,16 @@ public class AdminPlanService {
         planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
-        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(request.getCommunityBenefitList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitList());
 
         // 태그, 결합 정보 저장
         savePlanTags(tagList, plan);
         saveCommunityBenefits(communityBenefitList, plan);
 
         // 문장 생성 및 API 요청
-        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        String description = createDescription(plan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(plan, description);
 
         return plan.getId();
@@ -78,14 +92,16 @@ public class AdminPlanService {
         planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
-        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(request.getCommunityBenefitList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitList());
 
         // 태그, 결합 정보 저장
         savePlanTags(tagList, plan);
         saveCommunityBenefits(communityBenefitList, plan);
 
         // 문장 생성 및 API 요청
-        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        String description = createDescription(plan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(plan, description);
 
         return plan.getId();
@@ -98,14 +114,16 @@ public class AdminPlanService {
         planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
-        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(request.getCommunityBenefitList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitList());
 
         // 태그, 결합 정보 저장
         savePlanTags(tagList, plan);
         saveCommunityBenefits(communityBenefitList, plan);
 
         // 문장 생성 및 API 요청
-        String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+        String description = createDescription(plan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(plan, description);
 
         return plan.getId();
@@ -161,9 +179,9 @@ public class AdminPlanService {
      * 요금제 상세 조회 (ADMIN)
      */
     @Transactional(readOnly = true)
-    public PlanDetailAdminResponse getPlanDetail(Long planId) {
+    public AdminPlanDetailResponse getPlanDetail(Long planId) {
         Plan plan = getPlan(planId);
-        return new PlanDetailAdminResponse(plan);
+        return new AdminPlanDetailResponse(plan);
     }
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
@@ -210,24 +228,29 @@ public class AdminPlanService {
         // 재삽입
         List<Plan> planList = planRepository.findAll();
         for (Plan plan : planList) {
-            List<Tag> tagList = planTagRepository.findAllByPlan(plan).stream().map(PlanTag::getTag).toList();
-            List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(plan).stream().map(PlanCommunity::getCommunityBenefit).toList();
+            List<Tag> tagList = planTagRepository.findAllByPlan(plan).stream().map(PlanTag::getTag)
+                .toList();
+            List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(
+                plan).stream().map(PlanCommunity::getCommunityBenefit).toList();
 
             // 문장 생성 및 API 요청
-            String description = createDescription(plan, tagList, getPricesGroupedByBenefit(communityBenefitList));
+            String description = createDescription(plan, tagList,
+                getPricesGroupedByBenefit(communityBenefitList));
             fastAPIClient.saveVector(plan, description);
         }
         return planList.size() + "개의 정보를 갱신하였습니다.";
     }
 
-    public Map<CommunityBenefit, CommunityBenefitPrice> getPricesGroupedByBenefit(List<CommunityBenefit> communityBenefitList) {
+    public Map<CommunityBenefit, CommunityBenefitPrice> getPricesGroupedByBenefit(
+        List<CommunityBenefit> communityBenefitList) {
         // Price 리스트 뽑기
         List<Long> benefitIds = communityBenefitList.stream()
             .map(CommunityBenefit::getId)
             .toList();
 
         // Grouping
-        return communityBenefitPriceRepository.findMaxHeadcountPricesByCommunityBenefitIds(benefitIds).stream()
+        return communityBenefitPriceRepository.findMaxHeadcountPricesByCommunityBenefitIds(
+                benefitIds).stream()
             .collect(Collectors.toMap(CommunityBenefitPrice::getCommunityBenefit, cbp -> cbp));
     }
 
