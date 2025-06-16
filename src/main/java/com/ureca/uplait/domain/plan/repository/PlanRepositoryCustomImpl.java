@@ -4,9 +4,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.PlanListResponse;
+import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.entity.QIPTVPlan;
 import com.ureca.uplait.domain.plan.entity.QInternetPlan;
 import com.ureca.uplait.domain.plan.entity.QMobilePlan;
+import com.ureca.uplait.domain.plan.entity.QPlan;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -88,5 +91,56 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
                     .fetchOne()
             ).orElse(0L)
         );
+    }
+
+    @Override
+    public List<PlanListResponse> findAllMobileByList() { // 반환 타입 및 파라미터 변경
+        QMobilePlan mobilePlan = QMobilePlan.mobilePlan;
+
+        return queryFactory
+            .selectFrom(mobilePlan)
+            .orderBy(mobilePlan.id.desc())
+            .fetch()
+            .stream()
+            .map(plan -> new PlanListResponse((Plan) plan))
+            .toList();
+
+    }
+
+    @Override
+    public List<PlanListResponse> findAllInternetByList() {
+        QInternetPlan internetPlan = QInternetPlan.internetPlan;
+
+        return queryFactory
+            .selectFrom(internetPlan)
+            .orderBy(internetPlan.id.desc())
+            .fetch()
+            .stream()
+            .map(plan -> new PlanListResponse((Plan) plan))
+            .toList();
+    }
+
+    @Override
+    public List<PlanListResponse> findAllIPTVByList() {
+        QIPTVPlan iptvPlan = QIPTVPlan.iPTVPlan;
+
+        return queryFactory
+            .selectFrom(iptvPlan)
+            .orderBy(iptvPlan.id.desc())
+            .fetch()
+            .stream()
+            .map(plan -> new PlanListResponse((Plan) plan))
+            .toList();
+    }
+
+    @Override
+    public List<Plan> findPlansByTypeAndIdIn(Class<? extends Plan> type, List<Long> ids) {
+        QPlan plan = QPlan.plan;
+
+        return queryFactory
+            .selectFrom(plan)
+            .where(plan.instanceOf(type)
+                .and(plan.id.in(ids)))
+            .fetch();
     }
 }
