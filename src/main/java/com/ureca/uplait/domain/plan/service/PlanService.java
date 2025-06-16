@@ -12,7 +12,6 @@ import com.ureca.uplait.domain.plan.repository.IPTVPlanRepository;
 import com.ureca.uplait.domain.plan.repository.InternetPlanRepository;
 import com.ureca.uplait.domain.plan.repository.MobilePlanRepository;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
-import com.ureca.uplait.domain.plan.repository.PlanRepositoryCustomImpl;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.exception.GlobalException;
 import java.util.Collections;
@@ -28,14 +27,10 @@ public class PlanService {
 
     private final PlanRepository planRepository;
     private final ContractRepository contractRepository;
-    private final PlanRepositoryCustomImpl planRepositoryCustom;
     private final MobilePlanRepository mobilePlanRepository;
     private final InternetPlanRepository internetPlanRepository;
     private final IPTVPlanRepository iptvPlanRepository;
 
-    /**
-     * 요금제 상세 조회
-     */
     @Transactional(readOnly = true)
     public PlanDetailResponse getPlanDetail(User user, Long planId) {
         Plan plan = findPlan(planId);

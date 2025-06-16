@@ -25,11 +25,6 @@ public class PlanController {
 
     private final PlanService planService;
 
-    /**
-     * 요금제 상세 조회
-     *
-     * @param planId
-     */
     @Operation(summary = "요금제 상세 조회", description = "요금제 상세 조회")
     @GetMapping("/{planId}")
     public CommonResponse<PlanDetailResponse> getPlanDetail(
