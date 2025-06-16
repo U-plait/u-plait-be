@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1750063584827-8" author="djlim00">
+        <dropColumn columnName="sequence" tableName="chat_log"/>
+    </changeSet>
+    <changeSet id="1750063584827-1" author="djlim00">
+        <addNotNullConstraint columnDataType="BOOLEAN" columnName="is_chatbot" tableName="chat_log" validate="true"/>
+    </changeSet>
+    <changeSet id="1750063584827-2" author="djlim00">
+        <addNotNullConstraint columnDataType="TEXT" columnName="log" tableName="chat_log" validate="true"/>
+    </changeSet>
+    <changeSet id="1750063584827-3" author="djlim00">
+        <dropColumn columnName="media_benefit" tableName="mobile_plan"/>
+    </changeSet>
+    <changeSet id="1750063584827-4" author="djlim00">
+        <addColumn tableName="mobile_plan">
+            <column name="media_benefit" type="VARCHAR(255)">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

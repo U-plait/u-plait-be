@@ -1,10 +1,7 @@
 package com.ureca.uplait.domain.plan.entity;
 
 import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +31,7 @@ public class MobilePlan extends Plan {
     @Column(name = "extra_data", nullable = false)
     private String extraData;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "media_benefit", nullable = false)
     private MediaBenefit mediaBenefit;
 
