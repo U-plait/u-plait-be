@@ -17,9 +17,9 @@ public interface PlanRepositoryCustom {
 
     Page<IPTVPlanDetailResponse> findAllIPTVPlans(Pageable pageable);
 
-    List<PlanListResponse> findAllMobileByList(); // Pageable 파라미터 제거
+    List<PlanListResponse> findAllMobileByList();
 
-    List<PlanListResponse> findAllInternetByList(); // Pageable 파라미터 제거
+    List<PlanListResponse> findAllInternetByList();
 
     List<PlanListResponse> findAllIPTVByList();
 

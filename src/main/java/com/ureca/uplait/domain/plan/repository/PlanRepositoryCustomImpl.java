@@ -108,7 +108,7 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
     }
 
     @Override
-    public List<PlanListResponse> findAllInternetByList() { // 반환 타입 및 파라미터 변경
+    public List<PlanListResponse> findAllInternetByList() {
         QInternetPlan internetPlan = QInternetPlan.internetPlan;
 
         return queryFactory
@@ -139,7 +139,7 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
 
         return queryFactory
             .selectFrom(plan)
-            .where(plan.instanceOf(type) // Class 객체를 직접 전달
+            .where(plan.instanceOf(type)
                 .and(plan.id.in(ids)))
             .fetch();
     }

@@ -7,10 +7,10 @@ import com.ureca.uplait.domain.contract.repository.ContractRepository;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanListResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
-import com.ureca.uplait.domain.plan.entity.IPTVPlan;
-import com.ureca.uplait.domain.plan.entity.InternetPlan;
-import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import com.ureca.uplait.domain.plan.entity.Plan;
+import com.ureca.uplait.domain.plan.repository.IPTVPlanRepository;
+import com.ureca.uplait.domain.plan.repository.InternetPlanRepository;
+import com.ureca.uplait.domain.plan.repository.MobilePlanRepository;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.plan.repository.PlanRepositoryCustomImpl;
 import com.ureca.uplait.domain.user.entity.User;
@@ -29,6 +29,9 @@ public class PlanService {
     private final PlanRepository planRepository;
     private final ContractRepository contractRepository;
     private final PlanRepositoryCustomImpl planRepositoryCustom;
+    private final MobilePlanRepository mobilePlanRepository;
+    private final InternetPlanRepository internetPlanRepository;
+    private final IPTVPlanRepository iptvPlanRepository;
 
     /**
      * 요금제 상세 조회
@@ -47,17 +50,23 @@ public class PlanService {
 
     @Transactional(readOnly = true)
     public List<PlanListResponse> getAllMobilePlans() {
-        return planRepositoryCustom.findAllMobileByList();
+        return mobilePlanRepository.findAllByOrderByIdDesc().stream()
+            .map(PlanListResponse::new)
+            .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<PlanListResponse> getAllInternetPlans() {
-        return planRepositoryCustom.findAllInternetByList();
+        return internetPlanRepository.findAllByOrderByIdDesc().stream()
+            .map(PlanListResponse::new)
+            .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<PlanListResponse> getAllIPTVPlans() {
-        return planRepositoryCustom.findAllIPTVByList();
+        return iptvPlanRepository.findAllByOrderByIdDesc().stream()
+            .map(PlanListResponse::new)
+            .collect(Collectors.toList());
     }
 
     public List<PlanDetailResponse> comparePlansByType(String planType, List<Long> planIds) {
@@ -65,18 +74,13 @@ public class PlanService {
             return Collections.emptyList();
         }
 
-        Class<? extends Plan> targetClass;
-        if ("MobilePlan".equals(planType)) {
-            targetClass = MobilePlan.class;
-        } else if ("InternetPlan".equals(planType)) {
-            targetClass = InternetPlan.class;
-        } else if ("IPTVPlan".equals(planType)) {
-            targetClass = IPTVPlan.class;
-        } else {
-            throw new GlobalException(INVALID_INPUT);
+        List<? extends Plan> plans;
+        switch (planType) {
+            case "MobilePlan" -> plans = mobilePlanRepository.findAllById(planIds);
+            case "InternetPlan" -> plans = internetPlanRepository.findAllById(planIds);
+            case "IPTVPlan" -> plans = iptvPlanRepository.findAllById(planIds);
+            default -> throw new GlobalException(INVALID_INPUT);
         }
-
-        List<Plan> plans = planRepositoryCustom.findPlansByTypeAndIdIn(targetClass, planIds);
 
         return plans.stream()
             .map(PlanResponseFactory::from)
