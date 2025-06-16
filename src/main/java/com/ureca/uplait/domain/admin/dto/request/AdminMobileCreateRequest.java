@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AdminMobileCreateRequest extends PlanCommonRequest {
-
     @Schema(description = "제공 데이터 용량", example = "100GB")
     private String data;
 

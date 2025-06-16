@@ -19,6 +19,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AdminAllowWordService {
+
     private final AllowWordRepository allowWordRepository;
     private final WordConflictValidator wordConflictValidator;
     private final CommonValidator commonValidator;

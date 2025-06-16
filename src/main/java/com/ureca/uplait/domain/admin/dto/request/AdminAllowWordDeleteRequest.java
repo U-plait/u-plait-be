@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Schema(description = "허용어 일괄 삭제 요청 DTO")
 public class AdminAllowWordDeleteRequest {
-
     @Schema(description = "삭제할 허용어 ID 목록", example = "[1, 2, 3]")
     private List<Long> allowWordIds;
 }

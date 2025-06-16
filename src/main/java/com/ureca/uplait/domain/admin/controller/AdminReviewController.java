@@ -2,6 +2,7 @@ package com.ureca.uplait.domain.admin.controller;
 
 import static org.springframework.data.domain.Sort.Direction;
 
+import com.ureca.uplait.domain.admin.dto.response.AdminReviewDeleteResponse;
 import com.ureca.uplait.domain.admin.service.AdminReviewService;
 import com.ureca.uplait.domain.review.dto.response.AdminReviewResponse;
 import com.ureca.uplait.global.response.CommonResponse;
@@ -35,7 +36,7 @@ public class AdminReviewController {
     }
 
     @GetMapping("/{reviewId}")
-    @Operation(summary = "관리자 리뷰 상세 조회", description = "관리자가 특정 리뷰의 상세 정보를 조회합니다.")
+    @Operation(summary = "리뷰 상세 조회", description = "특정 리뷰의 상세 정보를 조회합니다.")
     public CommonResponse<AdminReviewResponse> getReviewDetail(
         @Parameter(description = "조회할 리뷰 ID", example = "1", required = true)
         @PathVariable Long reviewId
@@ -45,11 +46,10 @@ public class AdminReviewController {
 
     @Operation(summary = "리뷰 삭제 (ID 기반)", description = "리뷰 ID를 기준으로 리뷰를 삭제합니다.")
     @DeleteMapping("/{reviewId}")
-    public CommonResponse<Long> deleteReviewById(
+    public CommonResponse<AdminReviewDeleteResponse> deleteReviewById(
         @Parameter(description = "삭제할 리뷰 ID", example = "1", required = true)
         @PathVariable Long reviewId
     ) {
-        Long deletedId = adminReviewService.deleteReviewById(reviewId);
-        return CommonResponse.success(ResultCode.REVIEW_DELETE_SUCCESS, deletedId);
+        return CommonResponse.success(ResultCode.REVIEW_DELETE_SUCCESS, adminReviewService.deleteReviewById(reviewId));
     }
 }

@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "모바일 요금제 수정 요청 DTO")
 public class AdminMobilePlanUpdateRequest extends PlanCommonRequest {
-
     @Schema(description = "제공 데이터 용량", example = "100GB")
     private String data;
 

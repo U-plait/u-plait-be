@@ -171,7 +171,13 @@ public class AdminPlanService {
     @Transactional(readOnly = true)
     public AdminPlanDetailResponse getPlanDetail(Long planId) {
         Plan plan = getPlan(planId);
-        return new AdminPlanDetailResponse(plan);
+        return new AdminPlanDetailResponse(
+                plan.getId(),
+                plan.getPlanName(),
+                plan.getPlanPrice(),
+                plan.getPlanBenefit(),
+                plan.getAvailability()
+        );
     }
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
