@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.review.dto.response;
+package com.ureca.uplait.domain.admin.dto.response;
 
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.global.exception.GlobalException;
@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +16,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @Schema(description = "리뷰 조회 상세")
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class AdminReviewResponse {
-
     @Schema(description = "리뷰 id", example = "1")
     private Long reviewId;
 
@@ -34,25 +36,6 @@ public class AdminReviewResponse {
 
     @Column(nullable = false)
     private String content;
-
-    public AdminReviewResponse(Long reviewId, String userName, String title, int rating,
-        LocalDateTime createdAt) {
-        this.reviewId = reviewId;
-        this.userName = userName;
-        this.title = title;
-        this.rating = rating;
-        this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
-    }
-
-    public AdminReviewResponse(Long reviewId, String userName, String title, int rating,
-        String createdAt, String content) {
-        this.reviewId = reviewId;
-        this.userName = userName;
-        this.title = title;
-        this.rating = rating;
-        this.createdAt = createdAt;
-        this.content = content;
-    }
 
     public static AdminReviewResponse from(Review review) {
         if (review == null) {

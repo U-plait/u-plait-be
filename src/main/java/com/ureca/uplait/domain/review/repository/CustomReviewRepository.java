@@ -1,6 +1,6 @@
 package com.ureca.uplait.domain.review.repository;
 
-import com.ureca.uplait.domain.review.dto.response.AdminReviewResponse;
+import com.ureca.uplait.domain.admin.dto.response.AdminReviewResponse;
 import com.ureca.uplait.domain.review.entity.Review;
 import java.util.List;
 import org.springframework.data.domain.Page;

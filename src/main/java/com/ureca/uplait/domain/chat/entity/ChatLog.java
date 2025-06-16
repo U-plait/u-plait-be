@@ -20,7 +20,6 @@ public class ChatLog extends BaseEntity {
     @Column(nullable = true)
     private String log;
 
-    // TODO : ERD 상에서는 "채팅순서"라고 명시되어 있음. 정확한 의미를 모르겠음.
     @Column(nullable = true)
     private Long sequence;
 

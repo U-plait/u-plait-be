@@ -8,7 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Schema(description = "중복 여부 담는 DTO")
 public class DuplicateResponse {
-
 	@Schema(description = "중복 여부", example = "true")
 	boolean duplicated;
 

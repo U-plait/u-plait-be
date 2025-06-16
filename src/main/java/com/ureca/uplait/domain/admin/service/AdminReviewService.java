@@ -1,7 +1,7 @@
 package com.ureca.uplait.domain.admin.service;
 
 import com.ureca.uplait.domain.admin.dto.response.AdminReviewDeleteResponse;
-import com.ureca.uplait.domain.review.dto.response.AdminReviewResponse;
+import com.ureca.uplait.domain.admin.dto.response.AdminReviewResponse;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
 import com.ureca.uplait.global.exception.GlobalException;

@@ -61,9 +61,7 @@ public class PlanController {
         @PathVariable String planType,
         @RequestBody PlanCompareRequest requestDto
     ) {
-        List<PlanDetailResponse> response = planService.comparePlansByType(planType,
-            requestDto.getPlanIds());
-        return CommonResponse.success(response);
+        return CommonResponse.success(planService.comparePlansByType(planType, requestDto.getPlanIds()));
     }
 
 }

@@ -46,7 +46,7 @@ public enum ResultCode {
 
     // 즐겨찾기 5000번대
     BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, 5000, "즐겨찾기 정보를 찾을 수 없습니다."),
-    DUPLICATED_BOOKMARK(HttpStatus.OK, 3006, "이미 존재하는 즐겨찾기 입니다."),
+    DUPLICATED_BOOKMARK(HttpStatus.OK, 5001, "이미 존재하는 즐겨찾기 입니다."),
 
     // 리뷰 6000번대
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, 6000, "리뷰를 찾을 수 없습니다."),

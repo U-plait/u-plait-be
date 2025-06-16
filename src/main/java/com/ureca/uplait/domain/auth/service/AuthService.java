@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+
 	private final UserRepository userRepository;
 	private final TokenRepository tokenRepository;
 	private final JwtProvider jwtProvider;

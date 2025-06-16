@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 @Schema(description = "IPTV 요금제 상세")
 public class IPTVPlanDetailResponse extends PlanDetailResponse {
-
     @Schema(description = "채널 수", example = "213")
     private int channel;
 
