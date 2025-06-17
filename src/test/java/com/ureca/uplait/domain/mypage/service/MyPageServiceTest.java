@@ -6,6 +6,7 @@ import com.ureca.uplait.domain.mypage.dto.response.MyPageUpdateResponse;
 import com.ureca.uplait.domain.mypage.dto.response.MyReviewsResponse;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
+import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.entity.PlanType;
 import com.ureca.uplait.domain.review.entity.Review;
 import com.ureca.uplait.domain.review.repository.ReviewRepository;
@@ -14,6 +15,8 @@ import com.ureca.uplait.domain.user.enums.Gender;
 import com.ureca.uplait.domain.user.enums.Role;
 import com.ureca.uplait.domain.user.enums.Status;
 import com.ureca.uplait.domain.user.repository.UserRepository;
+import com.ureca.uplait.global.exception.GlobalException;
+import com.ureca.uplait.global.response.ResultCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +27,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 class MyPageServiceTest {
 
@@ -161,5 +165,36 @@ class MyPageServiceTest {
         assertEquals("title2", response2.getTitle());
         assertEquals("content2", response2.getContent());
         assertEquals(5, response2.getRating());
+    }
+
+    @DisplayName("내가 쓴 리뷰 가져오기-예외 발생 케이스")
+    @Test
+    void getMyReview_ThrowsException() {
+        // given
+        User user = User.builder()
+                .kakaoId("456465")
+                .name("홍길동")
+                .phoneNumber("000-0000-0000")
+                .email("asdad@kakao.com")
+                .age(32)
+                .gender(Gender.UNKNOWN)
+                .role(Role.TMP_USER)
+                .status(Status.ACTIVE)
+                .adAgree(false)
+                .build();
+
+        Plan unknownPlan = new Plan() {};
+
+        Review review = Review.builder().plan(unknownPlan).build();
+
+        when(reviewRepository.findByUserIdWithPlan(user.getId()))
+                .thenReturn(List.of(review));
+
+        // then
+        GlobalException exception = assertThrows(GlobalException.class, () -> {
+            myPageService.getMyReview(user.getId());
+        });
+
+        assertEquals(ResultCode.REVIEW_NOT_FOUND, exception.getResultCode());
     }
 }
