@@ -31,3 +31,5 @@ jwt:
   refresh-token-validity: 604800000
   vector:
     collection-id: ${COLLECTION_ID}
+fastapi:
+  baseUrl: ${FAST_API_BASE_URL}
