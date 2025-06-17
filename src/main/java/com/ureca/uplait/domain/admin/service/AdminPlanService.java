@@ -68,40 +68,41 @@ public class AdminPlanService {
         validateDuplicatePlanName(request.getPlanName());
 
         MobilePlan plan = request.toMobile();
-        planRepository.save(plan);
+        MobilePlan savedPlan = planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
             request.getCommunityBenefitList());
 
-        savePlanTags(tagList, plan);
-        saveCommunityBenefits(communityBenefitList, plan);
+        savePlanTags(tagList, savedPlan);
+        saveCommunityBenefits(communityBenefitList, savedPlan);
 
-        String description = createDescription(plan, tagList,
+        String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
-        fastAPIClient.saveVector(plan, description);
+        fastAPIClient.saveVector(savedPlan, description);
 
-        return new AdminPlanCreateResponse(plan.getId());
+        return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
     @Transactional
     public AdminPlanCreateResponse createInternetPlan(AdminInternetPlanCreateRequest request) {
         validateDuplicatePlanName(request.getPlanName());
+
         InternetPlan plan = request.toInternet();
-        planRepository.save(plan);
+        InternetPlan savedPlan = planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
             request.getCommunityBenefitList());
 
-        savePlanTags(tagList, plan);
-        saveCommunityBenefits(communityBenefitList, plan);
+        savePlanTags(tagList, savedPlan);
+        saveCommunityBenefits(communityBenefitList, savedPlan);
 
-        String description = createDescription(plan, tagList,
+        String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
-        fastAPIClient.saveVector(plan, description);
+        fastAPIClient.saveVector(savedPlan, description);
 
-        return new AdminPlanCreateResponse(plan.getId());
+        return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
     @Transactional
@@ -109,20 +110,20 @@ public class AdminPlanService {
         validateDuplicatePlanName(request.getPlanName());
 
         IPTVPlan plan = request.toIPTV();
-        planRepository.save(plan);
+        IPTVPlan savedPlan = planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
             request.getCommunityBenefitList());
 
-        savePlanTags(tagList, plan);
-        saveCommunityBenefits(communityBenefitList, plan);
+        savePlanTags(tagList, savedPlan);
+        saveCommunityBenefits(communityBenefitList, savedPlan);
 
-        String description = createDescription(plan, tagList,
+        String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
-        fastAPIClient.saveVector(plan, description);
+        fastAPIClient.saveVector(savedPlan, description);
 
-        return new AdminPlanCreateResponse(plan.getId());
+        return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
     @Transactional
@@ -172,11 +173,11 @@ public class AdminPlanService {
     public AdminPlanDetailResponse getPlanDetail(Long planId) {
         Plan plan = getPlan(planId);
         return new AdminPlanDetailResponse(
-                plan.getId(),
-                plan.getPlanName(),
-                plan.getPlanPrice(),
-                plan.getPlanBenefit(),
-                plan.getAvailability()
+            plan.getId(),
+            plan.getPlanName(),
+            plan.getPlanPrice(),
+            plan.getPlanBenefit(),
+            plan.getAvailability()
         );
     }
 
@@ -219,8 +220,9 @@ public class AdminPlanService {
         for (Plan plan : planList) {
             List<Tag> tagList = planTagRepository.findAllByPlan(plan).stream().map(PlanTag::getTag)
                 .toList();
-            List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(plan)
-                    .stream().map(PlanCommunity::getCommunityBenefit).toList();
+            List<CommunityBenefit> communityBenefitList = planCommunityRepository.findAllByPlan(
+                    plan)
+                .stream().map(PlanCommunity::getCommunityBenefit).toList();
 
             String description = createDescription(plan, tagList,
                 getPricesGroupedByBenefit(communityBenefitList));
