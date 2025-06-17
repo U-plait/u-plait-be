@@ -106,7 +106,7 @@ class MyPageServiceTest {
         MyPageUpdateResponse myPageUpdateResponse = myPageService.updateMyPage(user, request);
 
         //then
-        assertEquals(myPageUpdateResponse.getUserId(), user.getId());
+        assertEquals(user.getId(), myPageUpdateResponse.getUserId());
         assertEquals("010-2123-4567", user.getPhoneNumber());
         assertEquals("ghdrlfehd@kakao.com", user.getEmail());
         assertEquals(true, user.getAdAgree());
