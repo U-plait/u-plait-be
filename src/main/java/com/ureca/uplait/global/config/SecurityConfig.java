@@ -1,30 +1,29 @@
 package com.ureca.uplait.global.config;
 
-import static org.springframework.security.config.Customizer.*;
-
-import java.util.List;
-
+import com.ureca.uplait.domain.user.repository.UserRepository;
+import com.ureca.uplait.global.security.jwt.JwtValidator;
+import com.ureca.uplait.global.security.jwt.filter.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.ureca.uplait.domain.user.repository.UserRepository;
-import com.ureca.uplait.global.security.jwt.JwtProvider;
-import com.ureca.uplait.global.security.jwt.JwtValidator;
-import com.ureca.uplait.global.security.jwt.filter.JwtAuthenticationFilter;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	@Value("${domain.baseUrl}")
+	private String domainBaseUrl;
 
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
@@ -49,14 +48,14 @@ public class SecurityConfig {
 			)
 			.addFilterBefore(new JwtAuthenticationFilter(jwtValidator, userRepository), UsernamePasswordAuthenticationFilter.class)
 			.build();
-
 	}
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(List.of(
-			"http://localhost:3000"
+			"http://localhost:3000",
+			domainBaseUrl
 		));
 		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 		configuration.setAllowCredentials(true);
