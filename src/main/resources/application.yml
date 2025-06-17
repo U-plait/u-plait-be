@@ -33,3 +33,5 @@ jwt:
     collection-id: ${COLLECTION_ID}
 fastapi:
   baseUrl: ${FAST_API_BASE_URL}
+domain:
+  baseUrl: ${DOMAIN_BASE_URL}
