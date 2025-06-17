@@ -22,4 +22,7 @@ public class UserTag extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
+
+    @Column(name = "tag_count", nullable = false)
+    private Integer tagCount;
 }
