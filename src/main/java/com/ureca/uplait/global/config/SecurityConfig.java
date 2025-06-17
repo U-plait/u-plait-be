@@ -43,7 +43,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/auth/login", "/auth/reissue", "/auth/logout").permitAll()
 				.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
-				.requestMatchers("/").permitAll()
+				.requestMatchers("/health").permitAll()
 				.requestMatchers(HttpMethod.POST, "/user/extra-info").hasRole("TMP_USER")
 				.anyRequest().authenticated()
 			)
