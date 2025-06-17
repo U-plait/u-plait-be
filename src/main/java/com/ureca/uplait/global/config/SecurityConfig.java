@@ -44,6 +44,7 @@ public class SecurityConfig {
 				.requestMatchers("/auth/login", "/auth/reissue", "/auth/logout").permitAll()
 				.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
 				.requestMatchers("/health").permitAll()
+				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.POST, "/user/extra-info").hasRole("TMP_USER")
 				.anyRequest().authenticated()
 			)
