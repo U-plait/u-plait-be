@@ -3,8 +3,6 @@ name: CI 실행
 on:
   pull_request:
     branches: [ "develop", "main" ]
-  push:
-    branches: [ "develop" ]
 
 permissions:
   contents: read
