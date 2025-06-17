@@ -39,17 +39,8 @@ class MyPageServiceTest {
 
     private MyPageService myPageService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        myPageService = new MyPageService(userRepository, reviewRepository);
-    }
-
-    @DisplayName("내 정보 가져오기")
-    @Test
-    void getMyPage() {
-        //given
-        User user = User.builder()
+    User createUser() {
+        return User.builder()
                 .kakaoId("456465")
                 .name("홍길동")
                 .phoneNumber("000-0000-0000")
@@ -60,6 +51,19 @@ class MyPageServiceTest {
                 .status(Status.ACTIVE)
                 .adAgree(false)
                 .build();
+    }
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        myPageService = new MyPageService(userRepository, reviewRepository);
+    }
+
+    @DisplayName("내 정보 가져오기")
+    @Test
+    void getMyPage() {
+        //given
+        User user = createUser();
 
         //when
         MyPageResponse myPageResponse = myPageService.getMyPage(user);
@@ -77,17 +81,7 @@ class MyPageServiceTest {
     @Test
     void updateMyPage() {
         //given
-        User user = User.builder()
-                .kakaoId("456465")
-                .name("홍길동")
-                .phoneNumber("000-0000-0000")
-                .email("asdad@kakao.com")
-                .age(32)
-                .gender(Gender.UNKNOWN)
-                .role(Role.TMP_USER)
-                .status(Status.ACTIVE)
-                .adAgree(false)
-                .build();
+        User user = createUser();
 
         MyPageUpdateRequest request = new MyPageUpdateRequest(
                 "010-2123-4567",
@@ -109,17 +103,7 @@ class MyPageServiceTest {
     @Test
     void getMyReview() {
         //given
-        User user = User.builder()
-                .kakaoId("456465")
-                .name("홍길동")
-                .phoneNumber("000-0000-0000")
-                .email("asdad@kakao.com")
-                .age(32)
-                .gender(Gender.UNKNOWN)
-                .role(Role.TMP_USER)
-                .status(Status.ACTIVE)
-                .adAgree(false)
-                .build();
+        User user = createUser();
 
         MobilePlan plan1 = MobilePlan.builder().id(1L).planName("MobilePlan A").build();
         InternetPlan plan2 = InternetPlan.builder().id(2L).planName("InternetPlan A").build();
@@ -171,17 +155,7 @@ class MyPageServiceTest {
     @Test
     void getMyReview_ThrowsException() {
         // given
-        User user = User.builder()
-                .kakaoId("456465")
-                .name("홍길동")
-                .phoneNumber("000-0000-0000")
-                .email("asdad@kakao.com")
-                .age(32)
-                .gender(Gender.UNKNOWN)
-                .role(Role.TMP_USER)
-                .status(Status.ACTIVE)
-                .adAgree(false)
-                .build();
+        User user = createUser();
 
         Plan unknownPlan = new Plan() {};
 
