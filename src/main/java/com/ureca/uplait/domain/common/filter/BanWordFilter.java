@@ -90,6 +90,10 @@ public class BanWordFilter {
         trie.clear();
         jamoTrie.clear();
 
+        if(banWordList.isEmpty()){
+            return;
+        }
+
         for (String word : banWordList) {
             trie.add(word, word);
             jamoTrie.add(JamoUtil.toJamo(word), word);
