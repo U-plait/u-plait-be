@@ -135,7 +135,7 @@ public class AdminPlanService {
     }
 
     @Transactional
-    public void updateIPTVPlan(Long id, AdminIPTVPlanUpdateRequest request) {
+    public void updateIptvPlan(Long id, AdminIPTVPlanUpdateRequest request) {
         Plan plan = getPlan(id);
         if (!(plan instanceof IPTVPlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
@@ -164,7 +164,7 @@ public class AdminPlanService {
     }
 
     @Transactional(readOnly = true)
-    public Page<IPTVPlanDetailResponse> getAllIPTVPlans(Pageable pageable) {
+    public Page<IPTVPlanDetailResponse> getAllIptvPlans(Pageable pageable) {
         return planRepository.findAllIPTVPlans(pageable);
     }
 

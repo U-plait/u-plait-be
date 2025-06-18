@@ -93,7 +93,7 @@ public class AdminPlanController {
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
-        return CommonResponse.success(adminPlanService.getAllIPTVPlans(pageable));
+        return CommonResponse.success(adminPlanService.getAllIptvPlans(pageable));
     }
 
     @Operation(summary = "모바일 요금제 수정", description = "모바일 요금제의 상세 정보를 수정합니다.")
@@ -118,11 +118,11 @@ public class AdminPlanController {
 
     @Operation(summary = "IPTV 요금제 수정", description = "IPTV 요금제의 상세 정보를 수정합니다.")
     @PutMapping("/iptv/{planId}")
-    public CommonResponse<AdminPlanDetailResponse> updateIPTVPlan(
+    public CommonResponse<AdminPlanDetailResponse> updateIptvPlan(
         @PathVariable Long planId,
         @RequestBody AdminIPTVPlanUpdateRequest request
     ) {
-        adminPlanService.updateIPTVPlan(planId, request);
+        adminPlanService.updateIptvPlan(planId, request);
         return CommonResponse.success(ResultCode.PLAN_UPDATE_SUCCESS, adminPlanService.getPlanDetail(planId));
     }
 
