@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.review.service;
 
+import com.ureca.uplait.domain.common.filter.BanWordFilter;
 import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
@@ -25,6 +26,7 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final PlanRepository planRepository;
+    private final BanWordFilter banWordFilter;
 
     @Transactional(readOnly = true)
     public ReviewListResponse getReviewList(User user, int size, Long lastReviewId, Long planId) {
@@ -43,10 +45,11 @@ public class ReviewService {
 
     @Transactional
     public ReviewCreateResponse createReview(User user, ReviewCreateRequest request) {
+        validateBanWords(request.getContent());
 
         Plan plan = planRepository.findById(request.getPlanId())
             .orElseThrow(() -> new GlobalException(ResultCode.PLAN_NOT_FOUND));
-        
+
         Review review = new Review(
             user,
             plan,
@@ -78,5 +81,9 @@ public class ReviewService {
     public ReviewDeleteResponse deleteReview(User user, Long reviewId) {
         reviewRepository.deleteById(reviewId);
         return new ReviewDeleteResponse(reviewId);
+    }
+
+    private void validateBanWords(String content) {
+        banWordFilter.filter(content);
     }
 }
