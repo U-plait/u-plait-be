@@ -37,7 +37,7 @@ public class UserController {
 	}
 
 	@PostMapping("/extra-tag")
-	@Operation(summary="회원가입 시 태그 추가 API", description = "회원 가입 시 추가정보 입력 후 태그 정보를 입력받는 API.")
+	@Operation(summary="회원가입 시 유저태그 추가 API", description = "회원 가입 시 추가정보 입력 후 태그 정보를 입력받는 API.")
 	public CommonResponse<Void> addTag(@RequestBody AddTagRequest request, @AuthenticationPrincipal User user) {
 		userService.addUserTag(request, user);
 		return new CommonResponse<>(ResultCode.TAG_ADD_SUCCESS);

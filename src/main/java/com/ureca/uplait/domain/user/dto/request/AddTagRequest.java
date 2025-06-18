@@ -10,6 +10,6 @@ import java.util.List;
 @Setter
 @Schema(description="회원가입 시 태그 정보 담는 DTO")
 public class AddTagRequest {
-	@Schema(description = "선택한 태그 아이디 목록", example = "<1, 3, 4>")
+	@Schema(description = "선택한 태그 아이디 목록", example = "[1, 3, 4]")
 	List<Long> tagIds;
 }
