@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AdminLoadBalanceController {
-    @GetMapping
+    @GetMapping("/health")
     public ResponseEntity<String> checkConnection() {
         return ResponseEntity.ok("응답이 반환되었습니다.");
     }
