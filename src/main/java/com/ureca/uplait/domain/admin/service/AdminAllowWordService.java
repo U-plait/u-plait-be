@@ -27,7 +27,7 @@ public class AdminAllowWordService {
 
     public AdminAllowWordResponse registerAllowWord(AdminAllowWordRequest request) {
         String value = request.getAllowWord();
-        commonValidator.validateNotDuplicated(banWordRepository.existsByBanWord(value), ResultCode.DUPLICATED_ALLOWWORD);
+        commonValidator.validateNotDuplicated(allowWordRepository.existsByAllowWord(value), ResultCode.DUPLICATED_ALLOWWORD);
         wordConflictValidator.ensureNotInBanWords(value);
 
         AllowWord allowWord = new AllowWord(value);

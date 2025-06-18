@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +40,7 @@ class MyPageServiceTest {
 
     private MyPageService myPageService;
 
-    User createUser() {
+    private User createUser() {
         return User.builder()
                 .kakaoId("456465")
                 .name("홍길동")
@@ -53,6 +54,16 @@ class MyPageServiceTest {
                 .build();
     }
 
+    private void setId(Object target, Long idValue) {
+        try {
+            Field idField = target.getClass().getSuperclass().getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(target, idValue);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -64,6 +75,7 @@ class MyPageServiceTest {
     void getMyPage() {
         //given
         User user = createUser();
+        setId(user, 1L);
 
         //when
         MyPageResponse myPageResponse = myPageService.getMyPage(user);
@@ -82,6 +94,7 @@ class MyPageServiceTest {
     void updateMyPage() {
         //given
         User user = createUser();
+        setId(user, 1L);
 
         MyPageUpdateRequest request = new MyPageUpdateRequest(
                 "010-2123-4567",
@@ -104,6 +117,7 @@ class MyPageServiceTest {
     void getMyReview() {
         //given
         User user = createUser();
+        setId(user, 1L);
 
         MobilePlan plan1 = MobilePlan.builder().id(1L).planName("MobilePlan A").build();
         InternetPlan plan2 = InternetPlan.builder().id(2L).planName("InternetPlan A").build();
@@ -156,6 +170,7 @@ class MyPageServiceTest {
     void getMyReview_ThrowsException() {
         // given
         User user = createUser();
+        setId(user, 1L);
 
         Plan unknownPlan = new Plan() {};
 
