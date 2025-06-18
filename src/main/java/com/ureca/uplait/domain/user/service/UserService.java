@@ -47,9 +47,7 @@ public class UserService {
 		for(Long tagId : request.getTagIds()) {
 			Tag tag = tagRepository.findById(tagId).orElseThrow(() -> new GlobalException(ResultCode.TAG_NOT_FOUND));
 
-			if (!userTagRepository.existsByUserAndTag(user, tag)) {
-				userTagRepository.save(new UserTag(user, tag, 1));
-			}
+			userTagRepository.save(new UserTag(user, tag, 1));
 		}
 	}
 
