@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Schema(description = "요금제 생성 응답 DTO")
 public class AdminPlanCreateResponse {
+
     @Schema(description = "요금제 ID", example = "1")
-    Long PlanId;
+    Long planId;
 }
