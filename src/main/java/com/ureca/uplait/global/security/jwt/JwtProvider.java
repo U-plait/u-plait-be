@@ -29,6 +29,15 @@ public class JwtProvider {
 	@Value("${jwt.refresh-token-validity}")
 	private long REFRESH_TOKEN_VALIDITY_SECONDS;
 
+	@Value("${jwt.cookie.domain}")
+	private String cookieDomain;
+
+	@Value("${jwt.cookie.secure}")
+	private boolean isSecure;
+
+	@Value("${jwt.cookie.same-site}")
+	private String sameSite;
+
 	public String createAccessToken(User user) {
 		return Jwts.builder()
 			.setSubject(String.valueOf(user.getId()))
@@ -48,12 +57,16 @@ public class JwtProvider {
 	}
 
 	public void addAccessTokenCookie(HttpServletResponse response, String token){
-		Cookie cookie = new Cookie("accessToken", token);
-		cookie.setHttpOnly(true);
-		cookie.setSecure(true);
-		cookie.setPath("/");
-		cookie.setMaxAge((int) (ACCESS_TOKEN_VALIDITY_SECONDS / 1000));
-		response.addCookie(cookie);
+		String cookieString = String.format(
+			"accessToken=%s; Path=/; Max-Age=%d; HttpOnly; Secure=%s; SameSite=%s; Domain=%s",
+			token,
+			ACCESS_TOKEN_VALIDITY_SECONDS / 1000,
+			isSecure ? "Secure" : "",
+			sameSite,
+			cookieDomain
+		);
+		response.addHeader("Set-Cookie", cookieString);
+
 	}
 
 	public void addRefreshTokenCookie(HttpServletResponse response, String token){
@@ -66,11 +79,13 @@ public class JwtProvider {
 	}
 
 	public void deleteAccessTokenCookie(HttpServletResponse response){
-		Cookie cookie = new Cookie("accessToken", null);
-		cookie.setMaxAge(0);
-		cookie.setPath("/");
-		cookie.setHttpOnly(true);
-		response.addCookie(cookie);
+		String cookieString = String.format(
+			"accessToken=; Path=/; Max-Age=0; HttpOnly; Secure=%s; SameSite=%s; Domain=%s",
+			isSecure ? "Secure" : "",
+			sameSite,
+			cookieDomain
+		);
+		response.addHeader("Set-Cookie", cookieString);
 	}
 
 	public void deleteRefreshTokenCookie(HttpServletResponse response){
