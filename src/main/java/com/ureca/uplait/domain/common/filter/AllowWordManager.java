@@ -38,11 +38,6 @@ public class AllowWordManager {
                 loaded.stream().map(preprocessor::normalize).collect(Collectors.toSet()));
     }
 
-    public boolean isAllowed(String word) {
-        if (word == null) return false;
-        return allowedWords.contains(word.toLowerCase());
-    }
-
     public Set<String> getAll() {
         return allowedWords;
     }
