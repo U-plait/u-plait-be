@@ -54,6 +54,10 @@ public enum ResultCode {
 
     // FAST API 7000번대
     FAST_API_DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 7000, "FastAPI 서버에서 DB 오류가 발생했습니다."),
+
+    // Tag 8000번대
+    TAG_NOT_FOUND(HttpStatus.NOT_FOUND, 8000, "해당 태그를 찾을 수 없습니다."),
+    TAG_ADD_SUCCESS(HttpStatus.OK, 8001, "사용자에게 태그 정보를 입력했습니다."),
     ;
 
     private final HttpStatus status;

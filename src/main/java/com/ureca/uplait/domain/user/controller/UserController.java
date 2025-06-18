@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.user.controller;
 
+import com.ureca.uplait.domain.user.dto.request.AddTagRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,13 @@ public class UserController {
 	public CommonResponse<Void> extraInfo(@Valid @RequestBody ExtraInfoRequest request, @AuthenticationPrincipal User user) {
 		userService.updateUserExtraInfo(request, user);
 		return new CommonResponse<>(ResultCode.SIGNUP_SUCCESS);
+	}
+
+	@PostMapping("/extra-tag")
+	@Operation(summary="회원가입 시 유저태그 추가 API", description = "회원 가입 시 추가정보 입력 후 태그 정보를 입력받는 API.")
+	public CommonResponse<Void> addTag(@RequestBody AddTagRequest request, @AuthenticationPrincipal User user) {
+		userService.addUserTag(request, user);
+		return new CommonResponse<>(ResultCode.TAG_ADD_SUCCESS);
 	}
 
 	@GetMapping("/duplicate/phone")
