@@ -36,19 +36,19 @@ public class PlanController {
         return CommonResponse.success(planService.getPlanDetail(user, planId));
     }
 
-    @Operation(summary = "모바일 요금제 목록 조회", description = "모바일 요금제 목록을 모두 조회합니다.")
+    @Operation(summary = "비교용 모바일 요금제 목록 조회", description = "모바일 요금제 목록을 모두 조회합니다.")
     @GetMapping("/mobile")
     public CommonResponse<List<PlanListResponse>> getMobilePlans() {
         return CommonResponse.success(planService.getAllMobilePlans());
     }
 
-    @Operation(summary = "인터넷 요금제 목록 조회", description = "인터넷 요금제 목록을 모두 조회합니다.")
+    @Operation(summary = "비교용 인터넷 요금제 목록 조회", description = "인터넷 요금제 목록을 모두 조회합니다.")
     @GetMapping("/internet")
     public CommonResponse<List<PlanListResponse>> getInternetPlans() {
         return CommonResponse.success(planService.getAllInternetPlans());
     }
 
-    @Operation(summary = "IPTV 요금제 목록 조회", description = "IPTV 요금제 목록을 모두 조회합니다.")
+    @Operation(summary = "비교용 IPTV 요금제 목록 조회", description = "IPTV 요금제 목록을 모두 조회합니다.")
     @GetMapping("/iptv")
     public CommonResponse<List<PlanListResponse>> getIptvPlans() {
         return CommonResponse.success(planService.getAllIPTVPlans());
