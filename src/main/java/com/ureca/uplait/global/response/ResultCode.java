@@ -51,6 +51,7 @@ public enum ResultCode {
     // 리뷰 6000번대
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, 6000, "리뷰를 찾을 수 없습니다."),
     REVIEW_DELETE_SUCCESS(HttpStatus.NO_CONTENT, 6001, "리뷰가 삭제됐습니다."),
+    BANWORD_INCLUDED(HttpStatus.BAD_REQUEST, 6002, "부적절한 단어가 포함되어 있습니다."),
 
     // FAST API 7000번대
     FAST_API_DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 7000, "FastAPI 서버에서 DB 오류가 발생했습니다."),
