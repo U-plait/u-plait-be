@@ -1,0 +1,5 @@
+jwt:
+  cookie:
+    domain: .uplait.site
+    secure: true
+    same-site: None
