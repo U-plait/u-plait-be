@@ -38,7 +38,7 @@ class ReviewServiceTest {
     @InjectMocks
     private ReviewService reviewService;
 
-    User createUser() {
+    private User createUser() {
         return User.builder()
                 .kakaoId("456465")
                 .name("홍길동")
