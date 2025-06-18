@@ -4,7 +4,6 @@ public class JamoUtil {
 
     private static final char HANGUL_BASE = 0xAC00;
     private static final char HANGUL_END = 0xD7A3;
-    private static final int INITIAL_COUNT = 19;
     private static final int MEDIAL_COUNT = 21;
     private static final int FINAL_COUNT = 28;
 
