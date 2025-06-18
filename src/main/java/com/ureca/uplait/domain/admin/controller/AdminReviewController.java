@@ -2,9 +2,11 @@ package com.ureca.uplait.domain.admin.controller;
 
 import static org.springframework.data.domain.Sort.Direction;
 
+import com.ureca.uplait.domain.admin.dto.response.AdminDetailReviewResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminReviewDeleteResponse;
-import com.ureca.uplait.domain.admin.service.AdminReviewService;
 import com.ureca.uplait.domain.admin.dto.response.AdminReviewResponse;
+import com.ureca.uplait.domain.admin.service.AdminReviewService;
+import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,11 +40,14 @@ public class AdminReviewController {
 
     @GetMapping("/{reviewId}")
     @Operation(summary = "리뷰 상세 조회", description = "특정 리뷰의 상세 정보를 조회합니다.")
-    public CommonResponse<AdminReviewResponse> getReviewDetail(
+    public CommonResponse<AdminDetailReviewResponse> getReviewDetail(
         @Parameter(description = "조회할 리뷰 ID", example = "1", required = true)
-        @PathVariable Long reviewId
+        @PathVariable Long reviewId,
+        @Parameter(description = "user")
+        @AuthenticationPrincipal User user
     ) {
-        return CommonResponse.success(adminReviewService.getReviewDetailForAdmin(reviewId));
+        return CommonResponse.success(
+            adminReviewService.getReviewDetailForAdmin(reviewId, user));
     }
 
     @Operation(summary = "리뷰 삭제 (ID 기반)", description = "리뷰 ID를 기준으로 리뷰를 삭제합니다.")
@@ -50,6 +56,7 @@ public class AdminReviewController {
         @Parameter(description = "삭제할 리뷰 ID", example = "1", required = true)
         @PathVariable Long reviewId
     ) {
-        return CommonResponse.success(ResultCode.REVIEW_DELETE_SUCCESS, adminReviewService.deleteReviewById(reviewId));
+        return CommonResponse.success(ResultCode.REVIEW_DELETE_SUCCESS,
+            adminReviewService.deleteReviewById(reviewId));
     }
 }

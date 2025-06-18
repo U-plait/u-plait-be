@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdminReviewResponse {
+public class AdminDetailReviewResponse {
 
     @Schema(description = "리뷰 id", example = "1")
     private Long reviewId;
@@ -28,5 +28,8 @@ public class AdminReviewResponse {
 
     @Schema(description = "작성 날짜", example = "25.06.08")
     private LocalDateTime createdAt;
+
+    @Schema(description = "작성 내용", example = "멋지다")
+    private String content;
 
 }
