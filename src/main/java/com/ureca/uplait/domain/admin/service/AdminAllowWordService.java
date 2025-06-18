@@ -4,7 +4,6 @@ import com.ureca.uplait.domain.admin.dto.request.AdminAllowWordRequest;
 import com.ureca.uplait.domain.admin.dto.response.AdminAllowWordResponse;
 import com.ureca.uplait.domain.allowword.entity.AllowWord;
 import com.ureca.uplait.domain.allowword.repository.AllowWordRepository;
-import com.ureca.uplait.domain.banword.repository.BanWordRepository;
 import com.ureca.uplait.domain.common.filter.AllowWordManager;
 import com.ureca.uplait.domain.common.filter.BanWordFilter;
 import com.ureca.uplait.domain.common.validator.CommonValidator;
