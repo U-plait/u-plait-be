@@ -1,22 +1,23 @@
 package com.ureca.uplait.domain.plan.controller;
 
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
-import com.ureca.uplait.domain.admin.dto.response.AdminPlanCreateResponse;
 import com.ureca.uplait.domain.admin.service.AdminPlanService;
 import com.ureca.uplait.domain.plan.dto.request.PlanCompareRequest;
+import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanCompareResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanListResponse;
 import com.ureca.uplait.domain.plan.service.PlanService;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.response.CommonResponse;
-import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,28 +63,31 @@ public class PlanController {
         return CommonResponse.success(planService.getAllIPTVPlans());
     }
 
-    @Operation(summary = "모바일 요금제 생성", description = "관리자가 새로운 모바일 요금제를 등록합니다.")
-    @PostMapping("/mobile")
-    public CommonResponse<AdminPlanCreateResponse> createMobilePlan(
-        @RequestBody AdminMobileCreateRequest request) {
-        return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
-            adminPlanService.createMobilePlan(request));
+    @Operation(summary = "모바일 요금제 목록 조회", description = "모바일 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
+    @GetMapping("/mobile")
+    public CommonResponse<Page<MobilePlanDetailResponse>> getMobilePlans(
+        @Parameter(description = "페이지 정보 (기본값: size=5)")
+        @PageableDefault(size = 5) Pageable pageable
+    ) {
+        return CommonResponse.success(adminPlanService.getAllMobilePlans(pageable));
     }
 
-    @Operation(summary = "인터넷 요금제 생성", description = "관리자가 새로운 인터넷 요금제를 등록합니다.")
-    @PostMapping("/internet")
-    public CommonResponse<AdminPlanCreateResponse> createInternetPlan(
-        @RequestBody AdminInternetPlanCreateRequest request) {
-        return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
-            adminPlanService.createInternetPlan(request));
+    @Operation(summary = "인터넷 요금제 목록 조회", description = "인터넷 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
+    @GetMapping("/internet")
+    public CommonResponse<Page<InternetPlanDetailResponse>> getInternetPlans(
+        @Parameter(description = "페이지 정보 (기본값: size=5)")
+        @PageableDefault(size = 5) Pageable pageable
+    ) {
+        return CommonResponse.success(adminPlanService.getAllInternetPlans(pageable));
     }
 
-    @Operation(summary = "IPTV 요금제 생성", description = "관리자가 새로운 IPTV 요금제를 등록합니다.")
-    @PostMapping("/iptv")
-    public CommonResponse<AdminPlanCreateResponse> createIptvPlan(
-        @RequestBody AdminIPTVPlanCreateRequest request) {
-        return CommonResponse.success(ResultCode.PLAN_CREATE_SUCCESS,
-            adminPlanService.createIptvPlan(request));
+    @Operation(summary = "IPTV 요금제 목록 조회", description = "IPTV 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
+    @GetMapping("/iptv")
+    public CommonResponse<Page<IPTVPlanDetailResponse>> getIptvPlans(
+        @Parameter(description = "페이지 정보 (기본값: size=5)")
+        @PageableDefault(size = 5) Pageable pageable
+    ) {
+        return CommonResponse.success(adminPlanService.getAllIPTVPlans(pageable));
     }
 
     @Operation(summary = "특정 타입 내 요금제 비교", description = "지정된 타입에서 선택된 요금제들의 상세 정보를 비교합니다.")
