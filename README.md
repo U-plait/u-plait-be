@@ -129,7 +129,7 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 - 시스템 아키텍처
 <br>![Image](https://github.com/user-attachments/assets/dfb7d2f7-f93f-46d5-a135-7e75038697d5)
 - ERD
-<br>![img.png](img.png)
+<br>![Image](https://github.com/user-attachments/assets/271fbd65-50ba-4528-a96c-3ae0b16a7d34)
 ---
 ## 💡 기대 효과
 
