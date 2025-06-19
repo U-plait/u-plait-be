@@ -28,7 +28,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 이를 개선하기 위해 빠른 상담을 위한 챗봇 서비스의 필요성을 느꼈습니다.
 
 ---
-## 프로젝트의 목적
+## 📜 프로젝트의 목적
 
 LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추천함으로써,
 통신 상품 탐색 과정을 보다 효율적이고 편리하게 만들어 사용자 경험을 향상시키고자 합니다.
@@ -120,8 +120,17 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 - **관리자 기능** – 리뷰 / 요금제 / 금칙어 관리
 
 ---
-## 기술 스택
+## 🛠 기술 스택 (Tech Stack)
 
+| 구분 | 기술 |
+|------|------|
+| 언어 | ![Java](https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white) |
+| 프레임워크 | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white) |
+| ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-6DB33F?style=flat&logo=spring&logoColor=white) |
+| 문서화 | ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=black) |
+| 인증/인가 | ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=flat&logo=spring-security&logoColor=white)<br>![OAuth2](https://img.shields.io/badge/OAuth2-005C9C?style=flat&logo=oauth&logoColor=white)<br>![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) |
+| 테스트 | ![JUnit 5](https://img.shields.io/badge/JUnit%205-25A162?style=flat&logo=jest&logoColor=white)<br>![Mockito](https://img.shields.io/badge/Mockito-5A6268?style=flat&logo=mockito&logoColor=white) |
+| DB 마이그레이션 | ![Liquibase](https://img.shields.io/badge/Liquibase-2962FF?style=flat&logo=liquibase&logoColor=white) |
 
 ---
 
