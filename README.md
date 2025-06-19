@@ -119,33 +119,33 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 요금제 목록에서 상세보기 버튼을 누르면, 해당 요금제의 상세 정보를 확인할 수 있습니다. 
 <br/>![image](https://github.com/user-attachments/assets/46aabc08-0d93-4c1b-aa9d-6508bdf61779)<br/>
 해당 요금제를 사용한 사용자는 리뷰를 남길 수 있으며, 다른 유저들도 리뷰를 확인할 수 있습니다.
-![image](https://github.com/user-attachments/assets/0e117790-08f8-46f7-8d39-8250a53c8e6c)
+<br/>![image](https://github.com/user-attachments/assets/0e117790-08f8-46f7-8d39-8250a53c8e6c)<br/>
 
 6. 요금제 비교하기
 요금제 목록 중 2개를 선택하여 요금제를 비교할 수 있습니다. 
-![image](https://github.com/user-attachments/assets/438f0c0d-ed49-4f67-88b3-cca91be15387)
+<br/>![image](https://github.com/user-attachments/assets/438f0c0d-ed49-4f67-88b3-cca91be15387)<br/>
 모바일-모바일과 같이 같은 종류의 요금제만 비교 가능합니다.
-![image](https://github.com/user-attachments/assets/fb3ce68f-f479-4bab-a5ce-812d7d70b89c)
+<br/>![image](https://github.com/user-attachments/assets/fb3ce68f-f479-4bab-a5ce-812d7d70b89c)<br/>
 
 8. 마이페이지
 화면 상단의 'xxx 님'이라고 적힌 버튼을 통해 마이페이지로 이동하여 사용자의 개인정보를 확인, 수정할 수 있습니다.
-![image](https://github.com/user-attachments/assets/a055f190-893b-4734-94eb-5b2bea7a19b6)
+<br/>![image](https://github.com/user-attachments/assets/a055f190-893b-4734-94eb-5b2bea7a19b6)<br/>
 (화면 추후 수정 예정)
 'Reviews' 버튼을 눌러 내가 쓴 리뷰들을 확인, 수정, 삭제가 가능합니다.
-![image](https://github.com/user-attachments/assets/0611b4c0-a038-402a-b1ab-46fba1541e03)
+<br/>![image](https://github.com/user-attachments/assets/0611b4c0-a038-402a-b1ab-46fba1541e03)<br/>
 'Bookmark' 버튼을 눌러 내가 즐겨찾기한 요금제 목록을 확인할 수 있습니다.
 (화면 추후 수정 예정-즐겨찾기 버튼 추가)
 
 9. 관리자 화면
 관리자는 관리 페이지에서 전체 리뷰 관리, 요금제 관리, 금칙어/허용어 관리가 가능합니다.
 (관리자 한정) 리뷰 관리
-![image](https://github.com/user-attachments/assets/4977c4fb-4e0f-45a0-8d17-2b36925185a8)
+<br/>![image](https://github.com/user-attachments/assets/4977c4fb-4e0f-45a0-8d17-2b36925185a8)<br/>
 (관리자 한정) 요금제 관리
-![image](https://github.com/user-attachments/assets/05363411-79a3-4736-a4a8-4ffb63472f2e)
+<br/>![image](https://github.com/user-attachments/assets/05363411-79a3-4736-a4a8-4ffb63472f2e)<br/>
 (관리자 한정) 금칙어 관리
-![image](https://github.com/user-attachments/assets/ce1fc47f-ee14-4afe-9b8d-75e2790aef75)
+<br/>![image](https://github.com/user-attachments/assets/ce1fc47f-ee14-4afe-9b8d-75e2790aef75)<br/>
 (관리자 한정) 허용어 관리
-![image](https://github.com/user-attachments/assets/ba88433f-ef92-473e-a14f-155ca3f7a48b)
+<br/>![image](https://github.com/user-attachments/assets/ba88433f-ef92-473e-a14f-155ca3f7a48b)<br/>
 (화면 추후 수정 예정 - 네비바 버튼 추가 때문에)
    
 ---
