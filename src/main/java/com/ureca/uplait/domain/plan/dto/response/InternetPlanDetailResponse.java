@@ -27,8 +27,8 @@ public class InternetPlanDetailResponse extends PlanDetailResponse {
         this.internetDiscount = plan.getInternetDiscountRate();
     }
 
-    public InternetPlanDetailResponse(InternetPlan plan) {
-        super(plan);
+    public InternetPlanDetailResponse(boolean isBookmarked, InternetPlan plan) {
+        super(isBookmarked, plan);
         this.setPlanType("InternetPlan");
         this.velocity = plan.getVelocity();
         this.internetDiscount = plan.getInternetDiscountRate();

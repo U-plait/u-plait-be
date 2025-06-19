@@ -28,8 +28,14 @@ public abstract class PlanDetailResponse {
     @Schema(description = "요금제 사용 여부", example = "true")
     protected Boolean inUse;
 
+    @Schema(description = "즐겨찾기 여부", example = "true")
+    protected Boolean isBookmarked;
+
     @Schema(description = "플랜 타입", example = "MobilePlan")
     private String planType;
+
+    @Schema(description = "플랜 설명", example = "너무 좋은 요금제")
+    private String description;
 
 
     protected PlanDetailResponse(Plan plan, boolean inUse) {
@@ -38,15 +44,18 @@ public abstract class PlanDetailResponse {
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
+        this.description = plan.getDescription();
         this.inUse = inUse;
     }
 
-    protected PlanDetailResponse(Plan plan) {
+    protected PlanDetailResponse(boolean isBookmarked, Plan plan) {
         this.planId = plan.getId();
         this.planName = plan.getPlanName();
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
+        this.description = plan.getDescription();
+        this.isBookmarked = isBookmarked;
     }
 
     protected void setPlanType(String planType) {

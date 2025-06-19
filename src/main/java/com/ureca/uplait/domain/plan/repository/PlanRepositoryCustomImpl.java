@@ -7,13 +7,17 @@ import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
 import com.ureca.uplait.domain.plan.entity.QIPTVPlan;
 import com.ureca.uplait.domain.plan.entity.QInternetPlan;
 import com.ureca.uplait.domain.plan.entity.QMobilePlan;
-import java.util.List;
-import java.util.Optional;
+import com.ureca.uplait.domain.user.entity.QBookmark;
+import com.ureca.uplait.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -22,8 +26,20 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<MobilePlanDetailResponse> findAllMobilePlans(Pageable pageable) {
+    public Page<MobilePlanDetailResponse> findAllMobilePlans(Pageable pageable, User user) {
         QMobilePlan mobilePlan = QMobilePlan.mobilePlan;
+        QBookmark bookmark = QBookmark.bookmark;
+
+        List<Long> bookmarkIdList;
+        if (user != null) {
+            bookmarkIdList = queryFactory
+                .select(bookmark.plan.id)
+                .from(bookmark)
+                .where(bookmark.user.id.eq(user.getId()))
+                .fetch();
+        } else {
+            bookmarkIdList = Collections.emptyList();
+        }
 
         List<MobilePlanDetailResponse> content = queryFactory
             .selectFrom(mobilePlan)
@@ -32,7 +48,7 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
             .orderBy(mobilePlan.id.desc())
             .fetch()
             .stream()
-            .map(MobilePlanDetailResponse::new)
+            .map(mp -> new MobilePlanDetailResponse(bookmarkIdList.contains(mp.getId()), mp))
             .toList();
 
         return PageableExecutionUtils.getPage(content, pageable, () ->
@@ -45,8 +61,20 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
     }
 
     @Override
-    public Page<InternetPlanDetailResponse> findAllInternetPlans(Pageable pageable) {
+    public Page<InternetPlanDetailResponse> findAllInternetPlans(Pageable pageable, User user) {
         QInternetPlan internetPlan = QInternetPlan.internetPlan;
+        QBookmark bookmark = QBookmark.bookmark;
+
+        List<Long> bookmarkIdList;
+        if (user != null) {
+            bookmarkIdList = queryFactory
+                .select(bookmark.plan.id)
+                .from(bookmark)
+                .where(bookmark.user.id.eq(user.getId()))
+                .fetch();
+        } else {
+            bookmarkIdList = Collections.emptyList();
+        }
 
         List<InternetPlanDetailResponse> content = queryFactory
             .selectFrom(internetPlan)
@@ -55,7 +83,7 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
             .orderBy(internetPlan.id.desc())
             .fetch()
             .stream()
-            .map(InternetPlanDetailResponse::new)
+            .map(ip -> new InternetPlanDetailResponse(bookmarkIdList.contains(ip.getId()), ip))
             .toList();
 
         return PageableExecutionUtils.getPage(content, pageable, () ->
@@ -68,8 +96,20 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
     }
 
     @Override
-    public Page<IPTVPlanDetailResponse> findAllIPTVPlans(Pageable pageable) {
+    public Page<IPTVPlanDetailResponse> findAllIPTVPlans(Pageable pageable, User user) {
         QIPTVPlan iptvPlan = QIPTVPlan.iPTVPlan;
+        QBookmark bookmark = QBookmark.bookmark;
+
+        List<Long> bookmarkIdList;
+        if (user != null) {
+            bookmarkIdList = queryFactory
+                .select(bookmark.plan.id)
+                .from(bookmark)
+                .where(bookmark.user.id.eq(user.getId()))
+                .fetch();
+        } else {
+            bookmarkIdList = Collections.emptyList();
+        }
 
         List<IPTVPlanDetailResponse> content = queryFactory
             .selectFrom(iptvPlan)
@@ -78,7 +118,7 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
             .orderBy(iptvPlan.id.desc())
             .fetch()
             .stream()
-            .map(IPTVPlanDetailResponse::new)
+            .map(ip -> new IPTVPlanDetailResponse(bookmarkIdList.contains(ip.getId()), ip))
             .toList();
 
         return PageableExecutionUtils.getPage(content, pageable, () ->
@@ -89,5 +129,4 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
             ).orElse(0L)
         );
     }
-
 }

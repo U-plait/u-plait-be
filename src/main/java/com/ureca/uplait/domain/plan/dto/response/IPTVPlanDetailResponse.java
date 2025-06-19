@@ -28,8 +28,8 @@ public class IPTVPlanDetailResponse extends PlanDetailResponse {
         this.iptvDiscount = plan.getPlanPrice() * (100 - plan.getIptvDiscountRate()) / 100;
     }
 
-    public IPTVPlanDetailResponse(IPTVPlan plan) {
-        super(plan);
+    public IPTVPlanDetailResponse(boolean isBookmarked, IPTVPlan plan) {
+        super(isBookmarked, plan);
         this.setPlanType("IPTVPlan");
         this.channel = plan.getChannel();
         this.iptvDiscount = plan.getPlanPrice() * (100 - plan.getIptvDiscountRate()) / 100;

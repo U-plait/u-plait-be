@@ -1,12 +1,12 @@
 package com.ureca.uplait.domain.plan.dto.response;
 
-import static com.ureca.uplait.global.response.ResultCode.INVALID_PLAN;
-
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.global.exception.GlobalException;
+
+import static com.ureca.uplait.global.response.ResultCode.INVALID_PLAN;
 
 public class PlanResponseFactory {
 
@@ -22,13 +22,13 @@ public class PlanResponseFactory {
         }
     }
 
-    public static PlanDetailResponse from(Plan plan) {
+    public static PlanDetailResponse from(boolean isBookmarked, Plan plan) {
         if (plan instanceof IPTVPlan iptv) {
-            return new IPTVPlanDetailResponse(iptv);
+            return new IPTVPlanDetailResponse(isBookmarked, iptv);
         } else if (plan instanceof InternetPlan internet) {
-            return new InternetPlanDetailResponse(internet);
+            return new InternetPlanDetailResponse(isBookmarked, internet);
         } else if (plan instanceof MobilePlan mobile) {
-            return new MobilePlanDetailResponse(mobile);
+            return new MobilePlanDetailResponse(isBookmarked, mobile);
         } else {
             throw new GlobalException(INVALID_PLAN);
         }

@@ -35,6 +35,7 @@ import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.user.entity.PlanTag;
 import com.ureca.uplait.domain.user.entity.Tag;
+import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.domain.user.repository.TagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
@@ -202,18 +203,18 @@ public class AdminPlanService {
     }
 
     @Transactional(readOnly = true)
-    public Page<MobilePlanDetailResponse> getAllMobilePlans(Pageable pageable) {
-        return planRepository.findAllMobilePlans(pageable);
+    public Page<MobilePlanDetailResponse> getAllMobilePlans(Pageable pageable, User user) {
+        return planRepository.findAllMobilePlans(pageable, user);
     }
 
     @Transactional(readOnly = true)
-    public Page<InternetPlanDetailResponse> getAllInternetPlans(Pageable pageable) {
-        return planRepository.findAllInternetPlans(pageable);
+    public Page<InternetPlanDetailResponse> getAllInternetPlans(Pageable pageable, User user) {
+        return planRepository.findAllInternetPlans(pageable, user);
     }
 
     @Transactional(readOnly = true)
-    public Page<IPTVPlanDetailResponse> getAllIPTVPlans(Pageable pageable) {
-        return planRepository.findAllIPTVPlans(pageable);
+    public Page<IPTVPlanDetailResponse> getAllIPTVPlans(Pageable pageable, User user) {
+        return planRepository.findAllIPTVPlans(pageable, user);
     }
 
     @Transactional(readOnly = true)
@@ -230,7 +231,7 @@ public class AdminPlanService {
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
         Plan plan = getPlan(planId);
-        return PlanResponseFactory.from(plan);
+        return PlanResponseFactory.from(plan, false);
     }
 
     @Transactional
