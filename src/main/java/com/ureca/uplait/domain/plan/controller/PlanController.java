@@ -6,6 +6,7 @@ import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanCreateResponse;
 import com.ureca.uplait.domain.admin.service.AdminPlanService;
 import com.ureca.uplait.domain.plan.dto.request.PlanCompareRequest;
+import com.ureca.uplait.domain.plan.dto.response.PlanCompareResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanListResponse;
 import com.ureca.uplait.domain.plan.service.PlanService;
@@ -87,7 +88,7 @@ public class PlanController {
 
     @Operation(summary = "특정 타입 내 요금제 비교", description = "지정된 타입에서 선택된 요금제들의 상세 정보를 비교합니다.")
     @PostMapping("/compare/{planType}")
-    public CommonResponse<List<PlanDetailResponse>> comparePlans(
+    public CommonResponse<List<PlanCompareResponse>> comparePlans(
         @Parameter(description = "요금제 타입", example = "MobilePlan")
         @PathVariable String planType,
         @RequestBody PlanCompareRequest requestDto
