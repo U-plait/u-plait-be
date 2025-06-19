@@ -106,17 +106,48 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 추가 회원 정보 입력 후, 사용자의 관심 분야를 파악하기 위한 선호 태그를 최대 4개까지 선택 가능합니다.
 ![Image](https://github.com/user-attachments/assets/bc177a45-d2f7-48a7-b0dd-6e4e1d533743)
 
-3.메인 (모바일 요금제 목록)
-Uplait의 메인 화면에서는 사용자가 모바일 요금제
+3. 메인 (요금제 목록)
+메인 화면에서는 사용자가 Uplait의 모바일 요금제 목록을 확인할 수 있습니다. 모바일 요금제 이외에도 화면 상단의 네비게이션 바를 통해 인터넷, IPTV의 요금제 목록도 확인할 수 있습니다.
+![image](https://github.com/user-attachments/assets/7dc2cbd7-50ee-43c5-9272-b7ddaf5bf2eb)
 
-최초 접속한 사용자의 경우, 
-- **회원 관리** – 회원가입 / 로그인 / 인증 / 마이페이지
-- **요금제 시스템** – 요금제 비교 / 모바일, 인터넷, IPTV 요금제 CRUD
-- **리뷰 시스템** – 사용자 리뷰 조회, 작성, 수정, 삭제
-- **챗봇 시스템** – 요금제 추천, 상담 / 멀티턴 지원 / 채팅내역 저장
-- **선호 태그 기반 이메일 발송** – 최근 사용자가 관심을 가진 분야에 대한 태그를 저장, 신규 요금제 출시 시 이메일로 관련 알림 발송
-- **관리자 기능** – 리뷰 / 요금제 / 금칙어 관리
+4. 챗봇
+사용자는 화면 우측 하단 아이콘을 통해 챗봇과 대화할 수 있습니다.
+원하는 요금제에 대한 정보를 얻고, 요금제 추천이 가능합니다.
+![image](https://github.com/user-attachments/assets/12aca8ab-56ab-473b-aac3-3f17f59e6712)
 
+5. 요금제 상세보기
+요금제 목록에서 상세보기 버튼을 누르면, 해당 요금제의 상세 정보를 확인할 수 있습니다. 
+![image](https://github.com/user-attachments/assets/46aabc08-0d93-4c1b-aa9d-6508bdf61779)
+해당 요금제를 사용한 사용자는 리뷰를 남길 수 있으며, 다른 유저들도 리뷰를 확인할 수 있습니다.
+![image](https://github.com/user-attachments/assets/0e117790-08f8-46f7-8d39-8250a53c8e6c)
+
+6. 요금제 비교하기
+요금제 목록 중 2개를 선택하여 요금제를 비교할 수 있습니다. 
+![image](https://github.com/user-attachments/assets/438f0c0d-ed49-4f67-88b3-cca91be15387)
+모바일-모바일과 같이 같은 종류의 요금제만 비교 가능합니다.
+![image](https://github.com/user-attachments/assets/fb3ce68f-f479-4bab-a5ce-812d7d70b89c)
+
+8. 마이페이지
+화면 상단의 'xxx 님'이라고 적힌 버튼을 통해 마이페이지로 이동하여 사용자의 개인정보를 확인, 수정할 수 있습니다.
+![image](https://github.com/user-attachments/assets/a055f190-893b-4734-94eb-5b2bea7a19b6)
+(화면 추후 수정 예정)
+'Reviews' 버튼을 눌러 내가 쓴 리뷰들을 확인, 수정, 삭제가 가능합니다.
+![image](https://github.com/user-attachments/assets/0611b4c0-a038-402a-b1ab-46fba1541e03)
+'Bookmark' 버튼을 눌러 내가 즐겨찾기한 요금제 목록을 확인할 수 있습니다.
+(화면 추후 수정 예정-즐겨찾기 버튼 추가)
+
+9. 관리자 화면
+관리자는 관리 페이지에서 전체 리뷰 관리, 요금제 관리, 금칙어/허용어 관리가 가능합니다.
+(관리자 한정) 리뷰 관리
+![image](https://github.com/user-attachments/assets/4977c4fb-4e0f-45a0-8d17-2b36925185a8)
+(관리자 한정) 요금제 관리
+![image](https://github.com/user-attachments/assets/05363411-79a3-4736-a4a8-4ffb63472f2e)
+(관리자 한정) 금칙어 관리
+![image](https://github.com/user-attachments/assets/ce1fc47f-ee14-4afe-9b8d-75e2790aef75)
+(관리자 한정) 허용어 관리
+![image](https://github.com/user-attachments/assets/ba88433f-ef92-473e-a14f-155ca3f7a48b)
+(화면 추후 수정 예정 - 네비바 버튼 추가 때문에)
+   
 ---
 ## 🛠 기술 스택 (Tech Stack)
 
