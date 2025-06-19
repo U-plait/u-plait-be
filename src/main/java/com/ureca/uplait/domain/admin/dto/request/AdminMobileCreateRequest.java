@@ -1,7 +1,7 @@
 package com.ureca.uplait.domain.admin.dto.request;
 
-import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import com.ureca.uplait.domain.plan.entity.MediaBenefit;
+import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AdminMobileCreateRequest extends PlanCommonRequest {
+
     @Schema(description = "제공 데이터 용량", example = "100GB")
     private String data;
 

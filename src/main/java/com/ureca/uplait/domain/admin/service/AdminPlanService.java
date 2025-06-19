@@ -72,7 +72,7 @@ public class AdminPlanService {
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
-            request.getCommunityBenefitList());
+            request.getCommunityBenefitIdList());
 
         savePlanTags(tagList, savedPlan);
         saveCommunityBenefits(communityBenefitList, savedPlan);
@@ -93,7 +93,7 @@ public class AdminPlanService {
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
-            request.getCommunityBenefitList());
+            request.getCommunityBenefitIdList());
 
         savePlanTags(tagList, savedPlan);
         saveCommunityBenefits(communityBenefitList, savedPlan);
@@ -114,7 +114,7 @@ public class AdminPlanService {
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
-            request.getCommunityBenefitList());
+            request.getCommunityBenefitIdList());
 
         savePlanTags(tagList, savedPlan);
         saveCommunityBenefits(communityBenefitList, savedPlan);
@@ -132,7 +132,23 @@ public class AdminPlanService {
         if (!(plan instanceof MobilePlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
-        ((MobilePlan) plan).mobileUpdateFrom(request);
+
+        MobilePlan mobilePlan = (MobilePlan) plan;
+        mobilePlan.mobileUpdateFrom(request);
+
+        planTagRepository.deleteAllByPlan(mobilePlan);
+        planCommunityRepository.deleteAllByPlan(mobilePlan);
+
+        List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitIdList());
+
+        savePlanTags(tagList, mobilePlan);
+        saveCommunityBenefits(communityBenefitList, mobilePlan);
+
+        String description = createDescription(mobilePlan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(mobilePlan, description);
     }
 
     @Transactional
@@ -141,8 +157,23 @@ public class AdminPlanService {
         if (!(plan instanceof IPTVPlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
-        ((IPTVPlan) plan).IPTVUpdateForm(request);
 
+        IPTVPlan iptvPlan = (IPTVPlan) plan;
+        iptvPlan.IPTVUpdateForm(request);
+
+        planTagRepository.deleteAllByPlan(iptvPlan);
+        planCommunityRepository.deleteAllByPlan(iptvPlan);
+
+        List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitIdList());
+
+        savePlanTags(tagList, iptvPlan);
+        saveCommunityBenefits(communityBenefitList, iptvPlan);
+
+        String description = createDescription(iptvPlan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(iptvPlan, description);
     }
 
     @Transactional
@@ -151,7 +182,23 @@ public class AdminPlanService {
         if (!(plan instanceof InternetPlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
-        ((InternetPlan) plan).InternetUpdateForm(request);
+
+        InternetPlan internetPlan = (InternetPlan) plan;
+        internetPlan.InternetUpdateForm(request);
+
+        planTagRepository.deleteAllByPlan(internetPlan);
+        planCommunityRepository.deleteAllByPlan(internetPlan);
+
+        List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitIdList());
+
+        savePlanTags(tagList, internetPlan);
+        saveCommunityBenefits(communityBenefitList, internetPlan);
+
+        String description = createDescription(internetPlan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(internetPlan, description);
     }
 
     @Transactional(readOnly = true)
