@@ -97,11 +97,11 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 ## ✨ 기능 소개
 1. 로그인
 사용자는 카카오 소셜 로그인을 통해 로그인이 가능합니다.
-![Image](https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b)
+<br>![Image](https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b)<br>
 
 2. 회원가입
 최초 로그인한 사용자의 경우, 추가 회원 정보 입력을 위한 회원가입 페이지로 이동합니다.  
-![Image](https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0)
+<br>![Image](https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0)<br>
 
 추가 회원 정보 입력 후, 사용자의 관심 분야를 파악하기 위한 선호 태그를 최대 4개까지 선택 가능합니다.
 ![Image](https://github.com/user-attachments/assets/bc177a45-d2f7-48a7-b0dd-6e4e1d533743)
