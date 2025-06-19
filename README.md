@@ -9,17 +9,16 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 ### [프론트엔드 레포지토리 바로가기](https://github.com/U-plait/u-plait-fe)
 ### [AI 레포지토리 바로가기](https://github.com/U-plait/u-plait-ai)
 <br><br />
-
 # 1. 프로젝트의 배경
+### 1.1 문제인식
   <img src="https://github.com/user-attachments/assets/4e88a7ca-3cfe-4c20-a2b9-3cc015eb3117" width="500"/>
 
-- 2022년 통계에 따르면, 요금제 정보 수집에 어려움을 겪는 원인으로는 과도한 정보량으로 인한 **검색의 어려움(47.2%), 정보의 분산(21.8%)** 이높은 응답률을 보였습니다.
-- 이처럼 복잡하고 이해하기 어려운 요금제 구조로 인해 많은 사용자가 어려움을 겪고 있다는 사실을 알 수 있습니다. 
-- 이는 단순한 불편함을 넘어, 사용자가 부적절한 요금제를 선택해 통신사에 대한 불만족을 초래할 수 있습니다.
-- <span style="color:RED">이를 개선하기 위해 빠른 상담을 위한 챗봇 서비스의 필요성을 느꼈습니다.</span>
+2022년 통계에 따르면, 요금제 정보 수집에 어려움을 겪는 원인으로는 과도한 정보량으로 인한 **검색의 어려움(47.2%), 정보의 분산(21.8%)** 이높은 응답률을 보였습니다.
+이처럼 복잡하고 이해하기 어려운 요금제 구조로 인해 많은 사용자가 어려움을 겪고 있다는 사실을 알 수 있습니다. 
+이는 단순한 불편함을 넘어, 사용자가 부적절한 요금제를 선택해 통신사에 대한 불만족을 초래할 수 있습니다.
+이를 개선하기 위해 빠른 상담을 위한 챗봇 서비스의 필요성을 느꼈습니다.
 <br><br />
-
-# 2. 프로젝트의 목적
+### 1.2 프로젝트의 목적
 
 1. LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추천함으로써,
 통신 상품 탐색 과정을 보다 효율적이고 편리하게 만들어 사용자 경험을 향상시키고자 합니다.
@@ -86,8 +85,8 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
   </tr>
   <tr>
     <td align="center">기획 및 발표 총괄</td>
-    <td align="center">챗봇 개발</td>
-    <td align="center">챗봇 개발</td>
+    <td align="center">챗봇 개발, 배포</td>
+    <td align="center">챗봇 개발, 디자인</td>
     <td align="center">Spring 서버 개발</td>
     <td align="center">Spring 서버 개발</td>
     <td align="center">Spring 서버 개발</td>
@@ -97,15 +96,15 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 
 <br><br />
 # 4. 기능 소개
-### 1. 로그인
+### 4.1 로그인
 <td align="center">
-      <img src="https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b" width="800" height="450" />
+      <img src="https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b" width="800" height="400" />
 </td>
 
 - 사용자는 카카오 소셜 로그인을 통해 로그인이 가능합니다.
 <br><br />
 
-### 2. 회원가입
+### 4.2 회원가입
 <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0" width="500" height="250"/>
@@ -119,23 +118,25 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 - 추가 회원 정보 입력 후, 사용자의 관심 분야를 파악하기 위한 선호 태그를 최대 4개까지 선택 가능합니다.
 <br><br />
 
-### 3. 메인 (요금제 목록)
+### 4.3 메인 (요금제 목록)
 <td align="center">
-      <img src="https://github.com/user-attachments/assets/7dc2cbd7-50ee-43c5-9272-b7ddaf5bf2eb" width="800" height="450" />
+      <img src="https://github.com/user-attachments/assets/d9c445fe-1615-4fde-8b40-fab9879e7456" width="800" height="400" />
 </td>
 
 - 메인 화면에서는 사용자가 Uplait의 모바일 요금제 목록을 확인할 수 있습니다.
 - 모바일 요금제 이외에도 화면 상단의 네비게이션 바를 통해 인터넷, IPTV의 요금제 목록도 확인할 수 있습니다.
 <br><br />
 
-### 4. 챗봇
-<br/>![image](https://github.com/user-attachments/assets/12aca8ab-56ab-473b-aac3-3f17f59e6712)<br/>
+### 4.4 챗봇
+<td align="center">
+      <img src="https://github.com/user-attachments/assets/12aca8ab-56ab-473b-aac3-3f17f59e6712" width="800" height="400" />
+</td>
 
 - 사용자는 화면 우측 하단 아이콘을 통해 챗봇과 대화할 수 있습니다.
 - 원하는 요금제에 대한 정보를 얻고, 요금제 추천이 가능합니다.
-
 <br><br />
-### 5. 요금제 상세보기
+
+### 4.5 요금제 상세보기
 <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/46aabc08-0d93-4c1b-aa9d-6508bdf61779" width="500" height="250"/>
@@ -149,7 +150,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 - 해당 요금제를 사용한 사용자는 리뷰를 남길 수 있으며, 다른 유저들도 리뷰를 확인할 수 있습니다.
 <br><br />
 
-### 6. 요금제 비교하기
+### 4.6 요금제 비교하기
 <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/438f0c0d-ed49-4f67-88b3-cca91be15387" width="500" height="250"/>
@@ -163,7 +164,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 - 모바일-모바일과 같이 같은 종류의 요금제만 비교 가능합니다.
 <br><br />
 
-### 7. 마이페이지
+### 4.7 마이페이지
 <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/a055f190-893b-4734-94eb-5b2bea7a19b6" width="500" height="250"/>
@@ -176,12 +177,9 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 - 화면 상단의 'xxx 님'이라고 적힌 버튼을 통해 마이페이지로 이동하여 사용자의 개인정보를 확인, 수정할 수 있습니다.
 - 'Bookmark' 버튼을 눌러 내가 즐겨찾기한 요금제 목록을 확인할 수 있습니다.
 - 'Reviews' 버튼을 눌러 내가 쓴 리뷰들을 확인, 수정, 삭제가 가능합니다.
-
-
 <br><br />
 
-### 8. 관리자 화면
-- 관리자는 관리 페이지에서 전체 리뷰 관리, 요금제 관리, 금칙어/허용어 관리가 가능합니다.
+### 4.8 관리자 화면
 
 **8.1 리뷰 관리 / 요금제 관리**
 <tr>
@@ -193,6 +191,8 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
     </td>
   </tr>
 
+- 관리자는 관리 페이지에서 리뷰와 요금제 관리가 가능합니다.
+<br><br />
 **8.2 금칙어 관리 / 허용어 관리**
 <tr>
     <td align="center">
@@ -202,8 +202,10 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
       <img src="https://github.com/user-attachments/assets/ba88433f-ef92-473e-a14f-155ca3f7a48b" width="500" height="250"/>
     </td>
   </tr>
-   
 
+- 관리자는 관리 페이지에서 금칙어와 허용어 관리가 가능합니다.
+   
+<br><br />
 # 5. 기술 스택 (Tech Stack)
 
 ### 5.1 백엔드
@@ -249,24 +251,23 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 | 문서 협업 | ![Notion](https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white) |
 | 커뮤니케이션 | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white) |
 
----
+
 
 ## 5.6 프로젝트 구조
 - 시스템 아키텍처
 <br>![Image](https://github.com/user-attachments/assets/dfb7d2f7-f93f-46d5-a135-7e75038697d5)
 - ERD
 <br>![Image](https://github.com/user-attachments/assets/271fbd65-50ba-4528-a96c-3ae0b16a7d34)
----
 
-## 💡 기대 효과
+
+# 6. 기대 효과
 
 ### 사용자 측면
-- **복잡한 요금제를 직접 찾아볼 필요 없이 자신에게 적합한 요금제를 빠르고 정확하게 추천합니다.**
-- **대기할 필요 없이, 사용자는 원하는 시간에 원하는 내용의 상담을 진행할 수 있습니다.**
+- 복잡한 요금제를 직접 찾아볼 필요 없이 자신에게 적합한 요금제를 빠르고 정확하게 추천합니다.
+- 대기할 필요 없이, 사용자는 원하는 시간에 원하는 내용의 상담을 진행할 수 있습니다.
 
 ### 통신사 측면
-![Image](https://github.com/user-attachments/assets/0059c1c8-c5e2-4965-9db4-7346565d8953)
-- **이동전화 회사간 비교 정보를 어디에서 수집하는지 묻는 질문에 조사회사패널 표본은 인터넷 검색(65.6%), 해당 회사 홈페이지(57.3%) 순으로 나타난 응답 비율이 나타났습니다.**
-<br>**많은 사용자가 통신사 홈페이지를 정보 탐색의 주요 수단으로 사용하므로, 통신사 홈페이지에 챗봇 서비스를 제공할 경우, 높은 활용도를 나타낼 것으로 기대됩니다.**
-- **반복적이고 단순한 상담 업무를 챗봇으로 대체하여, 상담 인력의 부담을 줄이고 운영의 효율성을 높일 수 있습니다.**
-- **최신 요금제 정보를 기반으로 한 챗봇을 운영함으로써 상담 내용의 일관성 및 정확도를 높일 수 있습니다.**
+<img src="https://github.com/user-attachments/assets/0059c1c8-c5e2-4965-9db4-7346565d8953" width="500"/>
+- 많은 사용자가 통신사 홈페이지를 정보 탐색의 주요 수단으로 사용하므로, 통신사 홈페이지에 챗봇 서비스를 제공할 경우, 높은 활용도를 나타낼 것으로 기대됩니다.
+- 반복적이고 단순한 상담 업무를 챗봇으로 대체하여, 상담 인력의 부담을 줄이고 운영의 효율성을 높일 수 있습니다.
+- 최신 요금제 정보를 기반으로 한 챗봇을 운영함으로써 상담 내용의 일관성 및 정확도를 높일 수 있습니다.
