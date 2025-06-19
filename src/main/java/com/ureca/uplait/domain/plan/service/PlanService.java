@@ -4,6 +4,8 @@ import static com.ureca.uplait.global.response.ResultCode.INVALID_INPUT;
 import static com.ureca.uplait.global.response.ResultCode.PLAN_NOT_FOUND;
 
 import com.ureca.uplait.domain.contract.repository.ContractRepository;
+import com.ureca.uplait.domain.plan.dto.response.PlanCompareFactory;
+import com.ureca.uplait.domain.plan.dto.response.PlanCompareResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanListResponse;
 import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
@@ -64,7 +66,7 @@ public class PlanService {
             .collect(Collectors.toList());
     }
 
-    public List<PlanDetailResponse> comparePlansByType(String planType, List<Long> planIds) {
+    public List<PlanCompareResponse> comparePlansByType(String planType, List<Long> planIds) {
         if (planIds == null || planIds.isEmpty()) {
             return Collections.emptyList();
         }
@@ -78,7 +80,7 @@ public class PlanService {
         }
 
         return plans.stream()
-            .map(PlanResponseFactory::from)
+            .map(PlanCompareFactory::from)
             .collect(Collectors.toList());
     }
 }

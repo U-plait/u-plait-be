@@ -74,7 +74,6 @@ class AdminPlanServiceTest {
         AdminMobileCreateRequest request = new AdminMobileCreateRequest();
         request.setPlanName("mobilePlan");
         request.setTagIdList(List.of(1L, 2L));
-        request.setCommunityBenefitList(List.of(10L, 11L));
 
         MobilePlan savePlan = MobilePlan.builder()
             .planName("새로운 모바일 플랜")
@@ -110,8 +109,6 @@ class AdminPlanServiceTest {
         given(planRepository.existsByPlanName(request.getPlanName())).willReturn(false);
 
         given(tagRepository.findAllById(request.getTagIdList())).willReturn(tags);
-        given(communityBenefitRepository.findAllById(request.getCommunityBenefitList())).willReturn(
-            benefits);
 
         given(
             communityBenefitPriceRepository.findMaxHeadcountPricesByCommunityBenefitIds(anyList()))
@@ -128,7 +125,6 @@ class AdminPlanServiceTest {
         verify(planRepository, times(1)).existsByPlanName(request.getPlanName());
         verify(planRepository, times(1)).save(any(MobilePlan.class));
         verify(tagRepository, times(1)).findAllById(request.getTagIdList());
-        verify(communityBenefitRepository, times(1)).findAllById(request.getCommunityBenefitList());
         verify(planTagRepository, times(1)).saveAll(anyList());
         verify(planCommunityRepository, times(1)).saveAll(anyList());
         verify(communityBenefitPriceRepository,
