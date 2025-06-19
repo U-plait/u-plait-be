@@ -9,6 +9,7 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "요금제 상세 조회 결과")
 public abstract class PlanDetailResponse {
+
     @Schema(description = "요금제 id", example = "1")
     protected Long planId;
 
@@ -29,6 +30,7 @@ public abstract class PlanDetailResponse {
 
     @Schema(description = "플랜 타입", example = "MobilePlan")
     private String planType;
+
 
     protected PlanDetailResponse(Plan plan, boolean inUse) {
         this.planId = plan.getId();

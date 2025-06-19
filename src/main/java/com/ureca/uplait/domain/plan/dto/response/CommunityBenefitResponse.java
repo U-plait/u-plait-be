@@ -5,11 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class CommunityBenefitResponse {
-    private Long communityId;
+
+    private Long id;
     private String communityName;
 
     public CommunityBenefitResponse(CommunityBenefit communityBenefit) {
-        this.communityId = communityBenefit.getId();
+        this.id = communityBenefit.getId();
         this.communityName = communityBenefit.getName();
     }
 }
