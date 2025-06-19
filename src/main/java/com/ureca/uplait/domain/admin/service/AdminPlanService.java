@@ -109,20 +109,20 @@ public class AdminPlanService {
         validateDuplicatePlanName(request.getPlanName());
 
         IPTVPlan plan = request.toIPTV();
-        planRepository.save(plan);
+        IPTVPlan savedPlan = planRepository.save(plan);
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
             request.getCommunityBenefitList());
 
-        savePlanTags(tagList, plan);
-        saveCommunityBenefits(communityBenefitList, plan);
+        savePlanTags(tagList, savedPlan);
+        saveCommunityBenefits(communityBenefitList, savedPlan);
 
-        String description = createDescription(plan, tagList,
+        String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
-        fastAPIClient.saveVector(plan, description);
+        fastAPIClient.saveVector(savedPlan, description);
 
-        return new AdminPlanCreateResponse(plan.getId());
+        return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
     @Transactional
