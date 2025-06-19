@@ -97,27 +97,27 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 ## ✨ 기능 소개
 1. 로그인
 사용자는 카카오 소셜 로그인을 통해 로그인이 가능합니다.
-<br>![Image](https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b)<br>
+<br/>![Image](https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b)<br/>
 
 2. 회원가입
 최초 로그인한 사용자의 경우, 추가 회원 정보 입력을 위한 회원가입 페이지로 이동합니다.  
-<br>![Image](https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0)<br>
+<br/>![Image](https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0)<br/>
 
 추가 회원 정보 입력 후, 사용자의 관심 분야를 파악하기 위한 선호 태그를 최대 4개까지 선택 가능합니다.
-![Image](https://github.com/user-attachments/assets/bc177a45-d2f7-48a7-b0dd-6e4e1d533743)
+<br/>![Image](https://github.com/user-attachments/assets/bc177a45-d2f7-48a7-b0dd-6e4e1d533743)<br/>
 
 3. 메인 (요금제 목록)
 메인 화면에서는 사용자가 Uplait의 모바일 요금제 목록을 확인할 수 있습니다. 모바일 요금제 이외에도 화면 상단의 네비게이션 바를 통해 인터넷, IPTV의 요금제 목록도 확인할 수 있습니다.
-![image](https://github.com/user-attachments/assets/7dc2cbd7-50ee-43c5-9272-b7ddaf5bf2eb)
+<br/>![image](https://github.com/user-attachments/assets/7dc2cbd7-50ee-43c5-9272-b7ddaf5bf2eb)<br/>
 
 4. 챗봇
 사용자는 화면 우측 하단 아이콘을 통해 챗봇과 대화할 수 있습니다.
 원하는 요금제에 대한 정보를 얻고, 요금제 추천이 가능합니다.
-![image](https://github.com/user-attachments/assets/12aca8ab-56ab-473b-aac3-3f17f59e6712)
+<br/>![image](https://github.com/user-attachments/assets/12aca8ab-56ab-473b-aac3-3f17f59e6712)<br/>
 
 5. 요금제 상세보기
 요금제 목록에서 상세보기 버튼을 누르면, 해당 요금제의 상세 정보를 확인할 수 있습니다. 
-![image](https://github.com/user-attachments/assets/46aabc08-0d93-4c1b-aa9d-6508bdf61779)
+<br/>![image](https://github.com/user-attachments/assets/46aabc08-0d93-4c1b-aa9d-6508bdf61779)<br/>
 해당 요금제를 사용한 사용자는 리뷰를 남길 수 있으며, 다른 유저들도 리뷰를 확인할 수 있습니다.
 ![image](https://github.com/user-attachments/assets/0e117790-08f8-46f7-8d39-8250a53c8e6c)
 
