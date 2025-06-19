@@ -48,61 +48,54 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
         <sub><b>임동준</b></sub>
       </a>
       <br />
-      팀장 / 백엔드
     </td>
     <td align="center">
-      <a href="https://github.com/frontend-lee">
-        <img src="https://avatars.githubusercontent.com/frontend-lee" width="100px;" alt="frontend-lee"/>
+      <a href="https://github.com/hayong39">
+        <img src="https://avatars.githubusercontent.com/hayong39" width="100px;" alt="frontend-lee"/>
         <br />
         <sub><b>변하영</b></sub>
       </a>
       <br />
-      프론트엔드
     </td>
     <td align="center">
-      <a href="https://github.com/ai-park">
-        <img src="https://avatars.githubusercontent.com/ai-park" width="100px;" alt="ai-park"/>
+      <a href="https://github.com/Yyang-YE">
+        <img src="https://avatars.githubusercontent.com/Yyang-YE" width="100px;" alt="ai-park"/>
         <br />
         <sub><b>양여은</b></sub>
       </a>
       <br />
-      AI 엔지니어
     </td>
     <td align="center">
-      <a href="https://github.com/pm-choi">
-        <img src="https://avatars.githubusercontent.com/pm-choi" width="100px;" alt="pm-choi"/>
+      <a href="https://github.com/songhyeongyu">
+        <img src="https://avatars.githubusercontent.com/songhyeongyu" width="100px;" alt="pm-choi"/>
         <br />
         <sub><b>송현규</b></sub>
       </a>
       <br />
-      기획 / 문서화
     </td>
     <td align="center">
-      <a href="https://github.com/pm-choi">
-        <img src="https://avatars.githubusercontent.com/pm-choi" width="100px;" alt="pm-choi"/>
+      <a href="https://github.com/etoile0626">
+        <img src="https://avatars.githubusercontent.com/etoile0626" width="100px;" alt="pm-choi"/>
         <br />
         <sub><b>최윤제</b></sub>
       </a>
       <br />
-      기획 / 문서화
     </td>
     <td align="center">
-      <a href="https://github.com/pm-choi">
-        <img src="https://avatars.githubusercontent.com/pm-choi" width="100px;" alt="pm-choi"/>
+      <a href="https://github.com/Heoooo">
+        <img src="https://avatars.githubusercontent.com/Heoooo" width="100px;" alt="pm-choi"/>
         <br />
         <sub><b>허진혁</b></sub>
       </a>
       <br />
-      기획 / 문서화
     </td>
     <td align="center">
-      <a href="https://github.com/pm-choi">
-        <img src="https://avatars.githubusercontent.com/pm-choi" width="100px;" alt="pm-choi"/>
+      <a href="https://github.com/Suhun0331">
+        <img src="https://avatars.githubusercontent.com/Suhun0331" width="100px;" alt="pm-choi"/>
         <br />
         <sub><b>김수훈</b></sub>
       </a>
       <br />
-      기획 / 문서화
     </td>
   </tr>
 </table>
