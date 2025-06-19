@@ -11,7 +11,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/bookmark")
 @RestController
@@ -31,7 +36,8 @@ public class BookmarkController {
         @RequestParam(defaultValue = "5") int size,
         @Parameter(description = "마지막 즐겨찾기 Id")
         @RequestParam(required = false) Long lastBookmarkId) {
-        return CommonResponse.success(bookmarkService.getBookmarks(user, planType, size, lastBookmarkId));
+        return CommonResponse.success(
+            bookmarkService.getBookmarks(user, planType, size, lastBookmarkId));
     }
 
     @Operation(summary = "즐겨찾기 추가", description = "즐겨찾기 추가: 로그인 필요")
@@ -45,12 +51,12 @@ public class BookmarkController {
     }
 
     @Operation(summary = "즐겨찾기 삭제", description = "즐겨찾기 삭제: 로그인 필요")
-    @DeleteMapping("/{bookmarkId}")
+    @DeleteMapping
     public CommonResponse<DeleteBookmarkResponse> deleteBookmark(
         @Parameter(description = "사용자정보", required = true)
         @AuthenticationPrincipal User user,
-        @Parameter(description = "즐겨찾기 id", required = true)
-        @PathVariable Long bookmarkId) {
-        return CommonResponse.success(bookmarkService.deleteBookmark(user, bookmarkId));
+        @Parameter(description = "요금제 id", required = true)
+        @RequestParam Long planId) {
+        return CommonResponse.success(bookmarkService.deleteBookmark(user, planId));
     }
 }
