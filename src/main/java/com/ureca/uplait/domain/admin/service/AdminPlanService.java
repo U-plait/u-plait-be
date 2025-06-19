@@ -141,7 +141,6 @@ public class AdminPlanService {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
         ((IPTVPlan) plan).IPTVUpdateForm(request);
-
     }
 
     @Transactional

@@ -2,6 +2,7 @@ package com.ureca.uplait.domain.admin.service;
 
 import com.ureca.uplait.domain.admin.api.FastAPIClient;
 import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
+import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanCreateResponse;
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitPriceRepository;
@@ -168,9 +169,41 @@ class AdminPlanServiceTest {
                 planTagRepository, fastAPIClient);
     }
 
-    @DisplayName("IPTV 요금제 수정")
+    @DisplayName("IPTV 요금제 수정 - 성공")
     @Test
     void updateIptvPlan() {
+        //given
+        AdminIPTVPlanUpdateRequest request = new AdminIPTVPlanUpdateRequest();
+        request.setPlanName("업데이트 요금제");
+        request.setPlanPrice(44000);
+        request.setPlanBenefit("데이터 무제한");
+        request.setAvailability(true);
+        request.setDescription("새로운 설명");
+        request.setChannel(250);
+        request.setIptvDiscountRate(10);
+        request.setTagIdList(List.of(1L, 2L));
+        request.setCommunityBenefitList(List.of(100L, 200L));
+
+        IPTVPlan existingPlan = IPTVPlan.builder()
+                .planName("기존 요금제")
+                .planPrice(30000)
+                .planBenefit("기존 혜택")
+                .availability(false)
+                .description("기존 설명")
+                .channel(100)
+                .iptvDiscountRate(5)
+                .build();
+        setSuperId(existingPlan, 1L);
+
+
+        //when
+
+        //then
+    }
+
+    @DisplayName("IPTV 요금제 수정 - 예외")
+    @Test
+    void updateIptvPlan_Exception() {
         //given
 
         //when
