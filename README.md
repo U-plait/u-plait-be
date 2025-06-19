@@ -8,11 +8,11 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 ---
 ## 프론트엔드 레포지토리
 
-[프론트엔드 README 바로가기](https://github.com/U-plait/u-plait-fe)
+[프론트엔드 레포지토리 바로가기](https://github.com/U-plait/u-plait-fe)
 
 ## AI 레포지토리
 
-[AI README 바로가기](https://github.com/U-plait/u-plait-ai)
+[AI 레포지토리 바로가기](https://github.com/U-plait/u-plait-ai)
 
 ---
 ## 🎯 프로젝트의 배경
@@ -102,9 +102,22 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 
 ---
 
-## ✨ 주요 기능
-실제 화면은 프론트엔드 README를 확인해주세요.
+## ✨ 기능 소개
+1. 로그인
+사용자는 카카오 소셜 로그인을 통해 로그인이 가능합니다.
+![Image](https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b)
 
+2. 회원가입
+최초 로그인한 사용자의 경우, 추가 회원 정보 입력을 위한 회원가입 페이지로 이동합니다.  
+![Image](https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0)
+
+추가 회원 정보 입력 후, 사용자의 관심 분야를 파악하기 위한 선호 태그를 최대 4개까지 선택 가능합니다.
+![Image](https://github.com/user-attachments/assets/bc177a45-d2f7-48a7-b0dd-6e4e1d533743)
+
+3.메인 (모바일 요금제 목록)
+Uplait의 메인 화면에서는 사용자가 모바일 요금제
+
+최초 접속한 사용자의 경우, 
 - **회원 관리** – 회원가입 / 로그인 / 인증 / 마이페이지
 - **요금제 시스템** – 요금제 비교 / 모바일, 인터넷, IPTV 요금제 CRUD
 - **리뷰 시스템** – 사용자 리뷰 조회, 작성, 수정, 삭제
@@ -115,6 +128,8 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 ---
 ## 🛠 기술 스택 (Tech Stack)
 
+### 📌 백엔드
+
 | 구분 | 기술 |
 |------|------|
 | 언어 | ![Java](https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white) |
@@ -122,8 +137,39 @@ LLM 기반 챗봇을 활용해 사용자에게 맞춤형 통신 요금제를 추
 | ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-6DB33F?style=flat&logo=spring&logoColor=white) |
 | 문서화 | ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=black) |
 | 인증/인가 | ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=flat&logo=spring-security&logoColor=white)<br>![OAuth2](https://img.shields.io/badge/OAuth2-005C9C?style=flat&logo=oauth&logoColor=white)<br>![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) |
-| 테스트 | ![JUnit 5](https://img.shields.io/badge/JUnit%205-25A162?style=flat&logo=jest&logoColor=white)<br>![Mockito](https://img.shields.io/badge/Mockito-5A6268?style=flat&logo=mockito&logoColor=white) |
+| 테스트 | ![JUnit5](https://img.shields.io/badge/JUnit%205-25A162?style=flat&logo=jest&logoColor=white)<br>![Mockito](https://img.shields.io/badge/Mockito-5A6268?style=flat&logo=mockito&logoColor=white) |
 | DB 마이그레이션 | ![Liquibase](https://img.shields.io/badge/Liquibase-2962FF?style=flat&logo=liquibase&logoColor=white) |
+
+### 🎨 프론트엔드
+
+| 구분 | 기술 |
+|------|------|
+| 라이브러리 | ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) |
+| HTTP 클라이언트 | ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white) |
+
+### 🤖 인공지능
+
+| 구분 | 기술 |
+|------|------|
+| 백엔드 연동 | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white) |
+| AI 플랫폼 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai&logoColor=white)<br>![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21F?style=flat&logo=huggingface&logoColor=black) |
+| LLM 프레임워크 | ![LangChain](https://img.shields.io/badge/LangChain-000000?style=flat&logo=python&logoColor=white) |
+
+### 🛢 데이터베이스
+
+| 구분 | 기술 |
+|------|------|
+| RDBMS | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white) |
+| 벡터DB 확장 | ![pgvector](https://img.shields.io/badge/pgvector-000000?style=flat&logo=postgresql&logoColor=white) |
+
+### 🧑‍💻 협업 & 형상 관리
+
+| 구분 | 기술 |
+|------|------|
+| 버전 관리 | ![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)<br>![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white) |
+| 프로젝트 관리 | ![Jira](https://img.shields.io/badge/Jira-0052CC?style=flat&logo=jira&logoColor=white) |
+| 문서 협업 | ![Notion](https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white) |
+| 커뮤니케이션 | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white) |
 
 ---
 
