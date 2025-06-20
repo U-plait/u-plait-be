@@ -139,7 +139,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 ### 4.5 요금제 상세보기
 <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/46aabc08-0d93-4c1b-aa9d-6508bdf61779" width="500" height="250"/>
+      <img src="https://github.com/user-attachments/assets/5b775c5e-fe95-4e25-9ed5-ddf0c6620848" width="500" height="250"/>
     </td>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/0e117790-08f8-46f7-8d39-8250a53c8e6c3" width="500" height="250"/>
