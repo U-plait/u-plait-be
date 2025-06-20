@@ -1,21 +1,13 @@
 package com.ureca.uplait.domain.admin.controller;
 
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.*;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanCreateResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanDeleteResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanDetailResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminUpdateAllVectorResponse;
 import com.ureca.uplait.domain.admin.service.AdminPlanService;
-import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
+import com.ureca.uplait.domain.plan.dto.response.*;
+import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.response.CommonResponse;
 import com.ureca.uplait.global.response.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,14 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -72,28 +58,34 @@ public class AdminPlanController {
     @Operation(summary = "모바일 요금제 목록 조회", description = "모바일 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
     @GetMapping("/mobile")
     public CommonResponse<Page<MobilePlanDetailResponse>> getMobilePlans(
+        @Parameter(description = "사용자정보", required = false)
+        @AuthenticationPrincipal User user,
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
-        return CommonResponse.success(adminPlanService.getAllMobilePlans(pageable));
+        return CommonResponse.success(adminPlanService.getAllMobilePlans(pageable, user));
     }
 
     @Operation(summary = "인터넷 요금제 목록 조회", description = "인터넷 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
     @GetMapping("/internet")
     public CommonResponse<Page<InternetPlanDetailResponse>> getInternetPlans(
+        @Parameter(description = "사용자정보", required = false)
+        @AuthenticationPrincipal User user,
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
-        return CommonResponse.success(adminPlanService.getAllInternetPlans(pageable));
+        return CommonResponse.success(adminPlanService.getAllInternetPlans(pageable, user));
     }
 
     @Operation(summary = "IPTV 요금제 목록 조회", description = "IPTV 요금제 목록을 5개씩 페이지네이션하여 조회합니다.")
     @GetMapping("/iptv")
     public CommonResponse<Page<IPTVPlanDetailResponse>> getIptvPlans(
+        @Parameter(description = "사용자정보", required = false)
+        @AuthenticationPrincipal User user,
         @Parameter(description = "페이지 정보 (기본값: size=5)")
         @PageableDefault(size = 5) Pageable pageable
     ) {
-        return CommonResponse.success(adminPlanService.getAllIPTVPlans(pageable));
+        return CommonResponse.success(adminPlanService.getAllIPTVPlans(pageable, user));
     }
 
     @Operation(summary = "모바일 요금제 수정", description = "모바일 요금제의 상세 정보를 수정합니다.")

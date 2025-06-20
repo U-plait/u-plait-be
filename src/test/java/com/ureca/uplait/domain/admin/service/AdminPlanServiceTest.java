@@ -250,22 +250,22 @@ class AdminPlanServiceTest {
             .build();
 
         List<MobilePlanDetailResponse> mockResponses = List.of(
-            new MobilePlanDetailResponse(plan1),
-            new MobilePlanDetailResponse(plan2)
+            new MobilePlanDetailResponse(false, plan1),
+            new MobilePlanDetailResponse(false, plan2)
         );
         Page<MobilePlanDetailResponse> mockPage = new PageImpl<>(mockResponses, pageable, 2);
 
-        given(planRepository.findAllMobilePlans(pageable)).willReturn(mockPage);
+        given(planRepository.findAllMobilePlans(pageable, null)).willReturn(mockPage);
 
         // When
-        Page<MobilePlanDetailResponse> result = adminPlanService.getAllMobilePlans(pageable);
+        Page<MobilePlanDetailResponse> result = adminPlanService.getAllMobilePlans(pageable, null);
 
         // Then
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(2);
         assertThat(result.getContent().get(0).getPlanName()).isEqualTo("폰플랜1");
         assertThat(result.getContent().get(1).getPlanName()).isEqualTo("폰플랜2");
-        verify(planRepository, times(1)).findAllMobilePlans(pageable);
+        verify(planRepository, times(1)).findAllMobilePlans(pageable, null);
     }
 
     @Test

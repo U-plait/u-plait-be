@@ -52,8 +52,8 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
         this.premierDiscountRate = plan.getPremierDiscountRate();
     }
 
-    public MobilePlanDetailResponse(MobilePlan plan) {
-        super(plan);
+    public MobilePlanDetailResponse(boolean isBookmarked, MobilePlan plan) {
+        super(isBookmarked, plan);
         this.setPlanType("MobilePlan");
         this.data = plan.getData();
         this.sharedData = plan.getSharedData();
