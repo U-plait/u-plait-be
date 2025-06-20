@@ -6,8 +6,8 @@
 LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요금제를 비교, 추천 받을 수 있습니다.
 
 
-### [프론트엔드 레포지토리 바로가기](https://github.com/U-plait/u-plait-fe)
-### [AI 레포지토리 바로가기](https://github.com/U-plait/u-plait-ai)
+### [U-plait 프론트엔드 레포지토리 바로가기](https://github.com/U-plait/u-plait-fe)
+### [U-plait AI 레포지토리 바로가기](https://github.com/U-plait/u-plait-ai)
 <br><br />
 # 1. 프로젝트의 배경
 ### 1.1 문제인식
