@@ -4,7 +4,8 @@ import com.ureca.uplait.domain.admin.dto.request.AdminAllowWordRequest;
 import com.ureca.uplait.domain.admin.dto.response.AdminAllowWordResponse;
 import com.ureca.uplait.domain.allowword.entity.AllowWord;
 import com.ureca.uplait.domain.allowword.repository.AllowWordRepository;
-import com.ureca.uplait.domain.banword.repository.BanWordRepository;
+import com.ureca.uplait.domain.common.filter.AllowWordManager;
+import com.ureca.uplait.domain.common.filter.BanWordFilter;
 import com.ureca.uplait.domain.common.validator.CommonValidator;
 import com.ureca.uplait.domain.common.validator.WordConflictValidator;
 import com.ureca.uplait.global.exception.GlobalException;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,8 +25,10 @@ public class AdminAllowWordService {
     private final AllowWordRepository allowWordRepository;
     private final WordConflictValidator wordConflictValidator;
     private final CommonValidator commonValidator;
-    private final BanWordRepository banWordRepository;
+    private final BanWordFilter banWordFilter;
+    private final AllowWordManager allowWordManager;
 
+    @Transactional
     public AdminAllowWordResponse registerAllowWord(AdminAllowWordRequest request) {
         String value = request.getAllowWord();
         commonValidator.validateNotDuplicated(allowWordRepository.existsByAllowWord(value), ResultCode.DUPLICATED_ALLOWWORD);
@@ -32,6 +36,9 @@ public class AdminAllowWordService {
 
         AllowWord allowWord = new AllowWord(value);
         allowWordRepository.save(allowWord);
+
+        allowWordManager.reload();
+        banWordFilter.reload();
 
         return toResponse(allowWord);
     }
@@ -41,15 +48,23 @@ public class AdminAllowWordService {
                 .map(this::toResponse);
     }
 
+    @Transactional
     public void deleteAllowWordById(Long id) {
         AllowWord allowWord = getAllowWordOrThrow(id);
         allowWordRepository.delete(allowWord);
+
+        allowWordManager.reload();
+        banWordFilter.reload();
     }
 
+    @Transactional
     public void deleteAllowWordsByIds(List<Long> ids) {
         List<AllowWord> allowWords = allowWordRepository.findAllById(ids);
         commonValidator.validateAllIdsExist(ids, allowWords, ResultCode.ALLOWWORD_NOT_FOUND);
         allowWordRepository.deleteAll(allowWords);
+
+        allowWordManager.reload();
+        banWordFilter.reload();
     }
 
     public Page<AdminAllowWordResponse> searchAllowWords(String keyword, Pageable pageable) {

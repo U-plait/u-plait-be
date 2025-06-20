@@ -3,12 +3,10 @@ package com.ureca.uplait.domain.plan.dto.response;
 import com.ureca.uplait.domain.plan.entity.MediaBenefit;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Getter;
 
 @Getter
-@Schema(description = "모바일 요금제 상세")
-public class MobilePlanDetailResponse extends PlanDetailResponse {
+public class MobileCompareResponse extends PlanCompareResponse {
 
     @Schema(description = "데이터", example = "무제한")
     private String data;
@@ -34,14 +32,9 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "프리미엄 요금제 약정 할인", example = "5250")
     private int premierDiscountRate;
 
-    @Schema(description = "태그", example = "무제한")
-    private List<TagResponse> tagList;
-
-    @Schema(description = "결합 혜택", example = "가족결합")
-    private List<CommunityBenefitResponse> communityBenefitList;
-
-    public MobilePlanDetailResponse(MobilePlan plan, boolean inUse) {
-        super(plan, inUse);
+    protected MobileCompareResponse(MobilePlan plan) {
+        super(plan);
+        setPlanType("MobilePlan");
         this.data = plan.getData();
         this.sharedData = plan.getSharedData();
         this.voiceCall = plan.getVoiceCall();
@@ -52,23 +45,5 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
         this.premierDiscountRate = plan.getPremierDiscountRate();
     }
 
-    public MobilePlanDetailResponse(boolean isBookmarked, MobilePlan plan) {
-        super(isBookmarked, plan);
-        this.setPlanType("MobilePlan");
-        this.data = plan.getData();
-        this.sharedData = plan.getSharedData();
-        this.voiceCall = plan.getVoiceCall();
-        this.message = plan.getMessage();
-        this.extraData = plan.getExtraData();
-        this.mediaBenefit = plan.getMediaBenefit();
-        this.durationDiscountRate = plan.getDurationDiscountRate();
-        this.premierDiscountRate = plan.getPremierDiscountRate();
-        this.tagList = plan.getPlanTags().stream()
-            .map(planTag -> new TagResponse(planTag.getTag()))
-            .toList();
 
-        this.communityBenefitList = plan.getCommunityBenefitList().stream()
-            .map(planCommunity -> new CommunityBenefitResponse(planCommunity.getCommunityBenefit()))
-            .toList();
-    }
 }

@@ -74,7 +74,6 @@ class AdminPlanServiceTest {
         AdminMobileCreateRequest request = new AdminMobileCreateRequest();
         request.setPlanName("mobilePlan");
         request.setTagIdList(List.of(1L, 2L));
-        request.setCommunityBenefitList(List.of(10L, 11L));
 
         MobilePlan savePlan = MobilePlan.builder()
             .planName("새로운 모바일 플랜")
@@ -110,8 +109,6 @@ class AdminPlanServiceTest {
         given(planRepository.existsByPlanName(request.getPlanName())).willReturn(false);
 
         given(tagRepository.findAllById(request.getTagIdList())).willReturn(tags);
-        given(communityBenefitRepository.findAllById(request.getCommunityBenefitList())).willReturn(
-            benefits);
 
         given(
             communityBenefitPriceRepository.findMaxHeadcountPricesByCommunityBenefitIds(anyList()))
@@ -128,7 +125,6 @@ class AdminPlanServiceTest {
         verify(planRepository, times(1)).existsByPlanName(request.getPlanName());
         verify(planRepository, times(1)).save(any(MobilePlan.class));
         verify(tagRepository, times(1)).findAllById(request.getTagIdList());
-        verify(communityBenefitRepository, times(1)).findAllById(request.getCommunityBenefitList());
         verify(planTagRepository, times(1)).saveAll(anyList());
         verify(planCommunityRepository, times(1)).saveAll(anyList());
         verify(communityBenefitPriceRepository,
@@ -254,22 +250,22 @@ class AdminPlanServiceTest {
             .build();
 
         List<MobilePlanDetailResponse> mockResponses = List.of(
-            new MobilePlanDetailResponse(plan1),
-            new MobilePlanDetailResponse(plan2)
+            new MobilePlanDetailResponse(false, plan1),
+            new MobilePlanDetailResponse(false, plan2)
         );
         Page<MobilePlanDetailResponse> mockPage = new PageImpl<>(mockResponses, pageable, 2);
 
-        given(planRepository.findAllMobilePlans(pageable)).willReturn(mockPage);
+        given(planRepository.findAllMobilePlans(pageable, null)).willReturn(mockPage);
 
         // When
-        Page<MobilePlanDetailResponse> result = adminPlanService.getAllMobilePlans(pageable);
+        Page<MobilePlanDetailResponse> result = adminPlanService.getAllMobilePlans(pageable, null);
 
         // Then
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(2);
         assertThat(result.getContent().get(0).getPlanName()).isEqualTo("폰플랜1");
         assertThat(result.getContent().get(1).getPlanName()).isEqualTo("폰플랜2");
-        verify(planRepository, times(1)).findAllMobilePlans(pageable);
+        verify(planRepository, times(1)).findAllMobilePlans(pageable, null);
     }
 
     @Test

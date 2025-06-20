@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Schema(description = "인터넷 요금제 상세")
-public class InternetPlanDetailResponse extends PlanDetailResponse {
+public class InternetPlanCompareResponse extends PlanCompareResponse {
 
     @Schema(description = "인터넷 속도", example = "500M")
     private String velocity;
@@ -21,24 +21,11 @@ public class InternetPlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "결합 혜택", example = "가족결합")
     private List<CommunityBenefitResponse> communityBenefitList;
 
-    public InternetPlanDetailResponse(InternetPlan plan, boolean inUse) {
-        super(plan, inUse);
-        this.velocity = plan.getVelocity();
-        this.internetDiscount = plan.getInternetDiscountRate();
-    }
-
-    public InternetPlanDetailResponse(boolean isBookmarked, InternetPlan plan) {
-        super(isBookmarked, plan);
+    public InternetPlanCompareResponse(InternetPlan plan) {
+        super(plan);
         this.setPlanType("InternetPlan");
         this.velocity = plan.getVelocity();
         this.internetDiscount = plan.getInternetDiscountRate();
-
-        this.tagList = plan.getPlanTags().stream()
-            .map(planTag -> new TagResponse(planTag.getTag()))
-            .toList();
-
-        this.communityBenefitList = plan.getCommunityBenefitList().stream()
-            .map(planCommunity -> new CommunityBenefitResponse(planCommunity.getCommunityBenefit()))
-            .toList();
     }
+
 }

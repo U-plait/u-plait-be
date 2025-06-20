@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "요금제 상세 조회 결과")
-public abstract class PlanDetailResponse {
+public abstract class PlanCompareResponse {
 
     @Schema(description = "요금제 id", example = "1")
     protected Long planId;
@@ -28,34 +28,15 @@ public abstract class PlanDetailResponse {
     @Schema(description = "요금제 사용 여부", example = "true")
     protected Boolean inUse;
 
-    @Schema(description = "즐겨찾기 여부", example = "true")
-    protected Boolean isBookmarked;
-
     @Schema(description = "플랜 타입", example = "MobilePlan")
     private String planType;
 
-    @Schema(description = "플랜 설명", example = "너무 좋은 요금제")
-    private String description;
-
-
-    protected PlanDetailResponse(Plan plan, boolean inUse) {
+    protected PlanCompareResponse(Plan plan) {
         this.planId = plan.getId();
         this.planName = plan.getPlanName();
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
-        this.description = plan.getDescription();
-        this.inUse = inUse;
-    }
-
-    protected PlanDetailResponse(boolean isBookmarked, Plan plan) {
-        this.planId = plan.getId();
-        this.planName = plan.getPlanName();
-        this.planPrice = plan.getPlanPrice();
-        this.planBenefit = plan.getPlanBenefit();
-        this.availability = plan.getAvailability();
-        this.description = plan.getDescription();
-        this.isBookmarked = isBookmarked;
     }
 
     protected void setPlanType(String planType) {

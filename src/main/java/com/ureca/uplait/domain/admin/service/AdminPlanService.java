@@ -35,6 +35,7 @@ import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.user.entity.PlanTag;
 import com.ureca.uplait.domain.user.entity.Tag;
+import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.domain.user.repository.TagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
@@ -72,7 +73,7 @@ public class AdminPlanService {
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
-            request.getCommunityBenefitList());
+            request.getCommunityBenefitIdList());
 
         savePlanTags(tagList, savedPlan);
         saveCommunityBenefits(communityBenefitList, savedPlan);
@@ -93,7 +94,7 @@ public class AdminPlanService {
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
-            request.getCommunityBenefitList());
+            request.getCommunityBenefitIdList());
 
         savePlanTags(tagList, savedPlan);
         saveCommunityBenefits(communityBenefitList, savedPlan);
@@ -114,7 +115,7 @@ public class AdminPlanService {
 
         List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
         List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
-            request.getCommunityBenefitList());
+            request.getCommunityBenefitIdList());
 
         savePlanTags(tagList, savedPlan);
         saveCommunityBenefits(communityBenefitList, savedPlan);
@@ -132,7 +133,23 @@ public class AdminPlanService {
         if (!(plan instanceof MobilePlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
-        ((MobilePlan) plan).mobileUpdateFrom(request);
+
+        MobilePlan mobilePlan = (MobilePlan) plan;
+        mobilePlan.mobileUpdateFrom(request);
+
+        planTagRepository.deleteAllByPlan(mobilePlan);
+        planCommunityRepository.deleteAllByPlan(mobilePlan);
+
+        List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitIdList());
+
+        savePlanTags(tagList, mobilePlan);
+        saveCommunityBenefits(communityBenefitList, mobilePlan);
+
+        String description = createDescription(mobilePlan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(mobilePlan, description);
     }
 
     @Transactional
@@ -141,8 +158,23 @@ public class AdminPlanService {
         if (!(plan instanceof IPTVPlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
-        ((IPTVPlan) plan).IPTVUpdateForm(request);
 
+        IPTVPlan iptvPlan = (IPTVPlan) plan;
+        iptvPlan.IPTVUpdateForm(request);
+
+        planTagRepository.deleteAllByPlan(iptvPlan);
+        planCommunityRepository.deleteAllByPlan(iptvPlan);
+
+        List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitIdList());
+
+        savePlanTags(tagList, iptvPlan);
+        saveCommunityBenefits(communityBenefitList, iptvPlan);
+
+        String description = createDescription(iptvPlan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(iptvPlan, description);
     }
 
     @Transactional
@@ -151,22 +183,38 @@ public class AdminPlanService {
         if (!(plan instanceof InternetPlan)) {
             throw new GlobalException(ResultCode.INVALID_PLAN);
         }
-        ((InternetPlan) plan).InternetUpdateForm(request);
+
+        InternetPlan internetPlan = (InternetPlan) plan;
+        internetPlan.InternetUpdateForm(request);
+
+        planTagRepository.deleteAllByPlan(internetPlan);
+        planCommunityRepository.deleteAllByPlan(internetPlan);
+
+        List<Tag> tagList = tagRepository.findAllById(request.getTagIdList());
+        List<CommunityBenefit> communityBenefitList = communityBenefitRepository.findAllById(
+            request.getCommunityBenefitIdList());
+
+        savePlanTags(tagList, internetPlan);
+        saveCommunityBenefits(communityBenefitList, internetPlan);
+
+        String description = createDescription(internetPlan, tagList,
+            getPricesGroupedByBenefit(communityBenefitList));
+        fastAPIClient.saveVector(internetPlan, description);
     }
 
     @Transactional(readOnly = true)
-    public Page<MobilePlanDetailResponse> getAllMobilePlans(Pageable pageable) {
-        return planRepository.findAllMobilePlans(pageable);
+    public Page<MobilePlanDetailResponse> getAllMobilePlans(Pageable pageable, User user) {
+        return planRepository.findAllMobilePlans(pageable, user);
     }
 
     @Transactional(readOnly = true)
-    public Page<InternetPlanDetailResponse> getAllInternetPlans(Pageable pageable) {
-        return planRepository.findAllInternetPlans(pageable);
+    public Page<InternetPlanDetailResponse> getAllInternetPlans(Pageable pageable, User user) {
+        return planRepository.findAllInternetPlans(pageable, user);
     }
 
     @Transactional(readOnly = true)
-    public Page<IPTVPlanDetailResponse> getAllIPTVPlans(Pageable pageable) {
-        return planRepository.findAllIPTVPlans(pageable);
+    public Page<IPTVPlanDetailResponse> getAllIPTVPlans(Pageable pageable, User user) {
+        return planRepository.findAllIPTVPlans(pageable, user);
     }
 
     @Transactional(readOnly = true)
@@ -183,7 +231,7 @@ public class AdminPlanService {
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
         Plan plan = getPlan(planId);
-        return PlanResponseFactory.from(plan);
+        return PlanResponseFactory.from(plan, false);
     }
 
     @Transactional

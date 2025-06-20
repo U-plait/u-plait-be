@@ -5,11 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class TagResponse {
-    private Long tagId;
+
+    private Long id;
     private String tagName;
 
     public TagResponse(Tag tag) {
-        this.tagId = tag.getId();
+        this.id = tag.getId();
         this.tagName = tag.getName();
     }
 }

@@ -1,6 +1,7 @@
 package com.ureca.uplait.domain.admin.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "공통 요금제 수정 요청 필드")
 public abstract class PlanCommonRequest {
+
     @Schema(description = "요금제 이름", example = "슬기로운 데이터 100G")
     private String planName;
 
@@ -29,6 +31,9 @@ public abstract class PlanCommonRequest {
     @Schema(description = "태그 id List", example = "[1, 2]")
     private List<Long> tagIdList;
 
+    @Schema(description = "결합 정보 List", example = "[1,2]")
+    private List<Long> communityIdList = new ArrayList<>();
+
     @Schema(description = "결합 혜택 id List", example = "[1, 2]")
-    private List<Long> communityBenefitList;
+    private List<Long> communityBenefitIdList = new ArrayList<>();
 }
