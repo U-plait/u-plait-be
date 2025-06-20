@@ -51,12 +51,17 @@ public class UserService {
 		}
 	}
 
-	public boolean isPhoneNumberDuplicated(
-		@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "전화번호는 010-xxxx-xxxx 형식이어야 합니다.") String phoneNumber) {
+	public boolean isPhoneNumberDuplicated(String phoneNumber, String currentPhoneNumber) {
+		if (phoneNumber.equals(currentPhoneNumber)) {
+			return false;
+		}
 		return userRepository.existsByPhoneNumber(phoneNumber);
 	}
 
-	public boolean isEmailDuplicated(@Email(message = "올바른 이메일 형식이 아닙니다.") String email) {
+	public boolean isEmailDuplicated(String email, String currentEmail) {
+		if (email.equals(currentEmail)) {
+			return false;
+		}
 		return userRepository.existsByEmail(email);
 	}
 }
