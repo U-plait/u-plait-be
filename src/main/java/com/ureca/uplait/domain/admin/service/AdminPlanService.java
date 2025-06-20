@@ -47,6 +47,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,6 +84,8 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
+
+
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
@@ -103,6 +107,8 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
+
+
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
@@ -123,6 +129,8 @@ public class AdminPlanService {
         String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
+
+
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
