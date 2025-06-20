@@ -45,6 +45,7 @@ public class ReviewService {
 
     @Transactional
     public ReviewCreateResponse createReview(User user, ReviewCreateRequest request) {
+        validateBanWords(request.getTitle());
         validateBanWords(request.getContent());
 
         Plan plan = planRepository.findById(request.getPlanId())
