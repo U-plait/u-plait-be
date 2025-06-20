@@ -129,7 +129,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 
 ### 4.4 챗봇
 <td align="center">
-      <img src="https://github.com/user-attachments/assets/12aca8ab-56ab-473b-aac3-3f17f59e6712" width="800" height="400" />
+      <img src="https://github.com/user-attachments/assets/cdb8c68a-bd1c-4cc9-bfea-c637c35c0940" width="800" height="400" />
 </td>
 
 - 사용자는 화면 우측 하단 아이콘을 통해 챗봇과 대화할 수 있습니다.
