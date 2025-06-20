@@ -31,6 +31,8 @@ import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.domain.user.repository.TagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -231,6 +233,8 @@ class AdminPlanServiceTest {
             .mediaBenefit(MediaBenefit.PREMIUM)
             .durationDiscountRate(10)
             .premierDiscountRate(5)
+            .planTags(new HashSet<>())
+            .communityBenefitList(new HashSet<>())
             .build();
 
         MobilePlan plan2 = MobilePlan.builder()
@@ -247,6 +251,8 @@ class AdminPlanServiceTest {
             .mediaBenefit(MediaBenefit.PREMIUM)
             .durationDiscountRate(5)
             .premierDiscountRate(2)
+            .planTags(new HashSet<>())
+            .communityBenefitList(new HashSet<>())
             .build();
 
         List<MobilePlanDetailResponse> mockResponses = List.of(
