@@ -61,6 +61,9 @@ jobs:
           # 모든 컨테이너 중지 및 제거 (컨테이너가 있는 경우)
           sudo docker stop $(docker ps -a -q) || true
           sudo docker rm -fv $(docker ps -aq) || true
+
+          # 이전 이미지 삭제
+          sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/uplait:latest || true
         
           # 최신 Docker 이미지 pull 받기
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/uplait:latest
