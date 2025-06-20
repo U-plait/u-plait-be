@@ -95,118 +95,16 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 </table>
 
 <br><br />
-# 4. 기능 소개
-### 4.1 로그인
-<td align="center">
-      <img src="https://github.com/user-attachments/assets/86462c75-5d0e-485a-a533-f77bc3b7069b" width="800" height="400" />
-</td>
-
-- 사용자는 카카오 소셜 로그인을 통해 로그인이 가능합니다.
+# 4. API 명세
+<img width="1485" alt="image" src="https://github.com/user-attachments/assets/c63821ac-4334-4b76-b7f9-0e9741874d60" />
+<img width="1476" alt="image" src="https://github.com/user-attachments/assets/e8ff2953-8a5a-49d3-ab06-6b552e5d01de" />
+<img width="1456" alt="image" src="https://github.com/user-attachments/assets/5f1a7836-d0ec-4ded-b7ca-725dffb7e7ed" />
+<img width="1475" alt="image" src="https://github.com/user-attachments/assets/833f9546-9db9-42a4-8a0c-bdb47244ec30" />
+<img width="1468" alt="image" src="https://github.com/user-attachments/assets/e9efc1c1-45fe-482a-8db0-ab40696ede33" />
+<img width="1469" alt="image" src="https://github.com/user-attachments/assets/f4b7523b-d359-4b68-8709-f8c5ee3c2ecc" />
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/b75c8a2c-2d64-4cc2-8581-aa853137fdad" /> 
 <br><br />
 
-### 4.2 회원가입
-<tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/2560ad54-5f7d-4197-8edf-715c27081aa0" width="500" height="250"/>
-    </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/bc177a45-d2f7-48a7-b0dd-6e4e1d533743" width="500" height="250"/>
-    </td>
-  </tr>
-
-- 최초 로그인한 사용자의 경우, 추가 회원 정보 입력을 위한 회원가입 페이지로 이동합니다.
-- 추가 회원 정보 입력 후, 사용자의 관심 분야를 파악하기 위한 선호 태그를 최대 4개까지 선택 가능합니다.
-<br><br />
-
-### 4.3 메인 (요금제 목록)
-<td align="center">
-      <img src="https://github.com/user-attachments/assets/d9c445fe-1615-4fde-8b40-fab9879e7456" width="800" height="400" />
-</td>
-
-- 메인 화면에서는 사용자가 Uplait의 모바일 요금제 목록을 확인할 수 있습니다.
-- 모바일 요금제 이외에도 화면 상단의 네비게이션 바를 통해 인터넷, IPTV의 요금제 목록도 확인할 수 있습니다.
-<br><br />
-
-### 4.4 챗봇
-<td align="center">
-      <img src="https://github.com/user-attachments/assets/cdb8c68a-bd1c-4cc9-bfea-c637c35c0940" width="800" height="400" />
-</td>
-
-- 사용자는 화면 우측 하단 아이콘을 통해 챗봇과 대화할 수 있습니다.
-- 원하는 요금제에 대한 정보를 얻고, 요금제 추천이 가능합니다.
-<br><br />
-
-### 4.5 요금제 상세보기
-<tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/5b775c5e-fe95-4e25-9ed5-ddf0c6620848" width="500" height="250"/>
-    </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/ef6518f1-2e8e-4d48-9f3e-3a9251167978" width="500" height="250"/>
-    </td>
-  </tr>
-
-- 요금제 목록에서 상세보기 버튼을 누르면, 해당 요금제의 상세 정보를 확인할 수 있습니다.
-- 해당 요금제를 사용한 사용자는 리뷰를 남길 수 있으며, 수정과 삭제가 가능합니다.
-- 해당 요금제를 사용하지 않는 다른 유저들도 리뷰를 확인할 수 있습니다.
-<br><br />
-
-### 4.6 요금제 비교하기
-<tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/438f0c0d-ed49-4f67-88b3-cca91be15387" width="500" height="250"/>
-    </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/fb3ce68f-f479-4bab-a5ce-812d7d70b89c" width="500" height="250"/>
-    </td>
-  </tr>
-
-- 요금제 목록 중 2개를 선택하여 요금제를 비교할 수 있습니다.
-- 모바일-모바일과 같이 같은 종류의 요금제만 비교 가능합니다.
-<br><br />
-
-### 4.7 마이페이지
-<tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/a055f190-893b-4734-94eb-5b2bea7a19b6" width="500" height="250"/>
-    </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/0611b4c0-a038-402a-b1ab-46fba1541e03" width="500" height="250"/>
-    </td>
-  </tr>
-
-- 화면 상단의 'xxx 님'이라고 적힌 버튼을 통해 마이페이지로 이동하여 사용자의 개인정보를 확인, 수정할 수 있습니다.
-- 'Bookmark' 버튼을 눌러 내가 즐겨찾기한 요금제 목록을 확인할 수 있습니다.
-- 'Reviews' 버튼을 눌러 내가 쓴 리뷰들을 확인, 수정, 삭제가 가능합니다.
-<br><br />
-
-### 4.8 관리자 화면
-
-**8.1 리뷰 관리 / 요금제 관리**
-<tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/4977c4fb-4e0f-45a0-8d17-2b36925185a8" width="500" height="250"/>
-    </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/05363411-79a3-4736-a4a8-4ffb63472f2e" width="500" height="250"/>
-    </td>
-  </tr>
-
-- 관리자는 관리 페이지에서 리뷰와 요금제 관리가 가능합니다.
-<br><br />
-**8.2 금칙어 관리 / 허용어 관리**
-<tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/ce1fc47f-ee14-4afe-9b8d-75e2790aef75" width="500" height="250"/>
-    </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/ba88433f-ef92-473e-a14f-155ca3f7a48b" width="500" height="250"/>
-    </td>
-  </tr>
-
-- 관리자는 관리 페이지에서 금칙어와 허용어 관리가 가능합니다.
-   
-<br><br />
 # 5. 기술 스택 (Tech Stack)
 
 ### 5.1 백엔드
@@ -257,6 +155,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 ## 5.6 프로젝트 구조
 - 시스템 아키텍처
 <br>![Image](https://github.com/user-attachments/assets/dfb7d2f7-f93f-46d5-a135-7e75038697d5)
+
 - ERD
 <br>![Image](https://github.com/user-attachments/assets/271fbd65-50ba-4528-a96c-3ae0b16a7d34)
 
@@ -269,6 +168,7 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 
 ### 통신사 측면
 <img src="https://github.com/user-attachments/assets/0059c1c8-c5e2-4965-9db4-7346565d8953" width="500"/>
+
 - 많은 사용자가 통신사 홈페이지를 정보 탐색의 주요 수단으로 사용하므로, 통신사 홈페이지에 챗봇 서비스를 제공할 경우, 높은 활용도를 나타낼 것으로 기대됩니다.
 - 반복적이고 단순한 상담 업무를 챗봇으로 대체하여, 상담 인력의 부담을 줄이고 운영의 효율성을 높일 수 있습니다.
 - 최신 요금제 정보를 기반으로 한 챗봇을 운영함으로써 상담 내용의 일관성 및 정확도를 높일 수 있습니다.
