@@ -14,6 +14,7 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +61,7 @@ public class BatchConfig {
     @Bean
     public Step sendStep(JobRepository jobRepository,
                          PlatformTransactionManager transactionManager,
-                         RepositoryItemReader<User> userReader,
+                         ItemReader<User> userReader,
                          ItemProcessor<User, MimeMessage> emailProcessor,
                          ItemWriter<MimeMessage> emailWriter) {
 
@@ -74,17 +75,12 @@ public class BatchConfig {
 
     @Bean
     @StepScope
-    public RepositoryItemReader<User> userReader(
+    public ItemReader<User> userReader(
             UserRepository userRepository,
-            @Value("#{jobParameters['planId']}") Long planId  // 배치 실행 시 외부에서 주입
+            @Value("#{jobParameters['planId']}") Long planId
     ) {
-        RepositoryItemReader<User> reader = new RepositoryItemReader<>();
-        reader.setRepository(userRepository);
-        reader.setMethodName("findUsersWithMatchingTopTagsByPlanId");
-        reader.setPageSize(100);
-        reader.setArguments(List.of(planId)); // <- 여기 중요!!
-        reader.setSort(Map.of("id", Sort.Direction.ASC));
-        return reader;
+        int pageSize = 100; // 원하는 페이지 사이즈로 설정
+        return new JdbcPagingUserReader(userRepository, planId, pageSize);
     }
 
     @Bean
