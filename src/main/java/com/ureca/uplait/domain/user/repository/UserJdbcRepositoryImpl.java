@@ -49,6 +49,7 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
             FROM user_top2_tags ut
                      JOIN target_plan_tags tp ON ut.tag_id = tp.tag_id
         )
+        
         SELECT *
         FROM users u
                  JOIN matched_users mu ON u.id = mu.user_id
