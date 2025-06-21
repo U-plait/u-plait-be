@@ -56,6 +56,7 @@ public class AdminPlanService {
     private final FastAPIClient fastAPIClient;
     private final EmailBatchRunner emailBatchRunner;
 
+    // TODO: 나중에 지우기
     @Transactional
     public void sendEmailBatch() {
         Optional<Plan> plan = planRepository.findById(1L);
@@ -84,8 +85,11 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
-        // Batch 시행
-//        emailBatchRunner.runEmailBatchAsync(savedPlan.getId());
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
@@ -108,7 +112,11 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
-
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
@@ -131,7 +139,11 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
-
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
