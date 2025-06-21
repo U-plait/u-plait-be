@@ -31,7 +31,12 @@ public class AdminPlanController {
     @Operation(summary = "TEST BATCH", description = "TEST BATCH")
     @PostMapping("/batch")
     public CommonResponse<String> sendEmailBatch() {
-        adminPlanService.sendEmailBatch();
+        // 이메일 발송 테스트용
+//        adminPlanService.sendEmailBatch();
+
+        // User TMP 저장용
+        adminPlanService.saveUserTemp();
+
         return CommonResponse.success("응답 반환");
     }
 
