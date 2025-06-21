@@ -72,8 +72,15 @@ dependencies {
 
     //smtp
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // spring batch
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-parameters"
 }
