@@ -1,33 +1,20 @@
 package com.ureca.uplait.domain.admin.service;
 
-import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
-
 import com.ureca.uplait.domain.admin.api.FastAPIClient;
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.*;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanCreateResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanDeleteResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanDetailResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminUpdateAllVectorResponse;
 import com.ureca.uplait.domain.admin.repository.PlanVectorJdbcRepository;
+import com.ureca.uplait.domain.batch.EmailBatchRunner;
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
 import com.ureca.uplait.domain.community.entity.CommunityBenefitPrice;
 import com.ureca.uplait.domain.community.entity.PlanCommunity;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitPriceRepository;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitRepository;
 import com.ureca.uplait.domain.community.repository.PlanCommunityRepository;
-import com.ureca.uplait.domain.plan.dto.response.CommunityBenefitResponse;
-import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
-import com.ureca.uplait.domain.plan.dto.response.TagResponse;
+import com.ureca.uplait.domain.plan.dto.response.*;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
@@ -36,19 +23,26 @@ import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.user.entity.PlanTag;
 import com.ureca.uplait.domain.user.entity.Tag;
 import com.ureca.uplait.domain.user.entity.User;
+import com.ureca.uplait.domain.user.entity.UserTag;
+import com.ureca.uplait.domain.user.enums.Gender;
+import com.ureca.uplait.domain.user.enums.Role;
+import com.ureca.uplait.domain.user.enums.Status;
 import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.domain.user.repository.TagRepository;
+import com.ureca.uplait.domain.user.repository.UserRepository;
+import com.ureca.uplait.domain.user.repository.UserTagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +57,73 @@ public class AdminPlanService {
     private final CommunityBenefitPriceRepository communityBenefitPriceRepository;
     private final PlanVectorJdbcRepository planVectorJdbcRepository;
     private final FastAPIClient fastAPIClient;
+    private final EmailBatchRunner emailBatchRunner;
+
+    // TODO: 여기부터 지우기
+    private final UserRepository userRepository;
+    private final UserTagRepository userTagRepository;
+
+    @Transactional
+    public void sendEmailBatch() {
+        Optional<Plan> plan = planRepository.findById(1L);
+        List<Long> tagList = new ArrayList<>(List.of(1L, 2L, 3L));
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.get().getId(), tagIdStr);
+    }
+
+    @Transactional
+    public void saveUserTemp() {
+        Random random = new Random();
+        List<Tag> allTags = tagRepository.findAll(); // 또는 필요한 범위만 조회
+        boolean adAgree = true;
+        for (int i = 0; i < 2000; i++) {
+            // 1. 순차번호로 이름 생성 (예: "user1", "user2", ...)
+            long userCount = userRepository.count(); // 기존 유저 수
+            String userName = "user" + (userCount + 1);
+
+            // 유저 저장
+            User user = User.builder()
+                .name(userName)
+                .kakaoId("1234")
+                .role(Role.USER)
+                .email("abc123@gmail.com")
+                .phoneNumber("010-1234-5678")
+                .gender(Gender.FEMALE)
+                .status(Status.ACTIVE)
+                .age(30)
+                .adAgree(adAgree)
+                .build();
+            User savedUser = userRepository.save(user);
+
+            // 2. 랜덤 Tag 번호(1~14), 랜덤 count(1~100)
+            Set<Long> usedTagIds = new HashSet<>();
+
+            int tagsToAssign = 10;
+            while (usedTagIds.size() < tagsToAssign) {
+                int idx = random.nextInt(allTags.size());
+                Tag tag = allTags.get(idx);
+
+                if (usedTagIds.contains(tag.getId())) {
+                    continue; // 중복이면 건너뜀
+                }
+                usedTagIds.add(tag.getId());
+
+                int count = random.nextInt(100) + 1; // 1~100
+
+                UserTag userTag = UserTag.builder()
+                    .user(savedUser)
+                    .tag(tag)         // Tag 엔티티 직접 주입
+                    .tagCount(count)
+                    .build();
+
+                userTagRepository.save(userTag);
+            }
+            adAgree = !adAgree;
+        }
+    }
+    // TODO: 여기까지 지우기
 
     @Transactional
     public AdminPlanCreateResponse createMobilePlan(AdminMobileCreateRequest request) {
@@ -81,6 +142,12 @@ public class AdminPlanService {
         String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
+
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
@@ -103,6 +170,12 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
+
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
@@ -123,6 +196,12 @@ public class AdminPlanService {
         String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
+
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }

@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.review.service;
 
+import com.ureca.uplait.domain.common.filter.BanWordFilter;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.review.dto.request.ReviewCreateRequest;
@@ -34,6 +35,9 @@ class ReviewServiceTest {
 
     @Mock
     private PlanRepository planRepository;
+
+    @Mock
+    private BanWordFilter banWordFilter;
 
     @InjectMocks
     private ReviewService reviewService;
