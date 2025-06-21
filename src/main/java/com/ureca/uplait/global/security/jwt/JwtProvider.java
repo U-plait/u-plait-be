@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 import com.ureca.uplait.domain.user.entity.User;
@@ -57,43 +58,56 @@ public class JwtProvider {
 	}
 
 	public void addAccessTokenCookie(HttpServletResponse response, String token){
-		String cookieString = String.format(
-			"accessToken=%s; Path=/; Max-Age=%d; HttpOnly; Secure=%s; SameSite=%s; Domain=%s",
-			token,
-			ACCESS_TOKEN_VALIDITY_SECONDS / 1000,
-			isSecure ? "Secure" : "",
-			sameSite,
-			cookieDomain
-		);
-		response.addHeader("Set-Cookie", cookieString);
+		ResponseCookie cookie = ResponseCookie.from("accessToken", token)
+			.path("/")
+			.httpOnly(true)
+			.secure(isSecure)
+			.maxAge(ACCESS_TOKEN_VALIDITY_SECONDS / 1000)
+			.sameSite(sameSite)
+			.domain(cookieDomain.isBlank() ? null : cookieDomain)
+			.build();
+
+		response.addHeader("Set-Cookie", cookie.toString());
 
 	}
 
 	public void addRefreshTokenCookie(HttpServletResponse response, String token){
-		Cookie cookie = new Cookie("refreshToken", token);
-		cookie.setHttpOnly(true);
-		cookie.setSecure(true);
-		cookie.setPath("/");
-		cookie.setMaxAge((int) (REFRESH_TOKEN_VALIDITY_SECONDS / 1000));
-		response.addCookie(cookie);
+		ResponseCookie cookie = ResponseCookie.from("refreshToken", token)
+			.path("/")
+			.httpOnly(true)
+			.secure(isSecure)
+			.maxAge(REFRESH_TOKEN_VALIDITY_SECONDS / 1000)
+			.sameSite(sameSite)
+			.domain(cookieDomain.isBlank() ? null : cookieDomain)
+			.build();
+
+		response.addHeader("Set-Cookie", cookie.toString());
 	}
 
 	public void deleteAccessTokenCookie(HttpServletResponse response){
-		String cookieString = String.format(
-			"accessToken=; Path=/; Max-Age=0; HttpOnly; Secure=%s; SameSite=%s; Domain=%s",
-			isSecure ? "Secure" : "",
-			sameSite,
-			cookieDomain
-		);
-		response.addHeader("Set-Cookie", cookieString);
+		ResponseCookie cookie = ResponseCookie.from("accessToken", "")
+			.path("/")
+			.httpOnly(true)
+			.secure(isSecure)
+			.maxAge(0)
+			.sameSite(sameSite)
+			.domain(cookieDomain.isBlank() ? null : cookieDomain)
+			.build();
+
+		response.addHeader("Set-Cookie", cookie.toString());
 	}
 
 	public void deleteRefreshTokenCookie(HttpServletResponse response){
-		Cookie cookie = new Cookie("refreshToken", null);
-		cookie.setMaxAge(0);
-		cookie.setPath("/");
-		cookie.setHttpOnly(true);
-		response.addCookie(cookie);
+		ResponseCookie cookie = ResponseCookie.from("refreshToken", "")
+			.path("/")
+			.httpOnly(true)
+			.secure(isSecure)
+			.maxAge(0)
+			.sameSite(sameSite)
+			.domain(cookieDomain.isBlank() ? null : cookieDomain)
+			.build();
+
+		response.addHeader("Set-Cookie", cookie.toString());
 	}
 
 	public LocalDateTime getRefreshTokenExpiry(String token){

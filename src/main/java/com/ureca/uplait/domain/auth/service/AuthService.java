@@ -45,7 +45,10 @@ public class AuthService {
 
 		tokenRepository.findByUser(user)
 				.ifPresentOrElse(
-					token -> token.updateRefreshToken(refreshToken, expiryTime),
+					token -> {
+						token.updateRefreshToken(refreshToken, expiryTime);
+						tokenRepository.save(token);
+						},
 					() -> tokenRepository.save(Token.builder()
 						.user(user)
 						.refreshToken(refreshToken)
