@@ -74,12 +74,15 @@ public class BatchConfig {
 
     @Bean
     @StepScope
-    public RepositoryItemReader<User> userReader(UserRepository userRepository) {
+    public RepositoryItemReader<User> userReader(
+            UserRepository userRepository,
+            @Value("#{jobParameters['planId']}") Long planId  // 배치 실행 시 외부에서 주입
+    ) {
         RepositoryItemReader<User> reader = new RepositoryItemReader<>();
         reader.setRepository(userRepository);
-        reader.setMethodName("findAllByAdAgreeTrue");
+        reader.setMethodName("findUsersWithMatchingTopTagsByPlanId");
         reader.setPageSize(100);
-        reader.setArguments(List.of());
+        reader.setArguments(List.of(planId)); // <- 여기 중요!!
         reader.setSort(Map.of("id", Sort.Direction.ASC));
         return reader;
     }
