@@ -3,8 +3,9 @@ package com.ureca.uplait.domain.plan.dto.response;
 import com.ureca.uplait.domain.plan.entity.MediaBenefit;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Schema(description = "모바일 요금제 상세")
@@ -40,8 +41,8 @@ public class MobilePlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "결합 혜택", example = "가족결합")
     private List<CommunityBenefitResponse> communityBenefitList;
 
-    public MobilePlanDetailResponse(MobilePlan plan, boolean inUse) {
-        super(plan, inUse);
+    public MobilePlanDetailResponse(MobilePlan plan, List<Long> communityIdList, boolean inUse) {
+        super(plan, communityIdList, inUse);
         this.data = plan.getData();
         this.sharedData = plan.getSharedData();
         this.voiceCall = plan.getVoiceCall();

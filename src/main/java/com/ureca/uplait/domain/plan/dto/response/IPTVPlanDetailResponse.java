@@ -2,8 +2,9 @@ package com.ureca.uplait.domain.plan.dto.response;
 
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Schema(description = "IPTV 요금제 상세")
@@ -22,8 +23,8 @@ public class IPTVPlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "결합 혜택", example = "가족결합")
     private List<CommunityBenefitResponse> communityBenefitList;
 
-    public IPTVPlanDetailResponse(IPTVPlan plan, boolean inUse) {
-        super(plan, inUse);
+    public IPTVPlanDetailResponse(IPTVPlan plan, List<Long> communityIdList, boolean inUse) {
+        super(plan, communityIdList, inUse);
         this.channel = plan.getChannel();
         this.iptvDiscount = plan.getPlanPrice() * (100 - plan.getIptvDiscountRate()) / 100;
     }

@@ -238,7 +238,7 @@ public class AdminPlanService {
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
         Plan plan = getPlan(planId);
-        return PlanResponseFactory.from(plan, false);
+        return PlanResponseFactory.from(plan, null,false);
     }
 
     @Transactional
