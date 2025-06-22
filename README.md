@@ -94,20 +94,9 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
   </tr>
 </table>
 
-<br><br />
-# 4. API 명세
-<img width="1485" alt="image" src="https://github.com/user-attachments/assets/c63821ac-4334-4b76-b7f9-0e9741874d60" />
-<img width="1476" alt="image" src="https://github.com/user-attachments/assets/e8ff2953-8a5a-49d3-ab06-6b552e5d01de" />
-<img width="1456" alt="image" src="https://github.com/user-attachments/assets/5f1a7836-d0ec-4ded-b7ca-725dffb7e7ed" />
-<img width="1475" alt="image" src="https://github.com/user-attachments/assets/833f9546-9db9-42a4-8a0c-bdb47244ec30" />
-<img width="1468" alt="image" src="https://github.com/user-attachments/assets/e9efc1c1-45fe-482a-8db0-ab40696ede33" />
-<img width="1469" alt="image" src="https://github.com/user-attachments/assets/f4b7523b-d359-4b68-8709-f8c5ee3c2ecc" />
-<img width="1470" alt="image" src="https://github.com/user-attachments/assets/b75c8a2c-2d64-4cc2-8581-aa853137fdad" /> 
-<br><br />
+# 4. 기술 스택 (Tech Stack)
 
-# 5. 기술 스택 (Tech Stack)
-
-### 5.1 백엔드
+### 4.1 백엔드
 
 | 구분 | 기술 |
 |------|------|
@@ -119,14 +108,14 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 | 테스트 | ![JUnit5](https://img.shields.io/badge/JUnit%205-25A162?style=flat&logo=jest&logoColor=white)<br>![Mockito](https://img.shields.io/badge/Mockito-5A6268?style=flat&logo=mockito&logoColor=white) |
 | DB 마이그레이션 | ![Liquibase](https://img.shields.io/badge/Liquibase-2962FF?style=flat&logo=liquibase&logoColor=white) |
 
-### 5.2 프론트엔드
+### 4.2 프론트엔드
 
 | 구분 | 기술 |
 |------|------|
 | 라이브러리 | ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) |
 | HTTP 클라이언트 | ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white) |
 
-### 5.3 AI
+### 4.3 AI
 
 | 구분 | 기술 |
 |------|------|
@@ -134,14 +123,14 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 | AI 플랫폼 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai&logoColor=white)<br>![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21F?style=flat&logo=huggingface&logoColor=black) |
 | LLM 프레임워크 | ![LangChain](https://img.shields.io/badge/LangChain-000000?style=flat&logo=python&logoColor=white) |
 
-### 5.4 데이터베이스
+### 4.4 데이터베이스
 
 | 구분 | 기술 |
 |------|------|
 | RDBMS | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white) |
 | 벡터DB 확장 | ![pgvector](https://img.shields.io/badge/pgvector-000000?style=flat&logo=postgresql&logoColor=white) |
 
-### 5.5 협업 & 형상 관리
+### 4.5 협업 & 형상 관리
 
 | 구분 | 기술 |
 |------|------|
@@ -152,12 +141,24 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 
 
 
-## 5.6 프로젝트 구조
+## 4.6 프로젝트 구조
 - 시스템 아키텍처
 <br>![Image](https://github.com/user-attachments/assets/dfb7d2f7-f93f-46d5-a135-7e75038697d5)
 
 - ERD
 <br>![Image](https://github.com/user-attachments/assets/271fbd65-50ba-4528-a96c-3ae0b16a7d34)
+<br><br />
+
+<br><br />
+
+# 5. API 명세
+<img width="1485" alt="image" src="https://github.com/user-attachments/assets/c63821ac-4334-4b76-b7f9-0e9741874d60" />
+<img width="1476" alt="image" src="https://github.com/user-attachments/assets/e8ff2953-8a5a-49d3-ab06-6b552e5d01de" />
+<img width="1456" alt="image" src="https://github.com/user-attachments/assets/5f1a7836-d0ec-4ded-b7ca-725dffb7e7ed" />
+<img width="1475" alt="image" src="https://github.com/user-attachments/assets/833f9546-9db9-42a4-8a0c-bdb47244ec30" />
+<img width="1468" alt="image" src="https://github.com/user-attachments/assets/e9efc1c1-45fe-482a-8db0-ab40696ede33" />
+<img width="1469" alt="image" src="https://github.com/user-attachments/assets/f4b7523b-d359-4b68-8709-f8c5ee3c2ecc" />
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/b75c8a2c-2d64-4cc2-8581-aa853137fdad" /> 
 <br><br />
 
 # 6. 기대 효과
