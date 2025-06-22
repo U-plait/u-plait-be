@@ -63,42 +63,6 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
         );
     }
 
-    @Override
-    public long countUsersWithMatchingTopTagsByPlanId(Long planId) {
-        String countSql = """
-        WITH target_plan_tags AS (
-            SELECT tag_id
-            FROM plan_tag
-            WHERE plan_id = ?
-        ),
-        user_top_tags AS (
-            SELECT
-                user_id,
-                tag_id,
-                tag_count,
-                RANK() OVER (PARTITION BY user_id ORDER BY tag_count DESC) AS rank
-            FROM user_tag
-        ),
-        user_top2_tags AS (
-            SELECT *
-            FROM user_top_tags
-            WHERE rank <= 2
-        ),
-        matched_users AS (
-            SELECT DISTINCT ut.user_id
-            FROM user_top2_tags ut
-                     JOIN target_plan_tags tp ON ut.tag_id = tp.tag_id
-        )
-        SELECT COUNT(*)
-        FROM users u
-                 JOIN matched_users mu ON u.id = mu.user_id
-        WHERE u.ad_agree = true
-    """;
-
-        return jdbcTemplate.queryForObject(countSql, Long.class, planId);
-    }
-
-
     private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {

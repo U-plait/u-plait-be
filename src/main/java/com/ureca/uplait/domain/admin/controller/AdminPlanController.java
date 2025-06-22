@@ -28,18 +28,6 @@ public class AdminPlanController {
 
     private final AdminPlanService adminPlanService;
 
-    @Operation(summary = "TEST BATCH", description = "TEST BATCH")
-    @PostMapping("/batch")
-    public CommonResponse<String> sendEmailBatch() {
-        // 이메일 발송 테스트용
-        adminPlanService.sendEmailBatch();
-
-        // User TMP 저장용
-//        adminPlanService.saveUserTemp();
-
-        return CommonResponse.success("응답 반환");
-    }
-
     @Operation(summary = "모바일 요금제 생성", description = "관리자가 새로운 모바일 요금제를 등록합니다.")
     @PostMapping("/mobile")
     public CommonResponse<AdminPlanCreateResponse> createMobilePlan(

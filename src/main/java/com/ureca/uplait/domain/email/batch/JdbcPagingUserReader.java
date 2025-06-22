@@ -1,13 +1,11 @@
-package com.ureca.uplait.domain.batch;
+package com.ureca.uplait.domain.email.batch;
 
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.domain.user.repository.UserJdbcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.List;

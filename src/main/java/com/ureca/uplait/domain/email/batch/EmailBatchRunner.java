@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.batch;
+package com.ureca.uplait.domain.email.batch;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

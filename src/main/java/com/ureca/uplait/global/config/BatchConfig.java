@@ -1,5 +1,8 @@
-package com.ureca.uplait.domain.batch;
+package com.ureca.uplait.global.config;
 
+import com.ureca.uplait.domain.email.batch.JdbcPagingUserReader;
+import com.ureca.uplait.domain.email.entity.Email;
+import com.ureca.uplait.domain.email.util.EmailTemplateUtil;
 import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.user.entity.User;
@@ -16,12 +19,10 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -30,8 +31,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.ureca.uplait.global.response.ResultCode.PLAN_NOT_FOUND;
 
@@ -66,7 +65,7 @@ public class BatchConfig {
                          ItemWriter<MimeMessage> emailWriter) {
 
         return new StepBuilder("sendStep", jobRepository)
-            .<User, MimeMessage>chunk(20, transactionManager)
+            .<User, MimeMessage>chunk(100, transactionManager)
             .reader(userReader)
             .processor(emailProcessor)
             .writer(emailWriter)
@@ -102,8 +101,7 @@ public class BatchConfig {
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .map(Long::parseLong)
-                .collect(Collectors.toList());
-//            List<com.ureca.uplait.domain.user.entity.Tag> tags = tagRepository.findAllById(tagIds);
+                .toList();
 
             // 이메일 생성
             Email email = EmailTemplateUtil.buildEmail(user, plan);
@@ -126,7 +124,7 @@ public class BatchConfig {
                     mailSender.send(msg);
                     log.info("[이메일 발송 성공] to={}", (Object) msg.getAllRecipients());
                 } catch (Exception e) {
-                    log.error("[이메일 발송 실패] to={}, reason={}", (Object) msg.getAllRecipients(), e.getMessage(), e);
+                    log.error("[이메일 발송 실패] to={}, reason={}", msg.getAllRecipients(), e.getMessage(), e);
                 }
             }
         };

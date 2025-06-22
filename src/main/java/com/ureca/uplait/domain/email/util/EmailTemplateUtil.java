@@ -1,5 +1,6 @@
-package com.ureca.uplait.domain.batch;
+package com.ureca.uplait.domain.email.util;
 
+import com.ureca.uplait.domain.email.entity.Email;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;

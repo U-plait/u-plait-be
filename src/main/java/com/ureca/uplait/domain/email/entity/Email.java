@@ -1,4 +1,4 @@
-package com.ureca.uplait.domain.batch;
+package com.ureca.uplait.domain.email.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
