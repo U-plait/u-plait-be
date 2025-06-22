@@ -5,6 +5,8 @@ import com.ureca.uplait.domain.plan.entity.Plan;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "요금제 상세 조회 결과")
@@ -37,14 +39,18 @@ public abstract class PlanDetailResponse {
     @Schema(description = "플랜 설명", example = "너무 좋은 요금제")
     private String description;
 
+    @Schema(description = "요금제의 결합 상품", example = "1, 2, 3")
+    private List<Long> communityIdList;
 
-    protected PlanDetailResponse(Plan plan, boolean inUse) {
+
+    protected PlanDetailResponse(Plan plan, List<Long> communityIdList, boolean inUse) {
         this.planId = plan.getId();
         this.planName = plan.getPlanName();
         this.planPrice = plan.getPlanPrice();
         this.planBenefit = plan.getPlanBenefit();
         this.availability = plan.getAvailability();
         this.description = plan.getDescription();
+        this.communityIdList = communityIdList;
         this.inUse = inUse;
     }
 

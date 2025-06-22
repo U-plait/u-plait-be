@@ -1,33 +1,20 @@
 package com.ureca.uplait.domain.admin.service;
 
-import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
-
 import com.ureca.uplait.domain.admin.api.FastAPIClient;
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminIPTVPlanUpdateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminInternetPlanUpdateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobileCreateRequest;
-import com.ureca.uplait.domain.admin.dto.request.AdminMobilePlanUpdateRequest;
+import com.ureca.uplait.domain.admin.dto.request.*;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanCreateResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanDeleteResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminPlanDetailResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminUpdateAllVectorResponse;
 import com.ureca.uplait.domain.admin.repository.PlanVectorJdbcRepository;
+import com.ureca.uplait.domain.email.batch.EmailBatchRunner;
 import com.ureca.uplait.domain.community.entity.CommunityBenefit;
 import com.ureca.uplait.domain.community.entity.CommunityBenefitPrice;
 import com.ureca.uplait.domain.community.entity.PlanCommunity;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitPriceRepository;
 import com.ureca.uplait.domain.community.repository.CommunityBenefitRepository;
 import com.ureca.uplait.domain.community.repository.PlanCommunityRepository;
-import com.ureca.uplait.domain.plan.dto.response.CommunityBenefitResponse;
-import com.ureca.uplait.domain.plan.dto.response.IPTVPlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.InternetPlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.MobilePlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanCreationInfoResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
-import com.ureca.uplait.domain.plan.dto.response.TagResponse;
+import com.ureca.uplait.domain.plan.dto.response.*;
 import com.ureca.uplait.domain.plan.entity.IPTVPlan;
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
@@ -40,15 +27,16 @@ import com.ureca.uplait.domain.user.repository.PlanTagRepository;
 import com.ureca.uplait.domain.user.repository.TagRepository;
 import com.ureca.uplait.global.exception.GlobalException;
 import com.ureca.uplait.global.response.ResultCode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.ureca.uplait.domain.plan.util.DescriptionUtil.createDescription;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +51,7 @@ public class AdminPlanService {
     private final CommunityBenefitPriceRepository communityBenefitPriceRepository;
     private final PlanVectorJdbcRepository planVectorJdbcRepository;
     private final FastAPIClient fastAPIClient;
+    private final EmailBatchRunner emailBatchRunner;
 
     @Transactional
     public AdminPlanCreateResponse createMobilePlan(AdminMobileCreateRequest request) {
@@ -81,6 +70,12 @@ public class AdminPlanService {
         String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
+
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(t -> String.valueOf(t.getId()))
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
@@ -103,6 +98,12 @@ public class AdminPlanService {
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
 
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
+
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
 
@@ -123,6 +124,12 @@ public class AdminPlanService {
         String description = createDescription(savedPlan, tagList,
             getPricesGroupedByBenefit(communityBenefitList));
         fastAPIClient.saveVector(savedPlan, description);
+
+        // Batch 실행
+        String tagIdStr = tagList.stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        emailBatchRunner.runEmailBatchAsync(plan.getId(), tagIdStr);
 
         return new AdminPlanCreateResponse(savedPlan.getId());
     }
@@ -231,7 +238,7 @@ public class AdminPlanService {
 
     public PlanDetailResponse getTypedPlanDetail(String type, Long planId) {
         Plan plan = getPlan(planId);
-        return PlanResponseFactory.from(plan, false);
+        return PlanResponseFactory.from(plan, null,false);
     }
 
     @Transactional

@@ -1,14 +1,8 @@
 package com.ureca.uplait.domain.plan.service;
 
-import static com.ureca.uplait.global.response.ResultCode.INVALID_INPUT;
-import static com.ureca.uplait.global.response.ResultCode.PLAN_NOT_FOUND;
-
+import com.ureca.uplait.domain.community.repository.PlanCommunityRepository;
 import com.ureca.uplait.domain.contract.repository.ContractRepository;
-import com.ureca.uplait.domain.plan.dto.response.PlanCompareFactory;
-import com.ureca.uplait.domain.plan.dto.response.PlanCompareResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanDetailResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanListResponse;
-import com.ureca.uplait.domain.plan.dto.response.PlanResponseFactory;
+import com.ureca.uplait.domain.plan.dto.response.*;
 import com.ureca.uplait.domain.plan.entity.Plan;
 import com.ureca.uplait.domain.plan.repository.IPTVPlanRepository;
 import com.ureca.uplait.domain.plan.repository.InternetPlanRepository;
@@ -16,12 +10,16 @@ import com.ureca.uplait.domain.plan.repository.MobilePlanRepository;
 import com.ureca.uplait.domain.plan.repository.PlanRepository;
 import com.ureca.uplait.domain.user.entity.User;
 import com.ureca.uplait.global.exception.GlobalException;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.ureca.uplait.global.response.ResultCode.INVALID_INPUT;
+import static com.ureca.uplait.global.response.ResultCode.PLAN_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +30,15 @@ public class PlanService {
     private final MobilePlanRepository mobilePlanRepository;
     private final InternetPlanRepository internetPlanRepository;
     private final IPTVPlanRepository iptvPlanRepository;
+    private final PlanCommunityRepository planCommunityRepository;
 
     @Transactional(readOnly = true)
     public PlanDetailResponse getPlanDetail(User user, Long planId) {
         Plan plan = findPlan(planId);
+        List<Long> communityIdList = planCommunityRepository.findAllByPlan(plan).stream()
+            .map(pc -> pc.getCommunityBenefit().getId()).toList();
         boolean inUse = contractRepository.existsByUserIdAndPlanId(user.getId(), planId);
-        return PlanResponseFactory.from(plan, inUse);
+        return PlanResponseFactory.from(plan, communityIdList, inUse);
     }
 
     private Plan findPlan(Long planId) {
