@@ -44,24 +44,24 @@ public class UserController {
 	}
 
 	@GetMapping("/duplicate/phone")
-	@Operation(summary="전화번호 중복검사 API", description = "추가정보 입력 시 전화번호 중복 검사를 수행한다.")
+	@Operation(summary = "전화번호 중복검사 API", description = "추가정보 입력 시 전화번호 중복 검사를 수행한다.")
 	public CommonResponse<DuplicateResponse> duplicatePhone(
-		@RequestParam("value")
-		@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "전화번호는 010-xxxx-xxxx 형식이어야 합니다.")
-		String phoneNumber) {
-		boolean duplicated = userService.isPhoneNumberDuplicated(phoneNumber);
+			@RequestParam("value")
+			@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "전화번호는 010-xxxx-xxxx 형식이어야 합니다.") String phoneNumber,
+			@RequestParam(value = "current", required = false) String currentPhoneNumber
+	) {
+		boolean duplicated = userService.isPhoneNumberDuplicated(phoneNumber, currentPhoneNumber);
 		DuplicateResponse result = new DuplicateResponse(duplicated);
 		return CommonResponse.success(result);
 	}
 
 	@GetMapping("/duplicate/email")
-	@Operation(summary="이메일 중복검사 API", description = "추가정보 입력 시 이메일 중복 검사를 수행한다.")
+	@Operation(summary = "이메일 중복검사 API", description = "추가정보 입력 시 이메일 중복 검사를 수행한다.")
 	public CommonResponse<DuplicateResponse> duplicateEmail(
-		@RequestParam("value")
-		@Email(message = "올바른 이메일 형식이 아닙니다.")
-		String email
-	){
-		boolean duplicated = userService.isEmailDuplicated(email);
+			@RequestParam("value") @Email(message = "올바른 이메일 형식이 아닙니다.") String email,
+			@RequestParam(value = "current", required = false) String currentEmail
+	) {
+		boolean duplicated = userService.isEmailDuplicated(email, currentEmail);
 		DuplicateResponse result = new DuplicateResponse(duplicated);
 		return CommonResponse.success(result);
 	}

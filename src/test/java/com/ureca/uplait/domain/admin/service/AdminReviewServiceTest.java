@@ -1,5 +1,6 @@
 package com.ureca.uplait.domain.admin.service;
 
+import com.ureca.uplait.domain.admin.dto.response.AdminDetailReviewResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminReviewDeleteResponse;
 import com.ureca.uplait.domain.admin.dto.response.AdminReviewResponse;
 import com.ureca.uplait.domain.plan.entity.MobilePlan;
@@ -103,16 +104,14 @@ class AdminReviewServiceTest {
                 review1.getUser().getName(),
                 review1.getTitle(),
                 review1.getRating(),
-                "25.06.08",
-                review1.getContent()
+                LocalDateTime.now()
         );
         AdminReviewResponse response2 = new AdminReviewResponse(
                 review2.getId(),
                 review2.getUser().getName(),
                 review2.getTitle(),
                 review2.getRating(),
-                "25.06.09",
-                review2.getContent()
+                LocalDateTime.now()
         );
 
         Page<AdminReviewResponse> page = new PageImpl<>(List.of(response1, response2));
@@ -138,7 +137,7 @@ class AdminReviewServiceTest {
         when(reviewRepository.findById(user.getId())).thenReturn(Optional.of(review1));
 
         //when
-        AdminReviewResponse response = adminReviewService.getReviewDetailForAdmin(user.getId());
+        AdminDetailReviewResponse response = adminReviewService.getReviewDetailForAdmin(user.getId(), user);
 
         //then
         assertEquals(1L, response.getReviewId());
@@ -157,7 +156,7 @@ class AdminReviewServiceTest {
 
         //when & then
         GlobalException exception = assertThrows(GlobalException.class, () -> {
-            adminReviewService.getReviewDetailForAdmin(review1.getId());
+            adminReviewService.getReviewDetailForAdmin(review1.getId(), user);
         });
 
         assertEquals(ResultCode.REVIEW_NOT_FOUND, exception.getResultCode());

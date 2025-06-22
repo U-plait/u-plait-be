@@ -2,8 +2,9 @@ package com.ureca.uplait.domain.plan.dto.response;
 
 import com.ureca.uplait.domain.plan.entity.InternetPlan;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Schema(description = "인터넷 요금제 상세")
@@ -21,8 +22,8 @@ public class InternetPlanDetailResponse extends PlanDetailResponse {
     @Schema(description = "결합 혜택", example = "가족결합")
     private List<CommunityBenefitResponse> communityBenefitList;
 
-    public InternetPlanDetailResponse(InternetPlan plan, boolean inUse) {
-        super(plan, inUse);
+    public InternetPlanDetailResponse(InternetPlan plan, List<Long> communityIdList, boolean inUse) {
+        super(plan, communityIdList, inUse);
         this.velocity = plan.getVelocity();
         this.internetDiscount = plan.getInternetDiscountRate();
     }

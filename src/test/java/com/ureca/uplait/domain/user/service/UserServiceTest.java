@@ -2,8 +2,7 @@ package com.ureca.uplait.domain.user.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import com.ureca.uplait.domain.user.dto.request.ExtraInfoRequest;
 import com.ureca.uplait.domain.user.entity.User;
@@ -73,9 +72,10 @@ class UserServiceTest {
     @DisplayName("전화번호 중복 - x")
     void isPhoneNumberDuplicated_returnsFalse() {
         String uniquePhoneNumber = "010-1234-5678";
+        String currentPhoneNumber = null;
         given(userRepository.existsByPhoneNumber(uniquePhoneNumber)).willReturn(false);
 
-        boolean isDuplicated = userService.isPhoneNumberDuplicated(uniquePhoneNumber);
+        boolean isDuplicated = userService.isPhoneNumberDuplicated(uniquePhoneNumber, currentPhoneNumber);
 
         assertThat(isDuplicated).isFalse();
         verify(userRepository, times(1)).existsByPhoneNumber(uniquePhoneNumber);
@@ -85,21 +85,35 @@ class UserServiceTest {
     @DisplayName("전화번호 중복 - o")
     void isPhoneNumberDuplicated_returnsTrue() {
         String duplicatedPhoneNumber = "010-9876-5432";
+        String currentPhoneNumber = null;
         given(userRepository.existsByPhoneNumber(duplicatedPhoneNumber)).willReturn(true);
 
-        boolean isDuplicated = userService.isPhoneNumberDuplicated(duplicatedPhoneNumber);
+        boolean isDuplicated = userService.isPhoneNumberDuplicated(duplicatedPhoneNumber, currentPhoneNumber);
 
         assertThat(isDuplicated).isTrue();
         verify(userRepository, times(1)).existsByPhoneNumber(duplicatedPhoneNumber);
     }
 
     @Test
+    @DisplayName("전화번호 중복 - 전화번호 변경이 없는 경우")
+    void isPhoneNumberDuplicated_samePhoneNumber() {
+        String uniquePhoneNumber = "010-1234-5678";
+        String currentPhoneNumber = "010-1234-5678";
+
+        boolean isDuplicated = userService.isPhoneNumberDuplicated(uniquePhoneNumber, currentPhoneNumber);
+
+        assertThat(isDuplicated).isFalse();
+        verify(userRepository, never()).existsByPhoneNumber(uniquePhoneNumber);
+    }
+
+    @Test
     @DisplayName("이메일 중복 - x")
     void isEmailDuplicated_returnsFalse() {
         String uniqueEmail = "unique@example.com";
+        String currentEmail = null;
         given(userRepository.existsByEmail(uniqueEmail)).willReturn(false);
 
-        boolean isDuplicated = userService.isEmailDuplicated(uniqueEmail);
+        boolean isDuplicated = userService.isEmailDuplicated(uniqueEmail, currentEmail);
 
         assertThat(isDuplicated).isFalse();
         verify(userRepository, times(1)).existsByEmail(uniqueEmail);
@@ -109,11 +123,24 @@ class UserServiceTest {
     @DisplayName("이메일 중복 - o")
     void isEmailDuplicated_returnsTrue() {
         String duplicatedEmail = "duplicated@example.com";
+        String currentEmail = null;
         given(userRepository.existsByEmail(duplicatedEmail)).willReturn(true);
 
-        boolean isDuplicated = userService.isEmailDuplicated(duplicatedEmail);
+        boolean isDuplicated = userService.isEmailDuplicated(duplicatedEmail, currentEmail);
 
         assertThat(isDuplicated).isTrue();
         verify(userRepository, times(1)).existsByEmail(duplicatedEmail);
+    }
+
+    @Test
+    @DisplayName("이메일 중복 - 이메일 변경이 없는 경우")
+    void isEmailDuplicated_sameEmail() {
+        String uniqueEmail = "unique@example.com";
+        String currentEmail = "unique@example.com";
+
+        boolean isDuplicated = userService.isEmailDuplicated(uniqueEmail, currentEmail);
+
+        assertThat(isDuplicated).isFalse();
+        verify(userRepository, never()).existsByEmail(uniqueEmail);
     }
 }

@@ -2,6 +2,7 @@ package com.ureca.uplait.domain.auth.service;
 
 import java.time.LocalDateTime;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.ureca.uplait.domain.auth.api.KakaoOauthClient;
@@ -81,6 +82,7 @@ public class AuthService {
 		jwtProvider.addRefreshTokenCookie(response, newRefreshToken);
 	}
 
+	@Transactional
 	public void logout(String refreshToken, HttpServletResponse response){
 
 		if (!jwtValidator.validateToken(refreshToken)) {
