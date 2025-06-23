@@ -2,6 +2,7 @@ package com.ureca.uplait.global.config;
 
 import com.ureca.uplait.domain.user.repository.UserRepository;
 import com.ureca.uplait.global.security.jwt.JwtValidator;
+import com.ureca.uplait.global.security.jwt.entrypoint.JwtAuthenticationEntryPoint;
 import com.ureca.uplait.global.security.jwt.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -40,12 +41,17 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 			.formLogin(form -> form.disable())
+			.exceptionHandling(e -> e
+				.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+			)
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/auth/login", "/auth/reissue", "/auth/logout").permitAll()
 				.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
 				.requestMatchers("/health").permitAll()
+				.requestMatchers("/plan/**").permitAll()
 				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.POST, "/user/extra-info").hasRole("TMP_USER")
+				.requestMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 			)
 			.addFilterBefore(new JwtAuthenticationFilter(jwtValidator, userRepository), UsernamePasswordAuthenticationFilter.class)
