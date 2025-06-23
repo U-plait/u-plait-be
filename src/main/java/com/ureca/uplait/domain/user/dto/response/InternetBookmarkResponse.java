@@ -7,14 +7,14 @@ import lombok.Getter;
 @Getter
 public class InternetBookmarkResponse extends BookmarkResponse{
     @Schema(description = "할인 가격", example = "79500")
-    private int discountPrice;
+    private int internetDiscount;
 
     @Schema(description = "인터넷 속도", example = "1GB")
     private String velocity;
 
     public InternetBookmarkResponse(InternetPlan plan, Long bookmarkId, boolean isBookmarked) {
         super(plan, bookmarkId, isBookmarked);
-        this.discountPrice = plan.getInternetDiscountRate();
+        this.internetDiscount = plan.getInternetDiscountRate();
         this.velocity = plan.getVelocity();
     }
 }
