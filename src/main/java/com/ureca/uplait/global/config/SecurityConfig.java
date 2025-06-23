@@ -45,7 +45,7 @@ public class SecurityConfig {
 				.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
 			)
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/auth/login", "/auth/reissue", "/auth/logout").permitAll()
+				.requestMatchers("/auth/login", "/auth/reissue", "/auth/logout", "/admin/plan/Info").permitAll()
 				.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
 				.requestMatchers("/health").permitAll()
 				.requestMatchers("/plan/**").permitAll()
