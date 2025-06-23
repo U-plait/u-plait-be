@@ -47,7 +47,7 @@ public class BookmarkService {
 
     @Transactional
     public CreateBookmarkResponse createBookmark(User user, Long planId) {
-        if (bookmarkRepository.existsBookmarkByPlanId(planId)) {
+        if (bookmarkRepository.existsBookmarkByPlanIdAndUser(planId, user)) {
             throw new GlobalException(DUPLICATED_BOOKMARK);
         }
 
