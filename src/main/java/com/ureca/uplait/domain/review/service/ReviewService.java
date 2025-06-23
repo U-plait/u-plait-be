@@ -66,6 +66,9 @@ public class ReviewService {
 
     @Transactional
     public ReviewUpdateResponse updateReview(User user, ReviewUpdateRequest request) {
+        validateBanWords(request.getTitle());
+        validateBanWords(request.getContent());
+
         Review review = reviewRepository.findById(request.getReviewId()).get();
 
         review.updateReview(
